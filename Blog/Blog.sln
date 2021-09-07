@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "..\Busines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLayer", "..\CoreLayer\CoreLayer.csproj", "{F12ED603-7809-404E-97A8-92079D2FDA87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog", "Blog.csproj", "{8D1E4D7B-8630-4D1C-AB3E-236B5AE07782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogWeb", "BlogWeb.csproj", "{8D1E4D7B-8630-4D1C-AB3E-236B5AE07782}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
