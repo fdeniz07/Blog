@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\EntityFramework\Repostiories\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

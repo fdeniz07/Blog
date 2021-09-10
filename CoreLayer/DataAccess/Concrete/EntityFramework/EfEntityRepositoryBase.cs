@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreLayer.DataAccess.Concrete.EntityFramework
 {
-    public class EfEntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity:class,IEntity,new()
+    public class EfEntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity:class,IEntity,new() //referans tip olmali, IEntity den türetilmeli ve instance alinabilmeli
     {
         protected readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -44,12 +44,12 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
         public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
-            if (predicate != null)
+            if (predicate != null) //eger sorgu bos degilse istedigimiz sorgular calissin
             {
                 query = query.Where(predicate);
             }
 
-            if (includeProperties.Any())
+            if (includeProperties.Any()) //bu dizinin icerisinde bir deger varsa, icerisinde döngü ile dönecegiz
             {
                 foreach (var includeProperty in includeProperties)
                 {
@@ -57,7 +57,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
                 }
             }
 
-            return await query.ToListAsync();
+            return await query.ToListAsync(); //yukarida dönen degerleri kullanicaya bir liste olarak dönecegiz.
         }
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)

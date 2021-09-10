@@ -11,7 +11,8 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
-            builder.Property(a => a.Details1).IsRequired();
+            builder.Property(a => a.Details1).IsRequired().HasMaxLength(500);
+            builder.Property(a => a.Details2).HasMaxLength(500);
             builder.Property(a => a.Image1).HasMaxLength(250);
             builder.Property(a => a.Image2).HasMaxLength(250);
             builder.Property(a => a.MapLocation).HasMaxLength(250);

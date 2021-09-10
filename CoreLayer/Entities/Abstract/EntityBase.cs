@@ -23,7 +23,7 @@ namespace CoreLayer.Entities.Abstract
 
         public virtual bool IsActive { get; set; }
 
-        public virtual string CreatedByName { get; set; } = "Admin";
+        public virtual string CreatedByName { get; set; } = "Admin"; //Olusturan kullanici degilse admin olarak default deger atanacak
 
         public virtual string ModifiedByName { get; set; } = "Admin";
 

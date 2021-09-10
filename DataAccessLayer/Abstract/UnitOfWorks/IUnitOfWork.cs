@@ -18,6 +18,8 @@ namespace DataAccessLayer.Abstract.UnitOfWorks
         ICategoryRepository Categories { get; }
         ICommentRepository Comments { get; }
         IContactRepository Contacts { get; }//_unitOfWork.Contacts.AddAsync(); olarak kullanabiliriz
+        IRoleRepository Roles { get; }
+        IUserRepository Users { get; }
 
 
         /*Coklu kayit islemini asagidaki gibi yapiyoruz bu pattern ile.
@@ -25,7 +27,7 @@ namespace DataAccessLayer.Abstract.UnitOfWorks
          * Eger kayit sirasinda bir islem adiminda hata olursa, hata mesaji firlatacaktir.
          *
          * Task<int> olarak tutmamizin nedeni ise gerceklesen kayit sayisina ihtiyac duyabiliriz
-         */
+            */
         //_unitOfWork.Students.AddAsync(author);
         //_unitOfWork.Books.AddAsync(blog);
         //_unitOfWork.SaveAsync();

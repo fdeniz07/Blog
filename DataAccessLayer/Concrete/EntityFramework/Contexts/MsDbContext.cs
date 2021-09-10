@@ -12,6 +12,8 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +25,13 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AboutMap());
+            modelBuilder.ApplyConfiguration(new AuthorMap());
+            modelBuilder.ApplyConfiguration(new BlogMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new CommentMap());
+            modelBuilder.ApplyConfiguration(new ContactMap());
+            modelBuilder.ApplyConfiguration(new RoleMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using CoreLayer.Entities.Abstract;
+﻿using System.Collections;
+using System.Collections.Generic;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Concrete
 {
@@ -8,6 +10,6 @@ namespace EntityLayer.Concrete
 
         public string Description { get; set; }
 
-
+        public ICollection<Blog> Blogs { get; set; }
     }
 }
