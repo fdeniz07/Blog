@@ -41,3 +41,6 @@ This Project is a Blog Project.
   
   <p>Core - DataAccessLayer - EntityLayer <p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Core%20-%20DAL%20-%20Entity%20Layer.JPG" />
+  
+  <p>Core - DataAccessLayer - EntityLayer 2<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Core%20-%20DAL%20-%20Entity%20Layer%202.JPG" />
