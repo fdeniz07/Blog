@@ -23,6 +23,6 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.Property(c => c.IsDeleted).IsRequired();
             builder.Property(c => c.Note).HasMaxLength(500);
         }
-    {
+    
     }
 }

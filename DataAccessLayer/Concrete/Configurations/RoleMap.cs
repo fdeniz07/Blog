@@ -23,6 +23,51 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.Property(r => r.Note).HasMaxLength(500);
 
             builder.ToTable("Roles");
+
+            //Manuel olarak ilk örnek verimizi eklemek istersek;
+
+            builder.HasData(
+                new Role
+                {
+                    //DB olusturulmadan önce data olusturulacaksa mutlaka Id girilmelidir. Sonradan girilecek Id degeri girmeye gerek yoktur.
+                    Id = 1,
+                    Name = "Admin",
+                    Description = "Admin Rolü, Tüm Haklara Sahiptir",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate", //InitialCreate degerini Db nin olusturacagini belirtiyoruz
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Admin Rolüdür."
+                    //Tüm alanlar doldurulmalidir. IsRequiered olmasa bile ilk veri yazilirken kesinlikle deger girilmelidir.
+                },
+                new Role
+                {
+                    Id = 2,
+                    Name = "Author",
+                    Description = "Yazar Rolü, Kisitli Haklara Sahiptir",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Yazar Rolüdür."
+                },
+                new Role
+                {
+                    Id = 3,
+                    Name = "User",
+                    Description = "Kullanici Rolü, Kisitli Haklara Sahiptir",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Kullanici Rolüdür."
+                });
         }
     }
 }

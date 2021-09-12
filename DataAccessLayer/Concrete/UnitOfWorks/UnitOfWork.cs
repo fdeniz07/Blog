@@ -10,13 +10,15 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
     {
         private readonly MsDbContext _context;
 
-        //Yeni eklene EfRepository lerimizi buraya eklememiz gerekli !
+        //Yeni eklenen EfRepository lerimizi buraya eklememiz gerekli !
         private EfAboutRepository _aboutRepository;
         private EfAuthorRepository _authorRepository;
         private EfBlogRepository _blogRepository;
         private EfCategoryRepository _categoryRepository;
         private EfCommentRepository _commentRepository;
         private EfContactRepository _contactRepository;
+        private EfRoleRepository _roleRepository;
+        private EfUserRepository _userRepository;
 
         public UnitOfWork(MsDbContext context)
         {
@@ -37,6 +39,10 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
 
         public IContactRepository Contacts => _contactRepository ?? new EfContactRepository(_context);
 
+        public IRoleRepository Roles => _roleRepository ?? new EfRoleRepository(_context);
+
+        public IUserRepository Users => _userRepository ?? new EfUserRepository(_context);
+
         public async ValueTask DisposeAsync()
         {
             await _context.DisposeAsync();
@@ -52,6 +58,5 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
             return await _context.SaveChangesAsync();
         }
 
-       
     }
 }
