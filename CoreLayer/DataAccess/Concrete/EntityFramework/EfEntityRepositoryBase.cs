@@ -41,7 +41,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await _dbSet.CountAsync(predicate);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
             if (predicate != null) //eger sorgu bos degilse istedigimiz sorgular calissin
@@ -84,12 +84,12 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await _dbSet.FindAsync(id);
         }
 
-        public void Delete(TEntity entity)
+        public async Task DeleteAsync(TEntity entity)
         {
-            _dbSet.Remove(entity);
+            //_dbSet.Remove(entity);
 
             //Remove / Delete islemleri asenkron islemler degildir. Eger asenkron yapilmak istenirse, bizim tarafimizca yeni bir Task olusturulup, icerisine anonim bir metot yazilmalidir.
-            // await Task.Run(() => { _dbSet.Remove(entity); }); --> olmalidir.
+            await Task.Run(() => { _dbSet.Remove(entity); }); //--> olmalidir.
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)
@@ -102,18 +102,18 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await _dbSet.SingleOrDefaultAsync(predicate);
         }
 
-        public TEntity Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified; // Burasi(EntityState.Modified;) cok sütunlü tablolarda kullanmakta cok kullanisli olur.
+            //_context.Entry(entity).State = EntityState.Modified; // Burasi(EntityState.Modified;) cok sütunlü tablolarda kullanmakta cok kullanisli olur.
                                                                  // Tek dezavantaji, bir alan bile degisse tüm entity alanlarini güncellemeye calisir
 
             //entity.name = product.name
             //entity.price = product.price ile yukaridaki performans sorunu azaltilabilir ama cok satira sahip tablolarda ölümcül olabilir.
 
             //Update islemleri asenkron islemler degildir. Eger asenkron yapilmak istenirse, bizim tarafimizca yeni bir Task olusturulup, icerisine anonim bir metot yazilmalidir.
-            // await Task.Run(() => { _dbSet.Updatet(entity); }); --> olmalidir.
+             await Task.Run(() => { _dbSet.Update(entity); }); //--> olmalidir.
 
-            return entity;
+            //return entity;
         }
 
         public async Task<IEnumerable<TEntity>> Where(Expression<Func<TEntity, bool>> predicate)

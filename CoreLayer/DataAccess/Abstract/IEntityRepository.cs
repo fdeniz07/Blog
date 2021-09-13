@@ -17,7 +17,9 @@ namespace CoreLayer.DataAccess.Abstract
         Task<TEntity> GetByIdAsync(int id);
 
         //Biz burada tüm makaleleri(null) de görmek isteyebiliriz ya da bir kategorideki bir makaleyi(filtreye göre) de görmek isteyebiliriz
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties);
+        //Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties);
+
 
         Task<IEnumerable<TEntity>> Where(Expression<Func<TEntity, bool>> predicate); // predicate = Lambda
 
@@ -29,11 +31,13 @@ namespace CoreLayer.DataAccess.Abstract
         Task AddRangeAsync(IEnumerable<TEntity> entities);  //Coklu Ekleme
 
         //Silme islemi EntityFramework de senkron olarak yapilir.
-        void Delete(TEntity entity);
+        //void Delete(TEntity entity); -->Default senkron
+        Task DeleteAsync(TEntity entity); // Biz burada asenkron olarak ayarlayacagiz
 
         void DeleteRange(IEnumerable<TEntity> entities);
 
-        TEntity Update(TEntity entity);
+        //TEntity Update(TEntity entity); --> Default senkron
+        Task UpdateAsync(TEntity entity);// Biz burada asenkron olarak ayarlayacagiz
 
         //var result = _userRepository.AnyAsync(u=>u.UserName == "Admin"); --> Admin isimli bir kullanici var mi
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate); //Böyle bir entity daha önceden var mi diye kontrol ediyoruz 
