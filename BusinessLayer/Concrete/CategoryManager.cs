@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLayer.Abstract;
+﻿using BusinessLayer.Abstract;
 using CoreLayer.Utilities.Results.Abstract;
 using CoreLayer.Utilities.Results.ComplexTypes;
 using CoreLayer.Utilities.Results.Concrete;
 using DataAccessLayer.Abstract.UnitOfWorks;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
