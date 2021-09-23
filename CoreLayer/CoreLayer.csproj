@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Utilities\Helpers\" />
+  </ItemGroup>
+
 </Project>
