@@ -4,23 +4,23 @@ This Project is a Blog Project.
 
 ## Technologies to be used in this project:
 
-- Developing a Project With N Layered Architecture
-- Entity Framework Core 5.0 Code First
-- Database Configurations With Fluent API
-- Generic Repository Pattern
-- Unit of Work Pattern
-- Async Programming
-- OOP
-- Polymorphism
-- Front-End Validations With Data Annotations
-- Dependency Injection In N Layered Architecture
-- Extension Methods
-- Custom Result Structure
-- DTO (Data Transfer Object)
-- AutoMapper AutoMapper Library
+- Developing a Project With N Layered Architecture - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Entity Framework Core 5.0 Code First - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Database Configurations With Fluent API - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Generic Repository Pattern - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Unit of Work Pattern - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Async Programming - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- OOP - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Polymorphism - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Front-End Validations With Data Annotations - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Dependency Injection In N Layered Architecture - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Extension Methods - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Custom Result Structure - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- DTO (Data Transfer Object) - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- AutoMapper AutoMapper Library - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - MD5 Password Hashing
 - SHA512 Password Hashing
-- LINQ
+- LINQ - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Paging, Sorting, Filtering
 - File & Image Upload
 - User Management System with Identity
