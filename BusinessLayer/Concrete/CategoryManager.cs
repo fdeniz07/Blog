@@ -37,7 +37,7 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, "Böyle bir kategori bulunamadi.", null);
+            return new DataResult<CategoryDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı.", null);
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAll()
@@ -53,7 +53,12 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hic bir kategori bulunamadi.", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", new CategoryListDto
+            {
+                Categories = null,
+                ResultStatus = ResultStatus.Error,
+                Message = "Hiç bir kategori bulunamadı."
+            });
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeleted() //Silinmemis olanlari getir
@@ -69,7 +74,7 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hic bir kategori bulunamadi.", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", null);
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActive()
@@ -85,7 +90,7 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hic bir kategori bulunamadi.", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", null);
         }
 
         public async Task<IResult> Add(CategoryAddDto categoryAddDto, string createdByName)
@@ -113,11 +118,11 @@ namespace BusinessLayer.Concrete
             var category = _mapper.Map<Category>(categoryAddDto);
             category.CreatedByName = createdByName;
             category.ModifiedByName = createdByName;
-            await _unitOfWork.Categories.AddAsync(category).ContinueWith(t => _unitOfWork.SaveAsync());
-           
-            
+            await _unitOfWork.Categories.AddAsync(category);
+            await _unitOfWork.SaveAsync();
+
             return new Result(ResultStatus.Success,
-                $"{categoryAddDto.CategoryName} adli kategori basariyla eklenmistir");
+                $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir");
 
         }
 
@@ -144,10 +149,11 @@ namespace BusinessLayer.Concrete
             var category = _mapper.Map<Category>(categoryUpdateDto);
             category.ModifiedByName = modifiedByName;
             
-            await _unitOfWork.Categories.UpdateAsync(category).ContinueWith(t => _unitOfWork.SaveAsync());
-                return new Result(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adli kategori basariyla güncellenmistir.");
+            await _unitOfWork.Categories.UpdateAsync(category);
+            await _unitOfWork.SaveAsync();
+            return new Result(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla güncellenmiştir.");
             
-            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadi.");
+            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadı.");
         }
 
         public async Task<IResult> Delete(int categoryId,string modifiedByName)
@@ -160,11 +166,12 @@ namespace BusinessLayer.Concrete
                 category.ModifiedByName = modifiedByName;
                 category.ModifiedDate=DateTime.Now;
 
-                await _unitOfWork.Categories.UpdateAsync(category).ContinueWith(t => _unitOfWork.SaveAsync());
+                await _unitOfWork.Categories.UpdateAsync(category);
+                await _unitOfWork.SaveAsync();
 
-                return new Result(ResultStatus.Success, $"{category.CategoryName} adli kategori basariyla silinmistir.");
+                return new Result(ResultStatus.Success, $"{category.CategoryName} adlı kategori başarıyla silinmistir.");
             }
-            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadi.");
+            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadı.");
         }
 
         public async Task<IResult> HardDelete(int categoryId)
@@ -173,10 +180,11 @@ namespace BusinessLayer.Concrete
 
             if (category != null)
             {
-                await _unitOfWork.Categories.DeleteAsync(category).ContinueWith(t => _unitOfWork.SaveAsync());
-               return new Result(ResultStatus.Success, $"{category.CategoryName} adli kategori veritabanindan basariyla silinmistir.");
+                await _unitOfWork.Categories.DeleteAsync(category);
+                await _unitOfWork.SaveAsync();
+                return new Result(ResultStatus.Success, $"{category.CategoryName} adlı kategori veritabanindan başarıyla silinmiştir.");
             }
-            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadi.");
+            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadı.");
         }
         #endregion
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessLayer.Abstract;
 using CoreLayer.Utilities.Results.Abstract;
 using CoreLayer.Utilities.Results.ComplexTypes;
@@ -11,6 +6,8 @@ using CoreLayer.Utilities.Results.Concrete;
 using DataAccessLayer.Abstract.UnitOfWorks;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
+using System;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
@@ -39,7 +36,7 @@ namespace BusinessLayer.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<BlogDto>(ResultStatus.Error, "Böyle bir makale bulunamadi", null);
+            return new DataResult<BlogDto>(ResultStatus.Error, "Böyle bir makale bulunamadı", null);
         }
 
         public async Task<IDataResult<BlogListDto>> GetAll()
@@ -53,7 +50,7 @@ namespace BusinessLayer.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadi", null);
+            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadı", null);
         }
 
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeleted()
@@ -67,7 +64,7 @@ namespace BusinessLayer.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadi", null);
+            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadı", null);
         }
 
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeletedAndActive()
@@ -82,7 +79,7 @@ namespace BusinessLayer.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadi", null);
+            return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadı", null);
         }
 
         public async Task<IDataResult<BlogListDto>> GetAllByCategory(int categoryId)
@@ -100,9 +97,9 @@ namespace BusinessLayer.Concrete
                         ResultStatus = ResultStatus.Success
                     });
                 }
-                return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadi", null);
+                return new DataResult<BlogListDto>(ResultStatus.Error, "Makaleler bulunamadı", null);
             }
-            return new DataResult<BlogListDto>(ResultStatus.Error, "Böyle bir kategori bulunamadi", null);
+            return new DataResult<BlogListDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı", null);
         }
 
         public async Task<IResult> Add(BlogAddDto blogAddDto, string createdByName)
@@ -111,16 +108,19 @@ namespace BusinessLayer.Concrete
             blog.CreatedByName = createdByName;
             blog.ModifiedByName = createdByName;
             blog.UserId = 1; //Ileride session a baglanacak
-            await _unitOfWork.Blogs.AddAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync());
-            return new Result(ResultStatus.Success, $"{blogAddDto.Title} baslikli makale basariyla eklenmistir.");
+                             //await _unitOfWork.Blogs.AddAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync()); // Bu bölüm hizli oldugu icin thread'in biri kayit ederken diger islem calisacagi icin hata aliyoruz (core 6 ile düzelebilir)
+            await _unitOfWork.Blogs.AddAsync(blog);
+            await _unitOfWork.SaveAsync();
+            return new Result(ResultStatus.Success, $"{blogAddDto.Title} başlıklı makale başarıyla eklenmiştir.");
         }
 
         public async Task<IResult> Update(BlogUpdateDto blogUpdateDto, string modifiedByName)
         {
             var blog = _mapper.Map<Blog>(blogUpdateDto);
             blog.ModifiedByName = modifiedByName; //Diger alanlar Automapper ile otomatik tamamlaniyor. Automapper, bize kod kalabaliginin ve zaman kaybinin önüne gecmemizi sagliyor.
-            await _unitOfWork.Blogs.UpdateAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync());
-            return new Result(ResultStatus.Success, $"{blogUpdateDto.Title} baslikli makale basariyla güncellenmistir.");
+            await _unitOfWork.Blogs.UpdateAsync(blog);
+            await _unitOfWork.SaveAsync();
+            return new Result(ResultStatus.Success, $"{blogUpdateDto.Title} baslikli makale başariyla güncellenmiştir.");
         }
 
         public async Task<IResult> Delete(int blogId, string modifiedByName)
@@ -131,11 +131,12 @@ namespace BusinessLayer.Concrete
                 var blog = await _unitOfWork.Blogs.GetAsync(b => b.Id == blogId);
                 blog.IsDeleted = true;
                 blog.ModifiedByName = modifiedByName;
-                blog.ModifiedDate=DateTime.Now;
-                await _unitOfWork.Blogs.UpdateAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync());
-                return new Result(ResultStatus.Success, $"{blog.Title} baslikli makale basariyla silinmistir.");
+                blog.ModifiedDate = DateTime.Now;
+                await _unitOfWork.Blogs.UpdateAsync(blog);
+                await _unitOfWork.SaveAsync();
+                return new Result(ResultStatus.Success, $"{blog.Title} başlıklı makale başarıyla silinmiştir.");
             }
-            return new Result(ResultStatus.Error, "Böyle bir makale bulunamadi");
+            return new Result(ResultStatus.Error, "Böyle bir makale bulunamadı");
         }
 
         public async Task<IResult> HardDelete(int blogId)
@@ -144,10 +145,11 @@ namespace BusinessLayer.Concrete
             if (result)
             {
                 var blog = await _unitOfWork.Blogs.GetAsync(b => b.Id == blogId);
-                await _unitOfWork.Blogs.DeleteAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync());
-                return new Result(ResultStatus.Success, $"{blog.Title} baslikli makale veritabanindan basariyla silinmistir.");
+                await _unitOfWork.Blogs.DeleteAsync(blog);
+                await _unitOfWork.SaveAsync();
+                return new Result(ResultStatus.Success, $"{blog.Title} başlıklı makale veritabanından başarıyla silinmiştir.");
             }
-            return new Result(ResultStatus.Error, "Böyle bir makale bulunamadi");
+            return new Result(ResultStatus.Error, "Böyle bir makale bulunamadı");
         }
 
         #endregion

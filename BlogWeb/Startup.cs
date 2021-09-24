@@ -1,3 +1,4 @@
+using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,7 +20,14 @@ namespace BlogWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews();
+            //UI katmanina 2 paket yüklenmeli
+            /*
+             * 1-AutoMapper.Extensions.Microsoft.DependencyInjection
+             * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
+             */
+
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
+            services.AddAutoMapper(typeof(CategoryProfile),typeof(BlogProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
         }
 
@@ -29,6 +37,7 @@ namespace BlogWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages(); // Sayfa bulunmadiginda 404 hata sayfasina yönlendirecektir
             }
             else
             {
@@ -37,7 +46,7 @@ namespace BlogWeb
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); // static dosyalarimiz: resim,css,js vb
 
             app.UseRouting();
 
@@ -45,9 +54,17 @@ namespace BlogWeb
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                //Routing islemlerimiz:
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "Admin",
+                    pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+                );
+                endpoints.MapDefaultControllerRoute(); // Bu islem varsayilan olarak, sitemiz acildigindan default olarak HomeController ve Index kismina gider
             });
         }
     }

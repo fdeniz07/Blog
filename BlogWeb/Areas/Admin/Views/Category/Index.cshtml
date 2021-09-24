@@ -1,0 +1,766 @@
+﻿@using CoreLayer.Utilities.Results.ComplexTypes
+@model EntityLayer.Dtos.CategoryListDto
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Kategoriler Index";
+}
+@if (Model.ResultStatus == ResultStatus.Success)
+{
+    <div class="card mb-4 mt-2">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Kategoriler
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="categoriesTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Adı</th>
+                            <th>Açıklaması</th>
+                            <th>Aktif Mi?</th>
+                            <th>Silinmiş Mi?</th>
+                            <th>Not</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>Oluşturan Kullanıcı Adı</th>
+                            <th>Son Düzenlenme Tarihi</th>
+                            <th>Son Düzenleyen Kullanıcı</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Adı</th>
+                            <th>Açıklaması</th>
+                            <th>Aktif Mi?</th>
+                            <th>Silinmiş Mi?</th>
+                            <th>Not</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>Oluşturan Kullanıcı Adı</th>
+                            <th>Son Düzenlenme Tarihi</th>
+                            <th>Son Düzenleyen Kullanıcı</th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <tr>
+                                <td>@category.Id</td>
+                                <td>@category.CategoryName</td>
+                                <td>@category.Description</td>
+                                <td>@category.IsActive</td>
+                                <td>@category.IsDeleted</td>
+                                <td>@category.Note</td>
+                                <td>@category.CreatedDate.ToShortDateString()</td>
+                                <td>@category.CreatedByName</td>
+                                <td>@category.ModifiedDate.ToShortDateString()</td>
+                                <td>@category.ModifiedByName</td>
+                            </tr>
+                        }
+                        <!--Statik Veriler
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>63</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                        </tr>
+                        <tr>
+                            <td>Ashton Cox</td>
+                            <td>Junior Technical Author</td>
+                            <td>San Francisco</td>
+                            <td>66</td>
+                            <td>2009/01/12</td>
+                            <td>$86,000</td>
+                        </tr>
+                        <tr>
+                            <td>Cedric Kelly</td>
+                            <td>Senior Javascript Developer</td>
+                            <td>Edinburgh</td>
+                            <td>22</td>
+                            <td>2012/03/29</td>
+                            <td>$433,060</td>
+                        </tr>
+                        <tr>
+                            <td>Airi Satou</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>33</td>
+                            <td>2008/11/28</td>
+                            <td>$162,700</td>
+                        </tr>
+                        <tr>
+                            <td>Brielle Williamson</td>
+                            <td>Integration Specialist</td>
+                            <td>New York</td>
+                            <td>61</td>
+                            <td>2012/12/02</td>
+                            <td>$372,000</td>
+                        </tr>
+                        <tr>
+                            <td>Herrod Chandler</td>
+                            <td>Sales Assistant</td>
+                            <td>San Francisco</td>
+                            <td>59</td>
+                            <td>2012/08/06</td>
+                            <td>$137,500</td>
+                        </tr>
+                        <tr>
+                            <td>Rhona Davidson</td>
+                            <td>Integration Specialist</td>
+                            <td>Tokyo</td>
+                            <td>55</td>
+                            <td>2010/10/14</td>
+                            <td>$327,900</td>
+                        </tr>
+                        <tr>
+                            <td>Colleen Hurst</td>
+                            <td>Javascript Developer</td>
+                            <td>San Francisco</td>
+                            <td>39</td>
+                            <td>2009/09/15</td>
+                            <td>$205,500</td>
+                        </tr>
+                        <tr>
+                            <td>Sonya Frost</td>
+                            <td>Software Engineer</td>
+                            <td>Edinburgh</td>
+                            <td>23</td>
+                            <td>2008/12/13</td>
+                            <td>$103,600</td>
+                        </tr>
+                        <tr>
+                            <td>Jena Gaines</td>
+                            <td>Office Manager</td>
+                            <td>London</td>
+                            <td>30</td>
+                            <td>2008/12/19</td>
+                            <td>$90,560</td>
+                        </tr>
+                        <tr>
+                            <td>Quinn Flynn</td>
+                            <td>Support Lead</td>
+                            <td>Edinburgh</td>
+                            <td>22</td>
+                            <td>2013/03/03</td>
+                            <td>$342,000</td>
+                        </tr>
+                        <tr>
+                            <td>Charde Marshall</td>
+                            <td>Regional Director</td>
+                            <td>San Francisco</td>
+                            <td>36</td>
+                            <td>2008/10/16</td>
+                            <td>$470,600</td>
+                        </tr>
+                        <tr>
+                            <td>Haley Kennedy</td>
+                            <td>Senior Marketing Designer</td>
+                            <td>London</td>
+                            <td>43</td>
+                            <td>2012/12/18</td>
+                            <td>$313,500</td>
+                        </tr>
+                        <tr>
+                            <td>Tatyana Fitzpatrick</td>
+                            <td>Regional Director</td>
+                            <td>London</td>
+                            <td>19</td>
+                            <td>2010/03/17</td>
+                            <td>$385,750</td>
+                        </tr>
+                        <tr>
+                            <td>Michael Silva</td>
+                            <td>Marketing Designer</td>
+                            <td>London</td>
+                            <td>66</td>
+                            <td>2012/11/27</td>
+                            <td>$198,500</td>
+                        </tr>
+                        <tr>
+                            <td>Paul Byrd</td>
+                            <td>Chief Financial Officer (CFO)</td>
+                            <td>New York</td>
+                            <td>64</td>
+                            <td>2010/06/09</td>
+                            <td>$725,000</td>
+                        </tr>
+                        <tr>
+                            <td>Gloria Little</td>
+                            <td>Systems Administrator</td>
+                            <td>New York</td>
+                            <td>59</td>
+                            <td>2009/04/10</td>
+                            <td>$237,500</td>
+                        </tr>
+                        <tr>
+                            <td>Bradley Greer</td>
+                            <td>Software Engineer</td>
+                            <td>London</td>
+                            <td>41</td>
+                            <td>2012/10/13</td>
+                            <td>$132,000</td>
+                        </tr>
+                        <tr>
+                            <td>Dai Rios</td>
+                            <td>Personnel Lead</td>
+                            <td>Edinburgh</td>
+                            <td>35</td>
+                            <td>2012/09/26</td>
+                            <td>$217,500</td>
+                        </tr>
+                        <tr>
+                            <td>Jenette Caldwell</td>
+                            <td>Development Lead</td>
+                            <td>New York</td>
+                            <td>30</td>
+                            <td>2011/09/03</td>
+                            <td>$345,000</td>
+                        </tr>
+                        <tr>
+                            <td>Yuri Berry</td>
+                            <td>Chief Marketing Officer (CMO)</td>
+                            <td>New York</td>
+                            <td>40</td>
+                            <td>2009/06/25</td>
+                            <td>$675,000</td>
+                        </tr>
+                        <tr>
+                            <td>Caesar Vance</td>
+                            <td>Pre-Sales Support</td>
+                            <td>New York</td>
+                            <td>21</td>
+                            <td>2011/12/12</td>
+                            <td>$106,450</td>
+                        </tr>
+                        <tr>
+                            <td>Doris Wilder</td>
+                            <td>Sales Assistant</td>
+                            <td>Sidney</td>
+                            <td>23</td>
+                            <td>2010/09/20</td>
+                            <td>$85,600</td>
+                        </tr>
+                        <tr>
+                            <td>Angelica Ramos</td>
+                            <td>Chief Executive Officer (CEO)</td>
+                            <td>London</td>
+                            <td>47</td>
+                            <td>2009/10/09</td>
+                            <td>$1,200,000</td>
+                        </tr>
+                        <tr>
+                            <td>Gavin Joyce</td>
+                            <td>Developer</td>
+                            <td>Edinburgh</td>
+                            <td>42</td>
+                            <td>2010/12/22</td>
+                            <td>$92,575</td>
+                        </tr>
+                        <tr>
+                            <td>Jennifer Chang</td>
+                            <td>Regional Director</td>
+                            <td>Singapore</td>
+                            <td>28</td>
+                            <td>2010/11/14</td>
+                            <td>$357,650</td>
+                        </tr>
+                        <tr>
+                            <td>Brenden Wagner</td>
+                            <td>Software Engineer</td>
+                            <td>San Francisco</td>
+                            <td>28</td>
+                            <td>2011/06/07</td>
+                            <td>$206,850</td>
+                        </tr>
+                        <tr>
+                            <td>Fiona Green</td>
+                            <td>Chief Operating Officer (COO)</td>
+                            <td>San Francisco</td>
+                            <td>48</td>
+                            <td>2010/03/11</td>
+                            <td>$850,000</td>
+                        </tr>
+                        <tr>
+                            <td>Shou Itou</td>
+                            <td>Regional Marketing</td>
+                            <td>Tokyo</td>
+                            <td>20</td>
+                            <td>2011/08/14</td>
+                            <td>$163,000</td>
+                        </tr>
+                        <tr>
+                            <td>Michelle House</td>
+                            <td>Integration Specialist</td>
+                            <td>Sidney</td>
+                            <td>37</td>
+                            <td>2011/06/02</td>
+                            <td>$95,400</td>
+                        </tr>
+                        <tr>
+                            <td>Suki Burks</td>
+                            <td>Developer</td>
+                            <td>London</td>
+                            <td>53</td>
+                            <td>2009/10/22</td>
+                            <td>$114,500</td>
+                        </tr>
+                        <tr>
+                            <td>Prescott Bartlett</td>
+                            <td>Technical Author</td>
+                            <td>London</td>
+                            <td>27</td>
+                            <td>2011/05/07</td>
+                            <td>$145,000</td>
+                        </tr>
+                        <tr>
+                            <td>Gavin Cortez</td>
+                            <td>Team Leader</td>
+                            <td>San Francisco</td>
+                            <td>22</td>
+                            <td>2008/10/26</td>
+                            <td>$235,500</td>
+                        </tr>
+                        <tr>
+                            <td>Martena Mccray</td>
+                            <td>Post-Sales support</td>
+                            <td>Edinburgh</td>
+                            <td>46</td>
+                            <td>2011/03/09</td>
+                            <td>$324,050</td>
+                        </tr>
+                        <tr>
+                            <td>Unity Butler</td>
+                            <td>Marketing Designer</td>
+                            <td>San Francisco</td>
+                            <td>47</td>
+                            <td>2009/12/09</td>
+                            <td>$85,675</td>
+                        </tr>
+                        <tr>
+                            <td>Howard Hatfield</td>
+                            <td>Office Manager</td>
+                            <td>San Francisco</td>
+                            <td>51</td>
+                            <td>2008/12/16</td>
+                            <td>$164,500</td>
+                        </tr>
+                        <tr>
+                            <td>Hope Fuentes</td>
+                            <td>Secretary</td>
+                            <td>San Francisco</td>
+                            <td>41</td>
+                            <td>2010/02/12</td>
+                            <td>$109,850</td>
+                        </tr>
+                        <tr>
+                            <td>Vivian Harrell</td>
+                            <td>Financial Controller</td>
+                            <td>San Francisco</td>
+                            <td>62</td>
+                            <td>2009/02/14</td>
+                            <td>$452,500</td>
+                        </tr>
+                        <tr>
+                            <td>Timothy Mooney</td>
+                            <td>Office Manager</td>
+                            <td>London</td>
+                            <td>37</td>
+                            <td>2008/12/11</td>
+                            <td>$136,200</td>
+                        </tr>
+                        <tr>
+                            <td>Jackson Bradshaw</td>
+                            <td>Director</td>
+                            <td>New York</td>
+                            <td>65</td>
+                            <td>2008/09/26</td>
+                            <td>$645,750</td>
+                        </tr>
+                        <tr>
+                            <td>Olivia Liang</td>
+                            <td>Support Engineer</td>
+                            <td>Singapore</td>
+                            <td>64</td>
+                            <td>2011/02/03</td>
+                            <td>$234,500</td>
+                        </tr>
+                        <tr>
+                            <td>Bruno Nash</td>
+                            <td>Software Engineer</td>
+                            <td>London</td>
+                            <td>38</td>
+                            <td>2011/05/03</td>
+                            <td>$163,500</td>
+                        </tr>
+                        <tr>
+                            <td>Sakura Yamamoto</td>
+                            <td>Support Engineer</td>
+                            <td>Tokyo</td>
+                            <td>37</td>
+                            <td>2009/08/19</td>
+                            <td>$139,575</td>
+                        </tr>
+                        <tr>
+                            <td>Thor Walton</td>
+                            <td>Developer</td>
+                            <td>New York</td>
+                            <td>61</td>
+                            <td>2013/08/11</td>
+                            <td>$98,540</td>
+                        </tr>
+                        <tr>
+                            <td>Finn Camacho</td>
+                            <td>Support Engineer</td>
+                            <td>San Francisco</td>
+                            <td>47</td>
+                            <td>2009/07/07</td>
+                            <td>$87,500</td>
+                        </tr>
+                        <tr>
+                            <td>Serge Baldwin</td>
+                            <td>Data Coordinator</td>
+                            <td>Singapore</td>
+                            <td>64</td>
+                            <td>2012/04/09</td>
+                            <td>$138,575</td>
+                        </tr>
+                        <tr>
+                            <td>Zenaida Frank</td>
+                            <td>Software Engineer</td>
+                            <td>New York</td>
+                            <td>63</td>
+                            <td>2010/01/04</td>
+                            <td>$125,250</td>
+                        </tr>
+                        <tr>
+                            <td>Zorita Serrano</td>
+                            <td>Software Engineer</td>
+                            <td>San Francisco</td>
+                            <td>56</td>
+                            <td>2012/06/01</td>
+                            <td>$115,000</td>
+                        </tr>
+                        <tr>
+                            <td>Jennifer Acosta</td>
+                            <td>Junior Javascript Developer</td>
+                            <td>Edinburgh</td>
+                            <td>43</td>
+                            <td>2013/02/01</td>
+                            <td>$75,650</td>
+                        </tr>
+                        <tr>
+                            <td>Cara Stevens</td>
+                            <td>Sales Assistant</td>
+                            <td>New York</td>
+                            <td>46</td>
+                            <td>2011/12/06</td>
+                            <td>$145,600</td>
+                        </tr>
+                        <tr>
+                            <td>Hermione Butler</td>
+                            <td>Regional Director</td>
+                            <td>London</td>
+                            <td>47</td>
+                            <td>2011/03/21</td>
+                            <td>$356,250</td>
+                        </tr>
+                        <tr>
+                            <td>Lael Greer</td>
+                            <td>Systems Administrator</td>
+                            <td>London</td>
+                            <td>21</td>
+                            <td>2009/02/27</td>
+                            <td>$103,500</td>
+                        </tr>
+                        <tr>
+                            <td>Jonas Alexander</td>
+                            <td>Developer</td>
+                            <td>San Francisco</td>
+                            <td>30</td>
+                            <td>2010/07/14</td>
+                            <td>$86,500</td>
+                        </tr>
+                        <tr>
+                            <td>Shad Decker</td>
+                            <td>Regional Director</td>
+                            <td>Edinburgh</td>
+                            <td>51</td>
+                            <td>2008/11/13</td>
+                            <td>$183,000</td>
+                        </tr>
+                        <tr>
+                            <td>Michael Bruce</td>
+                            <td>Javascript Developer</td>
+                            <td>Singapore</td>
+                            <td>29</td>
+                            <td>2011/06/27</td>
+                            <td>$183,000</td>
+                        </tr>
+                        <tr>
+                            <td>Donna Snider</td>
+                            <td>Customer Support</td>
+                            <td>New York</td>
+                            <td>27</td>
+                            <td>2011/01/25</td>
+                            <td>$112,000</td>
+                        </tr>
+                        -->
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.ResultStatus == ResultStatus.Error)
+{
+    <div class="alert alert-danger mt-3">
+        @Model.Message <br/>
+        Dashboard sayfasına geri dönmek için lütfen <a class="alert-link" asp-area="Admin" asp-controller="Home" asp-action="Index">tıklayınız</a>
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#categoriesTable').DataTable({
+                dom:
+                    "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                buttons: [
+                    {
+                        text: 'Ekle',
+                        className: 'btn btn-success',
+                        action: function (e, dt, node, config) {
+                            alert('Ekle butonuna basıldı.');
+                        }
+                    },
+                    {
+                        text: 'Yenile',
+                        className: 'btn btn-warning',
+                        action: function (e, dt, node, config) {
+                            alert('Yenile butonuna basıldı.');
+                        }
+                    }
+                ],
+                language: {
+                    "emptyTable": "Tabloda herhangi bir veri mevcut değil",
+                    "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+                    "infoEmpty": "Kayıt yok",
+                    "infoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+                    "infoThousands": ".",
+                    "lengthMenu": "Sayfada _MENU_ kayıt göster",
+                    "loadingRecords": "Yükleniyor...",
+                    "processing": "İşleniyor...",
+                    "search": "Ara:",
+                    "zeroRecords": "Eşleşen kayıt bulunamadı",
+                    "paginate": {
+                        "first": "İlk",
+                        "last": "Son",
+                        "next": "Sonraki",
+                        "previous": "Önceki"
+                    },
+                    "aria": {
+                        "sortAscending": ": artan sütun sıralamasını aktifleştir",
+                        "sortDescending": ": azalan sütun sıralamasını aktifleştir"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d kayıt seçildi",
+                            "1": "1 kayıt seçildi"
+                        },
+                        "cells": {
+                            "1": "1 hücre seçildi",
+                            "_": "%d hücre seçildi"
+                        },
+                        "columns": {
+                            "1": "1 sütun seçildi",
+                            "_": "%d sütun seçildi"
+                        }
+                    },
+                    "autoFill": {
+                        "cancel": "İptal",
+                        "fillHorizontal": "Hücreleri yatay olarak doldur",
+                        "fillVertical": "Hücreleri dikey olarak doldur",
+                        "fill": "Bütün hücreleri <i>%d<\/i> ile doldur"
+                    },
+                    "buttons": {
+                        "collection": "Koleksiyon <span class=\"ui-button-icon-primary ui-icon ui-icon-triangle-1-s\"><\/span>",
+                        "colvis": "Sütun görünürlüğü",
+                        "colvisRestore": "Görünürlüğü eski haline getir",
+                        "copySuccess": {
+                            "1": "1 satır panoya kopyalandı",
+                            "_": "%ds satır panoya kopyalandı"
+                        },
+                        "copyTitle": "Panoya kopyala",
+                        "csv": "CSV",
+                        "excel": "Excel",
+                        "pageLength": {
+                            "-1": "Bütün satırları göster",
+                            "_": "%d satır göster"
+                        },
+                        "pdf": "PDF",
+                        "print": "Yazdır",
+                        "copy": "Kopyala",
+                        "copyKeys": "Tablodaki veriyi kopyalamak için CTRL veya u2318 + C tuşlarına basınız. İptal etmek için bu mesaja tıklayın veya escape tuşuna basın."
+                    },
+                    "searchBuilder": {
+                        "add": "Koşul Ekle",
+                        "button": {
+                            "0": "Arama Oluşturucu",
+                            "_": "Arama Oluşturucu (%d)"
+                        },
+                        "condition": "Koşul",
+                        "conditions": {
+                            "date": {
+                                "after": "Sonra",
+                                "before": "Önce",
+                                "between": "Arasında",
+                                "empty": "Boş",
+                                "equals": "Eşittir",
+                                "not": "Değildir",
+                                "notBetween": "Dışında",
+                                "notEmpty": "Dolu"
+                            },
+                            "number": {
+                                "between": "Arasında",
+                                "empty": "Boş",
+                                "equals": "Eşittir",
+                                "gt": "Büyüktür",
+                                "gte": "Büyük eşittir",
+                                "lt": "Küçüktür",
+                                "lte": "Küçük eşittir",
+                                "not": "Değildir",
+                                "notBetween": "Dışında",
+                                "notEmpty": "Dolu"
+                            },
+                            "string": {
+                                "contains": "İçerir",
+                                "empty": "Boş",
+                                "endsWith": "İle biter",
+                                "equals": "Eşittir",
+                                "not": "Değildir",
+                                "notEmpty": "Dolu",
+                                "startsWith": "İle başlar"
+                            },
+                            "array": {
+                                "contains": "İçerir",
+                                "empty": "Boş",
+                                "equals": "Eşittir",
+                                "not": "Değildir",
+                                "notEmpty": "Dolu",
+                                "without": "Hariç"
+                            }
+                        },
+                        "data": "Veri",
+                        "deleteTitle": "Filtreleme kuralını silin",
+                        "leftTitle": "Kriteri dışarı çıkart",
+                        "logicAnd": "ve",
+                        "logicOr": "veya",
+                        "rightTitle": "Kriteri içeri al",
+                        "title": {
+                            "0": "Arama Oluşturucu",
+                            "_": "Arama Oluşturucu (%d)"
+                        },
+                        "value": "Değer",
+                        "clearAll": "Filtreleri Temizle"
+                    },
+                    "searchPanes": {
+                        "clearMessage": "Hepsini Temizle",
+                        "collapse": {
+                            "0": "Arama Bölmesi",
+                            "_": "Arama Bölmesi (%d)"
+                        },
+                        "count": "{total}",
+                        "countFiltered": "{shown}\/{total}",
+                        "emptyPanes": "Arama Bölmesi yok",
+                        "loadMessage": "Arama Bölmeleri yükleniyor ...",
+                        "title": "Etkin filtreler - %d"
+                    },
+                    "thousands": ".",
+                    "datetime": {
+                        "amPm": [
+                            "öö",
+                            "ös"
+                        ],
+                        "hours": "Saat",
+                        "minutes": "Dakika",
+                        "next": "Sonraki",
+                        "previous": "Önceki",
+                        "seconds": "Saniye",
+                        "unknown": "Bilinmeyen",
+                        "weekdays": {
+                            "6": "Paz",
+                            "5": "Cmt",
+                            "4": "Cum",
+                            "3": "Per",
+                            "2": "Çar",
+                            "1": "Sal",
+                            "0": "Pzt"
+                        },
+                        "months": {
+                            "9": "Ekim",
+                            "8": "Eylül",
+                            "7": "Ağustos",
+                            "6": "Temmuz",
+                            "5": "Haziran",
+                            "4": "Mayıs",
+                            "3": "Nisan",
+                            "2": "Mart",
+                            "11": "Aralık",
+                            "10": "Kasım",
+                            "1": "Şubat",
+                            "0": "Ocak"
+                        }
+                    },
+                    "decimal": ",",
+                    "editor": {
+                        "close": "Kapat",
+                        "create": {
+                            "button": "Yeni",
+                            "submit": "Kaydet",
+                            "title": "Yeni kayıt oluştur"
+                        },
+                        "edit": {
+                            "button": "Düzenle",
+                            "submit": "Güncelle",
+                            "title": "Kaydı düzenle"
+                        },
+                        "error": {
+                            "system": "Bir sistem hatası oluştu (Ayrıntılı bilgi)"
+                        },
+                        "multi": {
+                            "info": "Seçili kayıtlar bu alanda farklı değerler içeriyor. Seçili kayıtların hepsinde bu alana aynı değeri atamak için buraya tıklayın; aksi halde her kayıt bu alanda kendi değerini koruyacak.",
+                            "noMulti": "Bu alan bir grup olarak değil ancak tekil olarak düzenlenebilir.",
+                            "restore": "Değişiklikleri geri al",
+                            "title": "Çoklu değer"
+                        },
+                        "remove": {
+                            "button": "Sil",
+                            "confirm": {
+                                "_": "%d adet kaydı silmek istediğinize emin misiniz?",
+                                "1": "Bu kaydı silmek istediğinizden emin misiniz?"
+                            },
+                            "submit": "Sil",
+                            "title": "Kayıtları sil"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
