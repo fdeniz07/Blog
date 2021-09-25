@@ -37,7 +37,12 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı.", null);
+            return new DataResult<CategoryDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı.", new CategoryDto
+            {
+                Category = null,
+                ResultStatus = ResultStatus.Error,
+                Message = "Böyle bir kategori bulunamadı."
+            });
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAll()
@@ -93,7 +98,7 @@ namespace BusinessLayer.Concrete
             return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", null);
         }
 
-        public async Task<IResult> Add(CategoryAddDto categoryAddDto, string createdByName)
+        public async Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName)
         {
             //Befor using Automapper
 
@@ -118,15 +123,20 @@ namespace BusinessLayer.Concrete
             var category = _mapper.Map<Category>(categoryAddDto);
             category.CreatedByName = createdByName;
             category.ModifiedByName = createdByName;
-            await _unitOfWork.Categories.AddAsync(category);
+            var addedCategory = await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveAsync();
 
-            return new Result(ResultStatus.Success,
-                $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir");
+            return new DataResult<CategoryDto>(ResultStatus.Success,
+                $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir", new CategoryDto
+                {
+                    Category = addedCategory,
+                    ResultStatus = ResultStatus.Success,
+                    Message = $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir"
+                });
 
         }
 
-        public async Task<IResult> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
+        public async Task<IDataResult<CategoryDto>> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
         {
             //Before using Automapper
 
@@ -145,26 +155,29 @@ namespace BusinessLayer.Concrete
             //}
 
             //After using Automapper
-            
+
             var category = _mapper.Map<Category>(categoryUpdateDto);
             category.ModifiedByName = modifiedByName;
-            
-            await _unitOfWork.Categories.UpdateAsync(category);
+
+            var updatedCategory = await _unitOfWork.Categories.UpdateAsync(category);
             await _unitOfWork.SaveAsync();
-            return new Result(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla güncellenmiştir.");
-            
-            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadı.");
+            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla güncellenmiştir.", new CategoryDto
+            {
+                Category = updatedCategory,
+                ResultStatus = ResultStatus.Success,
+                Message = $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla eklenmiştir"
+            });
         }
 
-        public async Task<IResult> Delete(int categoryId,string modifiedByName)
+        public async Task<IResult> Delete(int categoryId, string modifiedByName)
         {
             var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
 
-            if (category!=null)
+            if (category != null)
             {
                 category.IsDeleted = true;
                 category.ModifiedByName = modifiedByName;
-                category.ModifiedDate=DateTime.Now;
+                category.ModifiedDate = DateTime.Now;
 
                 await _unitOfWork.Categories.UpdateAsync(category);
                 await _unitOfWork.SaveAsync();

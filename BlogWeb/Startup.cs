@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -26,8 +27,13 @@ namespace BlogWeb
              * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
              */
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
-            services.AddAutoMapper(typeof(CategoryProfile),typeof(BlogProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
+            services.AddControllersWithViews().AddRazorRuntimeCompilation().AddJsonOptions(opt =>
+            {
+                opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                opt.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.Preserve;
+            });//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
+
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
         }
 
