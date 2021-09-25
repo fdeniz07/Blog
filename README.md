@@ -27,15 +27,15 @@ This Project is a Blog Project.
 - ASP.NET Core Identity
 - Authentication & Authorization
 - Social Login
-- Ajax
-- jQuery
-- jQuery UI
+- Ajax - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- jQuery - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- jQuery UI - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Sweet Alert2
-- Toastr
+- Toastr - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - DataTables
 - Trumbowyg
 - Select2
-- Bootstrap 4.5
+- Bootstrap 4.5 - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 
 
   ## Images
