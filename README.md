@@ -40,8 +40,21 @@ This Project is a Blog Project.
 
   ## Images
   
-  <p>Core - DataAccessLayer - EntityLayer <p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Core%20-%20DAL%20-%20Entity%20Layer.JPG" />
   
-  <p>Core - DataAccessLayer - EntityLayer 2<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Core%20-%20DAL%20-%20Entity%20Layer%202.JPG" />
+  <p>Layers <p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Layers.JPG" />
+  
+  <p>EntityLayer <p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Entity%20Layer.JPG" />
+  
+  <p>DataAccessLayer(DAL - Logic)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/DataAccessLayer%20(DAL).JPG" />
+
+  <p>CoreLayer<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/CoreLayer.JPG" />
+
+  <p>BusinessLayer(Service)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/BusinessLayer(BLL-Service).JPG" />
+
+  <p>UI Layer (Presentation)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation).JPG" />
