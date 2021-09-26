@@ -58,3 +58,12 @@ This Project is a Blog Project.
 
   <p>UI Layer (Presentation)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation).JPG" />
+
+  <p>Admin Panel - Categories<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Categories.JPG" />
+
+  <p>Admin Panel - Add Category (AJAX)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20AddCategory%20(Ajax).JPG" />
+
+  <p>Admin Panel - Add Category (AJAX + TOASTR)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20AddCategory%20(Ajax%20-%20Toastr).JPG" />
