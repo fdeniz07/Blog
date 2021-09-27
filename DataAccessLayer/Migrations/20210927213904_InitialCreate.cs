@@ -32,6 +32,48 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
                 {
@@ -103,55 +145,107 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedByName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ModifiedByName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "AspNetUserClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "VARBINARY(500)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedByName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ModifiedByName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Roles",
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -186,15 +280,15 @@ namespace DataAccessLayer.Migrations
                 {
                     table.PrimaryKey("PK_Blogs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Blogs_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        name: "FK_Blogs_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Blogs_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "FK_Blogs_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -229,62 +323,56 @@ namespace DataAccessLayer.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CategoryName", "CreatedByName", "CreatedDate", "Description", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
-                values: new object[,]
-                {
-                    { 1, "C#", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6104), "C# Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6114), "C# Blog Kategorisi" },
-                    { 2, "Java", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6124), "Java Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6127), "Java Blog Kategorisi" },
-                    { 3, "Java Script", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6132), "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6135), "Java Script Blog Kategorisi" }
-                });
+                values: new object[] { 1, "C#", "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8567), "C# Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8750), "C# Blog Kategorisi" });
 
             migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "CreatedByName", "CreatedDate", "Description", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Name", "Note" },
-                values: new object[,]
-                {
-                    { 1, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5557), "Admin Rolü, Tüm Haklara Sahiptir", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5568), "Admin", "Admin Rolüdür." },
-                    { 2, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5578), "Yazar Rolü, Kisitli Haklara Sahiptir", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5581), "Author", "Yazar Rolüdür." },
-                    { 3, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5587), "Kullanici Rolü, Kisitli Haklara Sahiptir", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5589), "User", "Kullanici Rolüdür." }
-                });
+                table: "Categories",
+                columns: new[] { "Id", "CategoryName", "CreatedByName", "CreatedDate", "Description", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
+                values: new object[] { 2, "Java", "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8910), "Java Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8912), "Java Blog Kategorisi" });
 
             migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "CreatedByName", "CreatedDate", "Description", "Email", "FirstName", "Image", "IsActive", "IsDeleted", "LastName", "ModifiedByName", "ModifiedDate", "Note", "PasswordHash", "RoleId", "UserName" },
-                values: new object[] { 1, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(817), "Ilk Admin Kullanici", "fdeniz07@gmail.com", "Fatih", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&usqp=CAU", true, false, "Deniz", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(829), "Admin Kullanicisi", new byte[] { 50, 48, 50, 99, 98, 57, 54, 50, 97, 99, 53, 57, 48, 55, 53, 98, 57, 54, 52, 98, 48, 55, 49, 53, 50, 100, 50, 51, 52, 98, 55, 48 }, 1, "fatihdeniz" });
+                table: "Categories",
+                columns: new[] { "Id", "CategoryName", "CreatedByName", "CreatedDate", "Description", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
+                values: new object[] { 3, "Java Script", "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8918), "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler", true, false, "InitialCreate", new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8921), "Java Script Blog Kategorisi" });
 
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "CreatedByName", "CreatedDate", "Description", "Email", "FirstName", "Image", "IsActive", "IsDeleted", "LastName", "ModifiedByName", "ModifiedDate", "Note", "PasswordHash", "RoleId", "UserName" },
-                values: new object[] { 2, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(1845), "Yazar", "ahmet@gmail.com", "Ahmet", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&usqp=CAU", true, false, "Gündüz", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(1847), "Yazar", new byte[] { 50, 48, 50, 99, 98, 57, 54, 50, 97, 99, 53, 57, 48, 55, 53, 98, 57, 54, 52, 98, 48, 55, 49, 53, 50, 100, 50, 51, 52, 98, 55, 48 }, 2, "ahmetgunduz" });
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
 
-            migrationBuilder.InsertData(
-                table: "Blogs",
-                columns: new[] { "Id", "CategoryId", "CommentCount", "Content", "CreatedByName", "CreatedDate", "Date", "Image", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note", "SeoAuthor", "SeoDescription", "SeoTags", "ThumbnailImage", "Title", "UserId", "ViewsCount" },
-                values: new object[] { 1, 1, 1, "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4823), new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4461), "Default.jpg", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4988), "C# 9.0 ve NET 5 Yenilikleri", "Fatih Deniz", "C# 9.0 ve NET 5 Yenilikleri", "C#, C# 9, .NET 5, .NET Framework, .NET Core, .NET Core MVC", "Default.jpg", "C# 9.0 ve NET 5 Yenilikleri", 1, 100 });
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
-            migrationBuilder.InsertData(
-                table: "Blogs",
-                columns: new[] { "Id", "CategoryId", "CommentCount", "Content", "CreatedByName", "CreatedDate", "Date", "Image", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note", "SeoAuthor", "SeoDescription", "SeoTags", "ThumbnailImage", "Title", "UserId", "ViewsCount" },
-                values: new object[] { 2, 2, 1, "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5603), new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5600), "Default.jpg", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5606), "Java ve Spring Yenilikleri", "Fatih Deniz", "Java ve Spring Yenilikleri", "Java, Spring, Spring Boot, Lombok, Eclipse, Swagger, Maven", "Default.jpg", "Java ve Spring Yenilikleri", 1, 295 });
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
 
-            migrationBuilder.InsertData(
-                table: "Blogs",
-                columns: new[] { "Id", "CategoryId", "CommentCount", "Content", "CreatedByName", "CreatedDate", "Date", "Image", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note", "SeoAuthor", "SeoDescription", "SeoTags", "ThumbnailImage", "Title", "UserId", "ViewsCount" },
-                values: new object[] { 3, 3, 1, "Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. ", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5614), new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5612), "Default.jpg", true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5617), "Java Script ES2019 ve ES2020 Yenilikleri", "Fatih Deniz", "Java Script ES2019 ve ES2020 Yenilikleri", "Java Script ES2019, Java Script ES2020", "Default.jpg", "Java Script ES2019 ve ES2020 Yenilikleri", 1, 12 });
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
 
-            migrationBuilder.InsertData(
-                table: "Comments",
-                columns: new[] { "Id", "BlogId", "Content", "CreatedByName", "CreatedDate", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
-                values: new object[] { 1, 1, "Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz.", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1473), true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1483), "C# Makale Yorumu" });
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
 
-            migrationBuilder.InsertData(
-                table: "Comments",
-                columns: new[] { "Id", "BlogId", "Content", "CreatedByName", "CreatedDate", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
-                values: new object[] { 2, 2, "Lorem Ipsum sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır.", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1493), true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1496), "Java Makale Yorumu" });
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
 
-            migrationBuilder.InsertData(
-                table: "Comments",
-                columns: new[] { "Id", "BlogId", "Content", "CreatedByName", "CreatedDate", "IsActive", "IsDeleted", "ModifiedByName", "ModifiedDate", "Note" },
-                values: new object[] { 3, 3, "Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan Lorem ipsum dolor sit amet 1.10.32 sayılı bölümdeki bir satırdan gelmektedir.", "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1502), true, false, "InitialCreate", new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1504), "Java Script Makale Yorumu" });
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Blogs_CategoryId",
@@ -300,29 +388,27 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Comments_BlogId",
                 table: "Comments",
                 column: "BlogId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
-                table: "Users",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserName",
-                table: "Users",
-                column: "UserName",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Abouts");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
                 name: "Authors");
@@ -334,16 +420,16 @@ namespace DataAccessLayer.Migrations
                 name: "Contacts");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "Blogs");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
         }
     }
 }

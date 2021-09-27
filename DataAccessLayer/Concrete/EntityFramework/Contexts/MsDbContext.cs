@@ -1,10 +1,11 @@
 ﻿using DataAccessLayer.Concrete.Configurations;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Concrete.EntityFramework.Contexts
 {
-    public class MsDbContext : DbContext
+    public class MsDbContext : IdentityDbContext<User,Role,int,UserClaim,UserRole,UserLogin,RoleClaim,UserToken>
     {
         public DbSet<About> Abouts { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -12,8 +13,7 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +32,11 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
             modelBuilder.ApplyConfiguration(new ContactMap());
             modelBuilder.ApplyConfiguration(new RoleMap());
             modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new RoleClaimMap());
+            modelBuilder.ApplyConfiguration(new UserClaimMap());
+            modelBuilder.ApplyConfiguration(new UserLoginMap());
+            modelBuilder.ApplyConfiguration(new UserRoleMap());
+            modelBuilder.ApplyConfiguration(new UserTokenMap());
         }
     }
 }

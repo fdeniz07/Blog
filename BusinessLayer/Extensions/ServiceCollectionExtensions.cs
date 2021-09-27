@@ -3,6 +3,7 @@ using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract.UnitOfWorks;
 using DataAccessLayer.Concrete.EntityFramework.Contexts;
 using DataAccessLayer.Concrete.UnitOfWorks;
+using EntityLayer.Concrete;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessLayer.Extensions
@@ -15,6 +16,20 @@ namespace BusinessLayer.Extensions
 
 
             serviceCollection.AddDbContext<MsDbContext>();
+            serviceCollection.AddIdentity<User, Role>(options =>
+            {
+                //User Password Options
+                options.Password.RequireDigit = false;//sifre de rakam olsun mu? Test asamasinda kapatiyoruz
+                options.Password.RequiredLength = 5;
+                options.Password.RequiredUniqueChars = 0; //kac adet özel karakter türü olsun?
+                options.Password.RequireNonAlphanumeric = false; //aktif oldugunda özel karakterlerin kullanilmasini saglar
+                options.Password.RequireLowercase = false; //kücük harf kullanilmasi zorunlulugu olsun mu?
+                options.Password.RequireUppercase = false; //büyük harf kullanilmasi zorunlulugu olsun mu?
+
+                //User Username and Email Options
+                options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$"; //Kullanici adinda hangi karakterler olsun
+                options.User.RequireUniqueEmail = true; // ayni mail adresi ile kayda izin verilmemeli mi?
+            }).AddEntityFrameworkStores<MsDbContext>();
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IBlogService, BlogManager>();

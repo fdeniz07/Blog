@@ -40,77 +40,77 @@ namespace DataAccessLayer.Concrete.Configurations
 
             //Manuel olarak ilk örnek verimizi eklemek istersek;
 
-            builder.HasData(
-                new Blog
-                {
-                    //DB olusturulmadan önce data olusturulacaksa mutlaka Id girilmelidir. Sonradan girilecek Id degeri girmeye gerek yoktur.
-                    Id = 1,
-                    CategoryId = 1,
-                    Title = "C# 9.0 ve NET 5 Yenilikleri",
-                    Content = "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.",
-                    ThumbnailImage = "Default.jpg",
-                    Image = "Default.jpg",
-                    SeoDescription = "C# 9.0 ve NET 5 Yenilikleri",
-                    SeoTags = "C#, C# 9, .NET 5, .NET Framework, .NET Core, .NET Core MVC",
-                    SeoAuthor = "Fatih Deniz",
-                    Date = DateTime.Now,
-                    IsActive = true,
-                    IsDeleted = false,
-                    CreatedByName = "InitialCreate", //InitialCreate degerini Db nin olusturacagini belirtiyoruz
-                    CreatedDate = DateTime.Now,
-                    ModifiedByName = "InitialCreate",
-                    ModifiedDate = DateTime.Now,
-                    Note = "C# 9.0 ve NET 5 Yenilikleri",
-                    UserId = 1,
-                    ViewsCount = 100,
-                    CommentCount = 1
-                },
-                new Blog
-                {
-                    Id = 2,
-                    CategoryId = 2,
-                    Title = "Java ve Spring Yenilikleri",
-                    Content = "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
-                    ThumbnailImage = "Default.jpg",
-                    Image = "Default.jpg",
-                    SeoDescription = "Java ve Spring Yenilikleri",
-                    SeoTags = "Java, Spring, Spring Boot, Lombok, Eclipse, Swagger, Maven",
-                    SeoAuthor = "Fatih Deniz",
-                    Date = DateTime.Now,
-                    IsActive = true,
-                    IsDeleted = false,
-                    CreatedByName = "InitialCreate",
-                    CreatedDate = DateTime.Now,
-                    ModifiedByName = "InitialCreate",
-                    ModifiedDate = DateTime.Now,
-                    Note = "Java ve Spring Yenilikleri",
-                    UserId = 1,
-                    ViewsCount = 295,
-                    CommentCount = 1
-                },
-                new Blog
-                {
-                    Id = 3,
-                    CategoryId = 3,
-                    Title = "Java Script ES2019 ve ES2020 Yenilikleri",
-                    Content = "Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. ",
-                    ThumbnailImage = "Default.jpg",
-                    Image = "Default.jpg",
-                    SeoDescription = "Java Script ES2019 ve ES2020 Yenilikleri",
-                    SeoTags = "Java Script ES2019, Java Script ES2020",
-                    SeoAuthor = "Fatih Deniz",
-                    Date = DateTime.Now,
-                    IsActive = true,
-                    IsDeleted = false,
-                    CreatedByName = "InitialCreate",
-                    CreatedDate = DateTime.Now,
-                    ModifiedByName = "InitialCreate",
-                    ModifiedDate = DateTime.Now,
-                    Note = "Java Script ES2019 ve ES2020 Yenilikleri",
-                    UserId = 1,
-                    ViewsCount = 12,
-                    CommentCount = 1
-                });
+            //builder.HasData(
+            //    new Blog
+            //    {
+            //        //DB olusturulmadan önce data olusturulacaksa mutlaka Id girilmelidir. Sonradan girilecek Id degeri girmeye gerek yoktur.
+            //        Id = 1,
+            //        CategoryId = 1,
+            //        Title = "C# 9.0 ve NET 5 Yenilikleri",
+            //        Content = "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.",
+            //        ThumbnailImage = "Default.jpg",
+            //        Image = "Default.jpg",
+            //        SeoDescription = "C# 9.0 ve NET 5 Yenilikleri",
+            //        SeoTags = "C#, C# 9, .NET 5, .NET Framework, .NET Core, .NET Core MVC",
+            //        SeoAuthor = "Fatih Deniz",
+            //        Date = DateTime.Now,
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate", //InitialCreate degerini Db nin olusturacagini belirtiyoruz
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "C# 9.0 ve NET 5 Yenilikleri",
+            //        UserId = 1,
+            //        ViewsCount = 100,
+            //        CommentCount = 1
+            //    },
+            //    new Blog
+            //    {
+            //        Id = 2,
+            //        CategoryId = 2,
+            //        Title = "Java ve Spring Yenilikleri",
+            //        Content = "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
+            //        ThumbnailImage = "Default.jpg",
+            //        Image = "Default.jpg",
+            //        SeoDescription = "Java ve Spring Yenilikleri",
+            //        SeoTags = "Java, Spring, Spring Boot, Lombok, Eclipse, Swagger, Maven",
+            //        SeoAuthor = "Fatih Deniz",
+            //        Date = DateTime.Now,
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate",
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "Java ve Spring Yenilikleri",
+            //        UserId = 1,
+            //        ViewsCount = 295,
+            //        CommentCount = 1
+            //    },
+            //    new Blog
+            //    {
+            //        Id = 3,
+            //        CategoryId = 3,
+            //        Title = "Java Script ES2019 ve ES2020 Yenilikleri",
+            //        Content = "Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. ",
+            //        ThumbnailImage = "Default.jpg",
+            //        Image = "Default.jpg",
+            //        SeoDescription = "Java Script ES2019 ve ES2020 Yenilikleri",
+            //        SeoTags = "Java Script ES2019, Java Script ES2020",
+            //        SeoAuthor = "Fatih Deniz",
+            //        Date = DateTime.Now,
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate",
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "Java Script ES2019 ve ES2020 Yenilikleri",
+            //        UserId = 1,
+            //        ViewsCount = 12,
+            //        CommentCount = 1
+            //    });
         }
     }
 }

@@ -2,8 +2,7 @@
 
 namespace EntityLayer.Concrete
 {
-    public class Role:IdentityRole<int>
+    public class UserToken:IdentityUserToken<int>
     {
-
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MsDbContext))]
-    [Migration("20210912034548_InitialCreate")]
+    [Migration("20210927213904_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace DataAccessLayer.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("EntityLayer.Concrete.About", b =>
@@ -244,77 +244,6 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Blogs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            CommentCount = 1,
-                            Content = "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4823),
-                            Date = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4461),
-                            Image = "Default.jpg",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(4988),
-                            Note = "C# 9.0 ve NET 5 Yenilikleri",
-                            SeoAuthor = "Fatih Deniz",
-                            SeoDescription = "C# 9.0 ve NET 5 Yenilikleri",
-                            SeoTags = "C#, C# 9, .NET 5, .NET Framework, .NET Core, .NET Core MVC",
-                            ThumbnailImage = "Default.jpg",
-                            Title = "C# 9.0 ve NET 5 Yenilikleri",
-                            UserId = 1,
-                            ViewsCount = 100
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 2,
-                            CommentCount = 1,
-                            Content = "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5603),
-                            Date = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5600),
-                            Image = "Default.jpg",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5606),
-                            Note = "Java ve Spring Yenilikleri",
-                            SeoAuthor = "Fatih Deniz",
-                            SeoDescription = "Java ve Spring Yenilikleri",
-                            SeoTags = "Java, Spring, Spring Boot, Lombok, Eclipse, Swagger, Maven",
-                            ThumbnailImage = "Default.jpg",
-                            Title = "Java ve Spring Yenilikleri",
-                            UserId = 1,
-                            ViewsCount = 295
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            CommentCount = 1,
-                            Content = "Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. ",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5614),
-                            Date = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5612),
-                            Image = "Default.jpg",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 269, DateTimeKind.Local).AddTicks(5617),
-                            Note = "Java Script ES2019 ve ES2020 Yenilikleri",
-                            SeoAuthor = "Fatih Deniz",
-                            SeoDescription = "Java Script ES2019 ve ES2020 Yenilikleri",
-                            SeoTags = "Java Script ES2019, Java Script ES2020",
-                            ThumbnailImage = "Default.jpg",
-                            Title = "Java Script ES2019 ve ES2020 Yenilikleri",
-                            UserId = 1,
-                            ViewsCount = 12
-                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
@@ -371,12 +300,12 @@ namespace DataAccessLayer.Migrations
                             Id = 1,
                             CategoryName = "C#",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6104),
+                            CreatedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8567),
                             Description = "C# Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6114),
+                            ModifiedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8750),
                             Note = "C# Blog Kategorisi"
                         },
                         new
@@ -384,12 +313,12 @@ namespace DataAccessLayer.Migrations
                             Id = 2,
                             CategoryName = "Java",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6124),
+                            CreatedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8910),
                             Description = "Java Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6127),
+                            ModifiedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8912),
                             Note = "Java Blog Kategorisi"
                         },
                         new
@@ -397,12 +326,12 @@ namespace DataAccessLayer.Migrations
                             Id = 3,
                             CategoryName = "Java Script",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6132),
+                            CreatedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8918),
                             Description = "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 271, DateTimeKind.Local).AddTicks(6135),
+                            ModifiedDate = new DateTime(2021, 9, 27, 23, 39, 4, 200, DateTimeKind.Local).AddTicks(8921),
                             Note = "Java Script Blog Kategorisi"
                         });
                 });
@@ -454,47 +383,6 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("BlogId");
 
                     b.ToTable("Comments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BlogId = 1,
-                            Content = "Yaygın inancın tersine, Lorem Ipsum rastgele sözcüklerden oluşmaz.",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1473),
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1483),
-                            Note = "C# Makale Yorumu"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BlogId = 2,
-                            Content = "Lorem Ipsum sözcüğünün klasik edebiyattaki örneklerini incelediğinde kesin bir kaynağa ulaşmıştır.",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1493),
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1496),
-                            Note = "Java Makale Yorumu"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BlogId = 3,
-                            Content = "Bu kitap, ahlak kuramı üzerine bir tezdir ve Rönesans döneminde çok popüler olmuştur. Lorem Ipsum pasajının ilk satırı olan Lorem ipsum dolor sit amet 1.10.32 sayılı bölümdeki bir satırdan gelmektedir.",
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1502),
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 273, DateTimeKind.Local).AddTicks(1504),
-                            Note = "Java Script Makale Yorumu"
-                        });
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Contact", b =>
@@ -562,89 +450,51 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedByName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ModifiedByName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Note")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5557),
-                            Description = "Admin Rolü, Tüm Haklara Sahiptir",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5568),
-                            Name = "Admin",
-                            Note = "Admin Rolüdür."
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5578),
-                            Description = "Yazar Rolü, Kisitli Haklara Sahiptir",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5581),
-                            Name = "Author",
-                            Note = "Yazar Rolüdür."
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5587),
-                            Description = "Kullanici Rolü, Kisitli Haklara Sahiptir",
-                            IsActive = true,
-                            IsDeleted = false,
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 275, DateTimeKind.Local).AddTicks(5589),
-                            Name = "User",
-                            Note = "Kullanici Rolüdür."
-                        });
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.User", b =>
@@ -652,123 +502,153 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedByName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ModifiedByName")
-                        .IsRequired()
+                    b.Property<string>("NormalizedUserName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Note")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("VARBINARY(500)");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
+                    b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserName")
-                        .IsUnique();
+                    b.ToTable("AspNetUserRoles");
+                });
 
-                    b.ToTable("Users");
+            modelBuilder.Entity("EntityLayer.Concrete.UserToken", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(817),
-                            Description = "Ilk Admin Kullanici",
-                            Email = "fdeniz07@gmail.com",
-                            FirstName = "Fatih",
-                            Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&usqp=CAU",
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastName = "Deniz",
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(829),
-                            Note = "Admin Kullanicisi",
-                            PasswordHash = new byte[] { 50, 48, 50, 99, 98, 57, 54, 50, 97, 99, 53, 57, 48, 55, 53, 98, 57, 54, 52, 98, 48, 55, 49, 53, 50, 100, 50, 51, 52, 98, 55, 48 },
-                            RoleId = 1,
-                            UserName = "fatihdeniz"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(1845),
-                            Description = "Yazar",
-                            Email = "ahmet@gmail.com",
-                            FirstName = "Ahmet",
-                            Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSX4wVGjMQ37PaO4PdUVEAliSLi8-c2gJ1zvQ&usqp=CAU",
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastName = "Gündüz",
-                            ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 9, 12, 5, 45, 48, 284, DateTimeKind.Local).AddTicks(1847),
-                            Note = "Yazar",
-                            PasswordHash = new byte[] { 50, 48, 50, 99, 98, 57, 54, 50, 97, 99, 53, 57, 48, 55, 53, 98, 57, 54, 52, 98, 48, 55, 49, 53, 50, 100, 50, 51, 52, 98, 55, 48 },
-                            RoleId = 2,
-                            UserName = "ahmetgunduz"
-                        });
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Blog", b =>
@@ -801,15 +681,55 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Blog");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.User", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.RoleClaim", b =>
                 {
-                    b.HasOne("EntityLayer.Concrete.Role", "Role")
-                        .WithMany("Users")
+                    b.HasOne("EntityLayer.Concrete.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserClaim", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserLogin", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserRole", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.Role", null)
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.HasOne("EntityLayer.Concrete.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.UserToken", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Blog", b =>
@@ -820,11 +740,6 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Navigation("Blogs");
-                });
-
-            modelBuilder.Entity("EntityLayer.Concrete.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.User", b =>
