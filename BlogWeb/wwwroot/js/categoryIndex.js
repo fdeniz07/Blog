@@ -443,7 +443,7 @@
                                         .CategoryDto.Category.IsDeleted.toString())}</td>
                                                     <td>${categoryUpdateAjaxModel.CategoryDto.Category.Note}</td>
                                                     <td>${convertToShortDate(categoryUpdateAjaxModel.CategoryDto
-                                            .Category.CreatedDate)}</td>
+                                             .Category.CreatedDate)}</td>
                                                     <td>${categoryUpdateAjaxModel.CategoryDto.Category
                                 .CreatedByName}</td>
                                                     <td>${convertToShortDate(categoryUpdateAjaxModel.CategoryDto
