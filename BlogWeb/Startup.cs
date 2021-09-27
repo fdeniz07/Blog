@@ -33,6 +33,7 @@ namespace BlogWeb
                 opt.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.Preserve;
             });//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
+            services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
         }
@@ -52,12 +53,11 @@ namespace BlogWeb
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles(); // static dosyalarimiz: resim,css,js vb
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(
