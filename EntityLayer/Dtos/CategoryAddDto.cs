@@ -7,8 +7,8 @@ namespace EntityLayer.Dtos
     {
         [DisplayName("Kategori Adı")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]
-        [MaxLength(50, ErrorMessage = "{0} {1} karakterden fazla olmamalıdır.")]
-        [MinLength(3, ErrorMessage = "{0} {1} karakterden az olmamalıdır.")]
+        [MaxLength(50, ErrorMessage = "{0} {1} karakterden büyük olmamalıdır.")]
+        [MinLength(3, ErrorMessage = "{0} {1} karakterden küçük olmamalıdır.")]
         public string CategoryName { get; set; }
 
         [DisplayName("Kategori Açıklaması")]
@@ -17,8 +17,8 @@ namespace EntityLayer.Dtos
         public string Description { get; set; }
 
         [DisplayName("Kategori Özel Not Alanı")]
-        [MaxLength(500, ErrorMessage = "{0} {1} karakterden fazla olmamalıdır.")]
-        [MinLength(3, ErrorMessage = "{0} {1} karakterden az olmamalıdır.")]
+        [MaxLength(500, ErrorMessage = "{0} {1} karakterden büyük olmamalıdır.")]
+        [MinLength(3, ErrorMessage = "{0} {1} karakterden küçük olmamalıdır.")]
         public string Note { get; set; }
 
         [DisplayName("Aktif Mi?")]

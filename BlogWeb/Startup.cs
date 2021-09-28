@@ -1,8 +1,10 @@
 using System.Text.Json.Serialization;
+using BlogWeb.AutoMapper.Profiles;
 using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -34,8 +36,23 @@ namespace BlogWeb
             });//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Admin/User/Login");
+                options.LogoutPath = new PathString("/Admin/User/Logout");
+                options.Cookie = new CookieBuilder
+                {
+                    Name = "Blog",
+                    HttpOnly = true,
+                    SameSite =SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
+                    SecurePolicy = CookieSecurePolicy.SameAsRequest //Site canliya tasindiginda bu alan .Always olarak degistirilmelidir.!!!
+                };
+                options.SlidingExpiration = true; //Cookie süresi belirleme
+                options.ExpireTimeSpan = System.TimeSpan.FromDays(7); // 7 gün boyunca tarayici üzerinde gecerliligi olacak
+                options.AccessDeniedPath = new PathString("/Admin/User/AccessDenied"); //Yetkisiz erisimde yönlendirilecek sayfa
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
