@@ -13,7 +13,7 @@
                 <form asp-action="Update" id="form-category-update">
                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
-                    <input hidden="true" asp-for="Id" />
+                    <input type="hidden" asp-for="Id" />
                     <div class="form-group">
                         <label asp-for="CategoryName"></label>
                         <input class="form-control" asp-for="CategoryName" />

@@ -397,6 +397,9 @@
                 }
             });
         });
+
+/* Ajax GET / Getting the _CategoryUpdatePartial as Modal Form starts from here. */
+
     $(function () {
         const url = '/Admin/Category/Update/';
         const placeHolderDiv = $('#modalPlaceHolder');

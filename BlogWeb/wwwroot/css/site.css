@@ -1,6 +1,20 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.my-image {
+    border-radius: 5px;
+    max-height: 100px;
+    max-width: 100px;
+    border: 2px solid #d3d3d3;
+}
+
+.my-image-table {
+    border-radius: 5px;
+    max-height: 75px;
+    max-width: 75px;
+    border: 2px solid #d3d3d3;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -69,3 +83,4 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
