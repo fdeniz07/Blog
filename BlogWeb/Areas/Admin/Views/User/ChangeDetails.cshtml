@@ -1,18 +1,19 @@
 ﻿@model EntityLayer.Dtos.UserUpdateDto
 
-<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><span class="fas fa-edit"></span> Kullanıcı Düzenle</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="İptal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Profil Düzenle";
+}
+
+<div class="row">
+    <div class="col-lg-6 offset-lg-3">
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4 class="text-center"><span class="fas fa-edit"></span> Profil Düzenle</h4>
             </div>
-            <div class="modal-body">
-                <form asp-action="Update" id="form-user-update">
-                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
-                    <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
+            <div class="card-body">
+                <form asp-controller="User" asp-action="ChangeDetails" enctype="multipart/form-data" method="post" id="form-user-update">
+                    <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <input asp-for="Id" type="hidden" />
                     <div class="form-group">
                         <label asp-for="UserName"></label>
@@ -31,19 +32,19 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Image"></label>
-                        <input asp-for="Image" type="hidden"/>
-                        <img class="my-image" src="~/img/@Model.Image" alt="@Model.UserName"/>
+                        <input asp-for="Image" type="hidden" />
+                        <img class="my-image" src="~/img/@Model.Image" alt="@Model.UserName" />
                     </div>
                     <div class="form-group">
                         <label asp-for="ImageFile"></label>
                         <input type="file" accept="image/*" class="form-control-file" asp-for="ImageFile" placeholder="Lütfen, resim seçiniz." />
                         <span class="text-danger" asp-validation-for="ImageFile"></span>
                     </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"><span class="fas fa-save"></span> Kaydet</button>
+                        <a class="btn btn-danger btn-block" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="fas fa-times"></span>  İptal</a>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"><span class="fas fa-times"></span> İptal</button>
-                <button type="button" class="btn btn-primary btn-block" id="btnUpdate"><span class="fas fa-save" ></span> Kaydet</button>
             </div>
         </div>
     </div>

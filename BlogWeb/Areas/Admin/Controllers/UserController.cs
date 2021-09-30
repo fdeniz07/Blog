@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlogWeb.Areas.Admin.Models;
 using CoreLayer.Utilities.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
@@ -21,16 +22,19 @@ namespace BlogWeb.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
 
-        public UserController(UserManager<User> userManager, IMapper mapper, IWebHostEnvironment env)
+        public UserController(UserManager<User> userManager, IMapper mapper, IWebHostEnvironment env, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _mapper = mapper;
             _env = env;
+            _signInManager = signInManager;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -42,6 +46,45 @@ namespace BlogWeb.Areas.Admin.Controllers
             });
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View("UserLogin");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(UserLoginDto userLoginDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
+                if (user != null)
+                {
+                    var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password,
+                        userLoginDto.RememberMe, false);// bu islem sonucunda bize bir result dönüyor.
+                    if (result.Succeeded) // eger bir islem sonucunda result dönülüyorsa, basarili olup olmadigi her zaman kontrol edilir
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "E-posta adresiniz veya şifreniz yanlıştır.");
+                        return View("UserLogin");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "E-posta adresiniz veya şifreniz yanlıştır.");
+                    return View("UserLogin");
+                }
+            }
+            else
+            {
+                return View("UserLogin");
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<JsonResult> GetAllUsers()
         {
@@ -57,12 +100,14 @@ namespace BlogWeb.Areas.Admin.Controllers
             return Json(userListDto);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Add()
         {
             return PartialView("_UserAddPartial");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add(UserAddDto userAddDto)
         {
@@ -92,7 +137,7 @@ namespace BlogWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                userAddDto.Image = await ImageUpload(userAddDto.UserName,userAddDto.ImageFile);
+                userAddDto.Image = await ImageUpload(userAddDto.UserName, userAddDto.ImageFile);
                 var user = _mapper.Map<User>(userAddDto);
                 var result = await _userManager.CreateAsync(user, userAddDto.Password); //burada bize IdentityResult dönüyor
                 if (result.Succeeded) //IdentityResult basarili ise
@@ -132,6 +177,24 @@ namespace BlogWeb.Areas.Admin.Controllers
             return Json(userAddAjaxModelStateErrorModel);
         }
 
+        [HttpGet]
+        public ViewResult AccessDenied()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Logut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home", new
+            {
+                Area = ""
+            });
+        }
+
+        [Authorize(Roles = "Admin")]
         public async Task<JsonResult> Delete(int userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -164,6 +227,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<PartialViewResult> Update(int userId)
         {
@@ -172,6 +236,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return PartialView("_UserUpdatePartial", userUpdateDto);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Update(UserUpdateDto userUpdateDto)
         {
@@ -212,17 +277,17 @@ namespace BlogWeb.Areas.Admin.Controllers
                 {
                     foreach (var error in result.Errors) //hatalar kullaniciya model üzerinden json a dönüstürülerek yansitilir
                     {
-                        ModelState.AddModelError("",error.Description);
+                        ModelState.AddModelError("", error.Description);
                     }
                     var userUpdateErrorViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel //Basarisiz update isleminden sonra view e bir model dönüyoruz ki, frontend e kullanici bu bilgileri görsün
                     {
                         UserUpdateDto = userUpdateDto,
-                       UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
+                        UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
                     });
                     return Json(userUpdateErrorViewModel);
                 }
             }
-            var userUpdateModelStateErrorViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel 
+            var userUpdateModelStateErrorViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel
             {
                 UserUpdateDto = userUpdateDto,
                 UserUpdatePartial = await this.RenderViewToStringAsync("_UserUpdatePartial", userUpdateDto)
@@ -230,7 +295,64 @@ namespace BlogWeb.Areas.Admin.Controllers
             return Json(userUpdateModelStateErrorViewModel);
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<ViewResult> ChangeDetails()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var updateDto = _mapper.Map<UserUpdateDto>(user);
+            return View(updateDto);
+        }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<ViewResult> ChangeDetails(UserUpdateDto userUpdateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                bool isNewImageUploaded = false;
+                var oldUser = await _userManager.GetUserAsync(HttpContext.User); //kullaniciyi güncellemeden bilgilerini oturumdan alip, burada sakliyoruz
+                var oldUserImage = oldUser.Image; //kullanicinin eski resmini bir degiskene atiyoruz
+                if (userUpdateDto.ImageFile != null) //Eger kullanici yeni bir resim yüklerse
+                {
+                    userUpdateDto.Image = await ImageUpload(userUpdateDto.UserName, userUpdateDto.ImageFile); //kullanicinin yeni resmini güncelle
+                    if (oldUserImage!="defaultUser.png") // Diger kullanicilarinda kullandigi ortak resmin kontrolü yapiliyor, ortak resim ise silme isleminin önüne geciyoruz
+                    {
+                        isNewImageUploaded = true;
+                    }
+                }
+
+                var updatedUser = _mapper.Map<UserUpdateDto, User>(userUpdateDto, oldUser);
+                var result = await _userManager.UpdateAsync(updatedUser); // bilgileri db ye kaydediyoruz
+                if (result.Succeeded) //Bu kullanıcı dogru sekilde db ye gönderilmisse,
+                {
+                    if (isNewImageUploaded) // yeni bir resim db ye eklendiyse
+                    {
+                        ImageDelete(oldUserImage); //eski resmi db den siliyoruz
+                    }
+                    TempData.Add("SuccessMessage", $"{ updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.");
+                    return View(userUpdateDto);
+                }
+                else //Kullanici güncelleme bilgileri db ye dogru sekilde yansimamissa,
+                {
+                    foreach (var error in result.Errors) //hatalar kullaniciya model üzerinden json a dönüstürülerek yansitilir
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    return View(userUpdateDto);
+                }
+            }
+            return View(userUpdateDto);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ViewResult PasswordChange()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin,Editor")]
         public async Task<string> ImageUpload(string userName, IFormFile imageFile)
         {
             // ~/img/user.Picture
@@ -254,6 +376,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return fileName; // FatihDeniz_587_5_38_12_28_09_2021.png - "~/img/user.Image"
         }
 
+        [Authorize(Roles = "Admin,Editor")]
         public bool ImageDelete(string imageName)
         {
             // Amac : Kullanici resmini güncelledikten sonra eski resmin sunucudan silinmesi veyahut silinen bir kullanicinin resmininde silinmesi

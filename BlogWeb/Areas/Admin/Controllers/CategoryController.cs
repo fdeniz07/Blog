@@ -6,11 +6,13 @@ using BusinessLayer.Abstract;
 using CoreLayer.Utilities.Extensions;
 using CoreLayer.Utilities.Results.ComplexTypes;
 using EntityLayer.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin,Editor")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

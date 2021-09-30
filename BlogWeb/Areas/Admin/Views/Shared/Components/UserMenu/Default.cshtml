@@ -1,0 +1,14 @@
+﻿@model BlogWeb.Areas.Admin.Models.UserViewModel
+
+<ul class="navbar-nav ml-auto ml-md-0">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> @Model.User.UserName</a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangeDetails">Profil Düzenle</a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="PasswordChange">Şifre Değiştir</a>
+            @*<a class="dropdown-item" href="#">Activity Log</a>*@
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Logut">Çıkış Yap</a>
+        </div>
+    </li>
+</ul>

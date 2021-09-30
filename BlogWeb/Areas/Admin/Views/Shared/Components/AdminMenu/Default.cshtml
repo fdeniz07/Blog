@@ -1,0 +1,44 @@
+﻿@model BlogWeb.Areas.Admin.Models.UserWithRolesViewModel
+
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">MENÜ</div>
+                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    Dashboard
+                </a>
+                <div class="sb-sidenav-menu-heading">İçerikler</div>
+                <a class="nav-link" asp-area="Admin" asp-controller="Category" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
+                    Kategoriler
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Blog" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                    Makaleler
+                </a>
+                <a class="nav-link" asp-area="Admin" asp-controller="Comment" asp-action="Index">
+                    <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                    Yorumlar
+                </a>
+                @if (Model.Roles.Any(r=>r.Equals("Admin")))
+                {
+                    <div class="sb-sidenav-menu-heading">Kullanıcılar</div>
+                    <a class="nav-link" asp-area="Admin" asp-controller="Role" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                        Roller
+                    </a>
+                    <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Kullanıcılar
+                    </a>
+                }
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Giriş Yapan Kullanıcı:</div>
+            @Model.User.UserName
+        </div>
+    </nav>
+</div>

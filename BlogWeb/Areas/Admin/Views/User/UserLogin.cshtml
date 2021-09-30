@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Dtos.UserLoginDto
+@{
+    Layout = "_UserLoginLayout";
+    ViewBag.Title = "Giriş Yap";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4"><span class="fas fa-house-user"></span> Giriş Yap</h3></div>
+                <div class="card-body">
+                    <form asp-controller="User" asp-action="Login" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="small mb-1" asp-for="Email"></label>
+                            <input class="form-control py-4" asp-for="Email" type="email" placeholder="Lütfen e-posta adresinizi giriniz."/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="small mb-1" asp-for="Password"></label>
+                            <input class="form-control py-4" asp-for="Password" type="password" placeholder="Lütfen şifrenizi giriniz."/>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" asp-for="RememberMe" type="checkbox"/>
+                                <label class="custom-control-label" asp-for="RememberMe"></label>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <a class="btn btn-secondary text-white"><span class="fas fa-user-lock"></span> Şifremi Unuttum</a>
+                            <button class="btn btn-primary" type="submit"><span class="fas fa-sign-in-alt"></span> Giriş Yap</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a class="btn btn-success btn-block text-white"><span class="fas fa-user-edit"></span> Kayıt Ol</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
