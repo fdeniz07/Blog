@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using BlogWeb.AutoMapper.Profiles;
+using BlogWeb.Helpers.Abstract;
+using BlogWeb.Helpers.Concrete;
 using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +40,7 @@ namespace BlogWeb
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/User/Login");

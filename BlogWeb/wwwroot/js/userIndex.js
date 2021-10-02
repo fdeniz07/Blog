@@ -347,6 +347,7 @@
                     },
                     error: function (err) {
                         console.log(err);
+                        toastr.error(`${err.responseText}`, 'Hata!');
                     }
                 });
             });
@@ -399,7 +400,7 @@
                         },
                         error: function (err) {
                             console.log(err);
-                            toastr.error(`${err.responseText}`, "Hata!")
+                            toastr.error(`${err.responseText}`, "Hata!");
                         }
                     });
                 }
@@ -420,7 +421,7 @@
                     placeHolderDiv.html(data);
                     placeHolderDiv.find('.modal').modal('show');
                 }).fail(function () {
-                    toastr.error("Bir hata oluştu.");
+                    toastr.error(`${err.responseText}`, 'Hata!');
                 });
             });
 
@@ -443,8 +444,10 @@
                     success: function(data) {
                         const userUpdateAjaxModel = jQuery.parseJSON(data);
                         console.log(userUpdateAjaxModel);
-                        const id = userUpdateAjaxModel.UserDto.User.Id;
-                        const tableRow = $(`[name="${id}"]`);
+                        if (userUpdateAjaxModel.UserDto != null) {
+                            const id = userUpdateAjaxModel.UserDto.User.Id;
+                            const tableRow = $(`[name="${id}"]`);
+                        }
                         const newFormBody = $('.modal-body', userUpdateAjaxModel.UserUpdatePartial);
                         placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
                         const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
@@ -475,6 +478,7 @@
                     },
                     error: function(error) {
                         console.log(error);
+                        toastr.error(`${err.responseText}`, 'Hata!');
                     }
                 });
             });
