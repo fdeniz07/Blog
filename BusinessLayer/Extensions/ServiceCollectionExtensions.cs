@@ -34,7 +34,7 @@ namespace BusinessLayer.Extensions
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IBlogService, BlogManager>();
-
+            serviceCollection.AddScoped<ICommentService, CommentManager>();
 
             #region Scope
             /*

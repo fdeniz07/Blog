@@ -38,15 +38,19 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await _dbSet.AnyAsync(predicate);
         }
 
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate = null)
         {
-            return await _dbSet.CountAsync(predicate);
+            return await (predicate == null ? _dbSet.CountAsync() : _dbSet.CountAsync(predicate)); //predicate null gelirse, o zaman context e set edilmis olan tenitity nin countasync tamamiyle dönüyoruz. Null gelmezse, gelen predicate degeri filtreleme yaparak kullaniciya dönecegiz. Örnek: Kategori tablosunda 6 kayit varsa, toplam 6 degerini predicatesiz olarak dönecegiz. Fakat olur da silinmis kategorileri görmek istersek ve tablomuzda 3 kategori silinmisse; o zaman predicate ile toplam 3 kategori degerini kullaniciya dönüyoruz. Esnek bir yapi kurmus oluyoruz
         }
 
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
-            query = query.Where(predicate);
+
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
 
             if (includeProperties.Any()) //bu dizinin icerisinde bir deger varsa, icerisinde döngü ile dönecegiz
             {

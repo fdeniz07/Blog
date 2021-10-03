@@ -1,11 +1,126 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model BlogWeb.Areas.Admin.Models.DashboardViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Yönetim Paneli";
 }
-
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
-
-<h1>Burasi Admin Bölümüdür, Hosgeldiniz.</h1>
-<a asp-area="" asp-controller="Home" asp-action="Index">Blog Bölümüne Kismina Gecmek Icin Lütfen Tiklayiniz</a>
+@*<h1 class="mt-4">Dashboard</h1>*@
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Yönetim Paneli</a></li>
+</ol>
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body">Kategoriler (@Model.CategoriesCount)</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Category" asp-action="Index">Detaylar</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body">Makaleler (@Model.BlogsCount)</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Blog" asp-action="Index">Detaylar</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body">Yorumlar (@Model.CommentsCount)</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Comment" asp-action="Index">Detaylar</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body">Kullanıcılar (@Model.UsersCount)</div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" asp-area="Admin" asp-controller="User" asp-action="Index">Detaylar</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area mr-1"></i>
+                Area Chart Örneği
+            </div>
+            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-bar mr-1"></i>
+                Bar Chart Örneği
+            </div>
+            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+        </div>
+    </div>
+</div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Son Paylaşılan Makaleler
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="blogsTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Kategori</th>
+                        <th>Başlık</th>
+                        <th>Küçük Resim</th>
+                        <th>Tarih</th>
+                        <th>Okunma Sayısı</th>
+                        <th>Yorum Sayısı</th>
+                        <th>Aktif Mi?</th>
+                        <th>Silinmiş Mi?</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori</th>
+                    <th>Başlık</th>
+                    <th>Küçük Resim</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>Yorum Sayısı</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                @foreach (var blog in Model.Blogs.Blogs)
+                {
+                    <tr>
+                        <td>@blog.Id</td>
+                        <td>@blog.Category.CategoryName</td>
+                        <td>@blog.Title</td>
+                        <td><img src="~/img/@blog.ThumbnailImage" class="my-image-table"/></td>
+                        <td>@blog.Date.ToShortDateString()</td>
+                        <td>@blog.ViewCount</td>
+                        <td>@blog.CommentCount</td>
+                        <td>@(blog.IsActive ? "Evet" : "Hayır")</td>
+                        <td>@(blog.IsDeleted ? "Evet" : "Hayır")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/HomeIndex.js" type="application/ecmascript"></script>
+}

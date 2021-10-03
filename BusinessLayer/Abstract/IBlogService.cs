@@ -15,5 +15,7 @@ namespace BusinessLayer.Abstract
         Task<IResult> Update(BlogUpdateDto blogUpdateDto, string modifiedByName);
         Task<IResult> Delete(int blogId, string modifiedByName);
         Task<IResult> HardDelete(int blogId);
+        Task<IDataResult<int>> Count();
+        Task<IDataResult<int>> CountByNonDeleted();
     }
 }

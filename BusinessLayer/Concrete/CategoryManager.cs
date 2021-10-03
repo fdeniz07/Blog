@@ -24,11 +24,10 @@ namespace BusinessLayer.Concrete
             _mapper = mapper;
         }
 
-        #region Implementation of ICategoryService
 
         public async Task<IDataResult<CategoryDto>> Get(int categoryId)
         {
-            var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId, c => c.Blogs);
+            var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
             if (category != null)
             {
                 return new DataResult<CategoryDto>(ResultStatus.Success, new CategoryDto
@@ -63,7 +62,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CategoryListDto>> GetAll()
         {
-            var categories = await _unitOfWork.Categories.GetAllAsync(null, c => c.Blogs);
+            var categories = await _unitOfWork.Categories.GetAllAsync(null);
 
             if (categories.Count > -1) //Hic kategorisi de olmayabilir. O yüzden 0 yerine -1 yaziyoruz
             {
@@ -84,7 +83,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeleted() //Silinmemis olanlari getir
         {
-            var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted, c => c.Blogs);
+            var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted);
 
             if (categories.Count > -1) //Hic kategorisi de olmayabilir. O yüzden 0 yerine -1 yaziyoruz
             {
@@ -107,7 +106,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActive()
         {
-            var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted && c.IsActive, c => c.Blogs);
+            var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted && c.IsActive);
 
             if (categories.Count > -1) //Hic kategorisi de olmayabilir. O yüzden 0 yerine -1 yaziyoruz
             {
@@ -230,6 +229,31 @@ namespace BusinessLayer.Concrete
             }
             return new Result(ResultStatus.Error, Messages.Category.NotFound(isPlural: false));
         }
-        #endregion
+
+        public async Task<IDataResult<int>> Count()
+        {
+            var categoriesCount = await _unitOfWork.Categories.CountAsync();// tüm degerleri getir
+            if (categoriesCount>-1)
+            {
+                return new DataResult<int>(ResultStatus.Success, categoriesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<int>> CountByNonDeleted()
+        {
+            var categoriesCount = await _unitOfWork.Categories.CountAsync(c=>!c.IsDeleted);// Silinmemis degerleri getir
+            if (categoriesCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, categoriesCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
     }
 }

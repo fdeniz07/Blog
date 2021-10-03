@@ -48,8 +48,8 @@ namespace CoreLayer.DataAccess.Abstract
 
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate); //Böyle bir entity daha önceden var mi diye kontrol ediyoruz 
 
-        //Tüm entity lerin sayisini dönmek icin de Count kullaniyoruz (var commentCount = _commentRepository.CountAsync())
+        //Tüm entity lerin sayisini dönmek icin de Count kullaniyoruz (var commentCount = _commentRepository.CountAsync()), olurda tablodaki bilgileri dönmek istersek, predicate alanina varsayilan deger olarak null atiyoruz.
 
-        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate=null);
     }
 }

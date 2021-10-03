@@ -149,5 +149,31 @@ namespace BusinessLayer.Concrete
             }
             return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
         }
+
+        public async Task<IDataResult<int>> Count()
+        {
+            var blogsCount = await _unitOfWork.Blogs.CountAsync();// tüm degerleri getir
+            if (blogsCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, blogsCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
+
+        public async Task<IDataResult<int>> CountByNonDeleted()
+        {
+            var blogsCount = await _unitOfWork.Blogs.CountAsync(b=>!b.IsDeleted);// Silinmemis degerleri getir
+            if (blogsCount > -1)
+            {
+                return new DataResult<int>(ResultStatus.Success, blogsCount);
+            }
+            else
+            {
+                return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
+            }
+        }
     }
 }
