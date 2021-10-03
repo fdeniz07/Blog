@@ -20,7 +20,7 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.Property(b => b.SeoAuthor).IsRequired().HasMaxLength(50);
             builder.Property(b => b.SeoDescription).IsRequired().HasMaxLength(150);
             builder.Property(b => b.SeoTags).IsRequired().HasMaxLength(100);
-            builder.Property(b => b.ViewsCount).IsRequired();
+            builder.Property(b => b.ViewCount).IsRequired();
             builder.Property(b => b.CommentCount).IsRequired();
             builder.Property(b => b.CreatedByName).IsRequired().HasMaxLength(50);
             builder.Property(b => b.ModifiedByName).IsRequired().HasMaxLength(50);
@@ -62,7 +62,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        ModifiedDate = DateTime.Now,
             //        Note = "C# 9.0 ve NET 5 Yenilikleri",
             //        UserId = 1,
-            //        ViewsCount = 100,
+            //        ViewCount = 100,
             //        CommentCount = 1
             //    },
             //    new Blog
@@ -85,7 +85,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        ModifiedDate = DateTime.Now,
             //        Note = "Java ve Spring Yenilikleri",
             //        UserId = 1,
-            //        ViewsCount = 295,
+            //        ViewCount = 295,
             //        CommentCount = 1
             //    },
             //    new Blog
@@ -108,7 +108,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        ModifiedDate = DateTime.Now,
             //        Note = "Java Script ES2019 ve ES2020 Yenilikleri",
             //        UserId = 1,
-            //        ViewsCount = 12,
+            //        ViewCount = 12,
             //        CommentCount = 1
             //    });
         }

@@ -15,11 +15,16 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
         public DbSet<Contact> Contacts { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(
+        //        @"Data Source=APACHIE;Initial Catalog=CoreBlogDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;
+        //                        ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        //}
+
+        public MsDbContext(DbContextOptions<MsDbContext> options):base(options)
         {
-            optionsBuilder.UseSqlServer(
-                @"Data Source=APACHIE;Initial Catalog=CoreBlogDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;
-                                ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

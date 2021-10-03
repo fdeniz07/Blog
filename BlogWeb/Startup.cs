@@ -39,7 +39,7 @@ namespace BlogWeb
 
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
-            services.LoadMyServices(); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {

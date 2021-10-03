@@ -46,10 +46,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
         public async Task<IList<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
-            if (predicate != null) //eger sorgu bos degilse istedigimiz sorgular calissin
-            {
-                query = query.Where(predicate);
-            }
+            query = query.Where(predicate);
 
             if (includeProperties.Any()) //bu dizinin icerisinde bir deger varsa, icerisinde döngü ile dönecegiz
             {

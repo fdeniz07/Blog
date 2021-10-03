@@ -8,6 +8,7 @@ using EntityLayer.Dtos;
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLayer.Utilities;
 
 namespace BusinessLayer.Concrete
 {
@@ -37,11 +38,11 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı.", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural:false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = "Böyle bir kategori bulunamadı."
+                Message = Messages.Category.NotFound(isPlural: false)
             });
         }
 
@@ -56,7 +57,7 @@ namespace BusinessLayer.Concrete
             }
             else
             {
-                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, "Böyle bir kategori bulunamadı.", null);
+                return new DataResult<CategoryUpdateDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
             }
         }
 
@@ -73,11 +74,11 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = "Hiç bir kategori bulunamadı."
+                Message = Messages.Category.NotFound(isPlural: true)
             });
         }
 
@@ -94,14 +95,14 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", new CategoryListDto
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), new CategoryListDto
             {
                 Categories = null,
                 ResultStatus = ResultStatus.Error,
-                Message = "Hiç bir kategori bulunamadı."
+                Message = Messages.Category.NotFound(isPlural: true)
             });
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActive()
@@ -117,13 +118,12 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryListDto>(ResultStatus.Error, "Hiç bir kategori bulunamadı.", null);
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
         public async Task<IDataResult<CategoryDto>> Add(CategoryAddDto categoryAddDto, string createdByName)
         {
-            //Befor using Automapper
-
+            #region Before using Automapper
             //await _unitOfWork.Categories.AddAsync(new Category
             //{
             //    CategoryName = categoryAddDto.CategoryName,
@@ -138,8 +138,8 @@ namespace BusinessLayer.Concrete
             //}).ContinueWith(t => _unitOfWork.SaveAsync());
             //ContinueWith den itibaren zincirleme task islemini devam ettiriyoruz. Kayit daha tamamlanmadan asagidaki result kismina gecer. Cok performansli bir yapi olmasina karsi yönetimi biraz daha zor bir yapidir.
             // await _unitOfWork.SaveAsync();
-
-
+            #endregion
+            
             //After using Automapper
 
             var category = _mapper.Map<Category>(categoryAddDto);
@@ -149,19 +149,18 @@ namespace BusinessLayer.Concrete
             await _unitOfWork.SaveAsync();
 
             return new DataResult<CategoryDto>(ResultStatus.Success,
-                $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir", new CategoryDto
+                Messages.Category.Add(addedCategory.CategoryName), new CategoryDto
                 {
                     Category = addedCategory,
                     ResultStatus = ResultStatus.Success,
-                    Message = $"{categoryAddDto.CategoryName} adlı kategori başarıyla eklenmiştir"
+                    Message = Messages.Category.Add(addedCategory.CategoryName)
                 });
 
         }
 
         public async Task<IDataResult<CategoryDto>> Update(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
         {
-            //Before using Automapper
-
+            #region Before using Automapper
             //var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryUpdateDto.Id);
             //if (category!=null)
             //{
@@ -175,6 +174,7 @@ namespace BusinessLayer.Concrete
             //    await _unitOfWork.Categories.UpdateAsync(category).ContinueWith(t => _unitOfWork.SaveAsync());
             //    return new Result(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adli kategori basariyla güncellenmistir.");
             //}
+            #endregion
 
             //After using Automapper
             var oldCategory = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryUpdateDto.Id);
@@ -183,11 +183,11 @@ namespace BusinessLayer.Concrete
 
             var updatedCategory = await _unitOfWork.Categories.UpdateAsync(category);
             await _unitOfWork.SaveAsync();
-            return new DataResult<CategoryDto>(ResultStatus.Success, $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla güncellenmiştir.", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Update(updatedCategory.CategoryName), new CategoryDto
             {
                 Category = updatedCategory,
                 ResultStatus = ResultStatus.Success,
-                Message = $"{categoryUpdateDto.CategoryName} adlı kategori başarıyla eklenmiştir"
+                Message = Messages.Category.Update(updatedCategory.CategoryName)
             });
         }
 
@@ -203,18 +203,18 @@ namespace BusinessLayer.Concrete
 
                 var deletedCategory = await _unitOfWork.Categories.UpdateAsync(category);
                 await _unitOfWork.SaveAsync();
-                return new DataResult<CategoryDto>(ResultStatus.Success, $"{deletedCategory.CategoryName} adlı kategori başarıyla silinmistir.", new CategoryDto
+                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.Delete(deletedCategory.CategoryName), new CategoryDto
                 {
                     Category = deletedCategory,
                     ResultStatus = ResultStatus.Success,
-                    Message = $"{deletedCategory.CategoryName} adlı kategori başarıyla silinmistir"
+                    Message = Messages.Category.Delete(deletedCategory.CategoryName)
                 });
             }
-            return new DataResult<CategoryDto>(ResultStatus.Error, $"Böyle bir kategori bulunamadı.", new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
-                Message = $"Böyle bir kategori bulunamadı."
+                Message = Messages.Category.NotFound(isPlural: false)
             });
         }
 
@@ -226,9 +226,9 @@ namespace BusinessLayer.Concrete
             {
                 await _unitOfWork.Categories.DeleteAsync(category);
                 await _unitOfWork.SaveAsync();
-                return new Result(ResultStatus.Success, $"{category.CategoryName} adlı kategori veritabanindan başarıyla silinmiştir.");
+                return new Result(ResultStatus.Success, Messages.Category.HardDelete(category.CategoryName));
             }
-            return new Result(ResultStatus.Error, "Böyle bir kategori bulunamadı.");
+            return new Result(ResultStatus.Error, Messages.Category.NotFound(isPlural: false));
         }
         #endregion
     }
