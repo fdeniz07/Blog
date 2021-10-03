@@ -40,6 +40,7 @@ This Project is a Blog Project.
 
   ## Images
   
+  ### Layers
   
   <p>Layers <p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Layers.JPG" />
@@ -56,14 +57,73 @@ This Project is a Blog Project.
   <p>BusinessLayer(Service)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/BusinessLayer(BLL-Service).JPG" />
 
-  <p>UI Layer (Presentation)<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation).JPG" />
+  <p>UI Layer (Presentation) -1<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-1.JPG" />
 
+  <p>UI Layer (Presentation) -2<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-2.JPG" />
+
+### Pages
+
+#### Admin Panel
+
+  <p>Admin Panel - ComingSoon Page<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/ComingSoon%20Page.JPG" />
+
+  <p>Admin Panel - Login<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Login.JPG" />
+
+  <p>Admin Panel - Dashboard<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Dashboard.JPG" />
+
+  <p>Admin Panel - User Information Change<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20Information%20Change.JPG" />
+  
+  <p>Admin Panel - Password Change<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Password%20Change.JPG" />
+
+  <p>Admin Panel - Password Change Requirements<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Password%20Change%20Requirements.JPG" />
+  
   <p>Admin Panel - Categories<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Categories.JPG" />
+
+  <p>Admin Panel - Add Category<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Add%20Category.JPG" />
 
   <p>Admin Panel - Add Category (AJAX)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20AddCategory%20(Ajax).JPG" />
 
   <p>Admin Panel - Add Category (AJAX + TOASTR)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20AddCategory%20(Ajax%20-%20Toastr).JPG" />
+  
+  <p>Admin Panel - Edit Category<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Edit%20Category.JPG" />
+
+  <p>Admin Panel - Category Soft Delete (Passive)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Category%20Soft%20Delete%20(Passive).JPG" />
+
+  <p>Admin Panel - Users<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users.JPG" />
+
+  <p>Admin Panel - Add New User<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Add%20New%20User.JPG" />
+
+  <p>Admin Panel - Add New User Requirements<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Add%20New%20User%20Requirements.JPG" />
+
+  <p>Admin Panel - Users - User Profil Change<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Profil%20Change.JPG" />
+
+  <p>Admin Panel - Users - User Soft Delete (Passive)<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Soft%20Delete%20(Passive).JPG" />
+
+  <p>Admin Panel - Editor User<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Editor%20User.JPG" />
+
+  <p>Admin Panel - Access Denied - 403<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Access%20Denied%20-%20403.JPG" />
+
+
+
+  
