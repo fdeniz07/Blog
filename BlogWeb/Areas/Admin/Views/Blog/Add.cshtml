@@ -1,0 +1,85 @@
+﻿
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Makale Ekle";
+}
+
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="Index">Makaleler</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="Index">Ekle</a></li>
+</ol>
+<form asp-controller="Blog" asp-action="Add" method="post" enctype="multipart/form-data">
+    <div class="row mt-2">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input type="text" id="blogTitle" class="form-control" placeholder="Makale Başlığı" />
+                    </div>
+                    <div class="form-group">
+                        <textarea id="text-editor"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Temel Konfigürasyonlar
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="categoryList">Kategori</label>
+                        <select id="categoryList" class="form-control">
+                            <option disabled="disabled">Lütfen bir kategori seçiniz...</option>
+                            <option>C#</option>
+                            <option>C++</option>
+                            <option>Javascript</option>
+                            <option>Python</option>
+                            <option>Java</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="datepicker">Tarih</label>
+                        <input type="text" id="datepicker" value="@DateTime.Now.ToShortDateString()"  class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="datepicker">Küçük Resim</label>
+                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file"/>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" id="isActive" class="form-check-input"/>
+                        <label for="isActive" class="form-check-label">Aktif Mi?</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-2">
+            <div class="card">
+                <div class="card-header">
+                    SEO Optimizasyonu
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="seoWriter">Yazar</label>
+                            <input type="text" id="seoWriter" class="form-control"/>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="seoTags">Etiketler</label>
+                            <input type="text" id="seoTags" class="form-control"/>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="seoDescription">Makale Aciklamasi</label>
+                            <textarea id="seoDescription" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
