@@ -267,7 +267,7 @@ namespace BlogWeb.Areas.Admin.Controllers
                         _imageHelper.Delete(oldUserImage); //eski resmi db den siliyoruz
                     }
 
-                    var userUpdateViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel //Update isleminden sonra view e bir model dönüyoruz ki, frontend e kullanici bu bilgileri görsün
+                    var userUpdateViewModel = JsonSerializer.Serialize(new UserUpdateAjaxViewModel //UpdateAsync isleminden sonra view e bir model dönüyoruz ki, frontend e kullanici bu bilgileri görsün
                     {
                         UserDto = new UserDto
                         {

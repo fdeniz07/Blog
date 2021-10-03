@@ -29,11 +29,11 @@ namespace BlogWeb.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categoriesCountResult = await _categoryService.CountByNonDeleted();
-            var blogsCountResult = await _blogService.CountByNonDeleted();
-            var commentsCountResult = await _commentService.CountByNonDeleted();
+            var categoriesCountResult = await _categoryService.CountByNonDeletedAsync();
+            var blogsCountResult = await _blogService.CountByNonDeletedAsync();
+            var commentsCountResult = await _commentService.CountByNonDeletedAsync();
             var usersCount = await _userManager.Users.CountAsync();
-            var blogsResult = await _blogService.GetAll();
+            var blogsResult = await _blogService.GetAllAsync();
 
             if (categoriesCountResult.ResultStatus == ResultStatus.Success && blogsResult.ResultStatus == ResultStatus.Success && commentsCountResult.ResultStatus == ResultStatus.Success && usersCount > -1 && blogsCountResult.ResultStatus == ResultStatus.Success)
             {

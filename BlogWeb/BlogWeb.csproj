@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\AdminLTE\js\site.js" />
   </ItemGroup>
 
 </Project>

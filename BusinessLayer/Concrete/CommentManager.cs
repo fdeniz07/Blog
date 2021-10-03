@@ -16,7 +16,7 @@ namespace BusinessLayer.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IDataResult<int>> Count()
+        public async Task<IDataResult<int>> CountAsync()
         {
             var commentsCount = await _unitOfWork.Comments.CountAsync(); // tüm degerleri getir
             if (commentsCount > -1)
@@ -29,7 +29,7 @@ namespace BusinessLayer.Concrete
             }
         }
 
-        public async Task<IDataResult<int>> CountByNonDeleted()
+        public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
             var commentsCount = await _unitOfWork.Comments.CountAsync(c=>!c.IsDeleted); // Silinmemis degerleri getir
             if (commentsCount > -1)

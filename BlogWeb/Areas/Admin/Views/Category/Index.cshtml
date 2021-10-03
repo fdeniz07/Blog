@@ -62,8 +62,8 @@
                                 <td>@category.Id</td>
                                 <td>@category.CategoryName</td>
                                 <td>@category.Description</td>
-                                <td>@category.IsActive</td>
-                                <td>@category.IsDeleted</td>
+                                <td>@(category.IsActive ? "Evet" : "Hayır")</td>
+                                <td>@(category.IsDeleted ? "Evet" : "Hayır")</td>
                                 <td>@category.Note</td>
                                 <td>@category.CreatedDate.ToShortDateString()</td>
                                 <td>@category.CreatedByName</td>
@@ -550,5 +550,5 @@
 
 @section Scripts
 {
-    <script src="~/js/categoryIndex.js" type="application/ecmascript"></script>
+    <script src="~/AdminLTE/js/categoryIndex.js" type="application/ecmascript"></script>
 }

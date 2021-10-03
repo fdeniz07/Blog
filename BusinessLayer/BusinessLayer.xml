@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BusinessLayer</name>
+    </assembly>
+    <members>
+        <member name="M:BusinessLayer.Abstract.ICategoryService.GetCategoryUpdateDtoAsync(System.Int32)">
+            <summary>
+            Verilen ID parametresine ait kategorinin CategoryUpdateDto temsilini geriye döner.
+            </summary>
+            <param name="categoryId">0'dan büyük integer bir ID degeri</param>
+            <returns>Asenkron bir operasyon ile Task olarak islem sonucu DataResult tipinde geriye döner.</returns>
+        </member>
+        <member name="M:BusinessLayer.Abstract.ICategoryService.AddAsync(EntityLayer.Dtos.CategoryAddDto,System.String)">
+            <summary>
+            Verilen CategoryAddDto ve CreatedByName parametrelerine ait bilgiler ile yeni bir Category ekler
+            </summary>
+            <param name="categoryAddDto">categoryAddDto tipinde eklenecek kategori bilgileri</param>
+            <param name="createdByName">string tipinde kullanicinin kullanici adi</param>
+            <returns>Asenkron bir operasyon ile Task olarak bizlere ekleme isleminin sonucunu DataResult tipinde döner.</returns>
+        </member>
+        <member name="M:BusinessLayer.Concrete.CategoryManager.GetCategoryUpdateDtoAsync(System.Int32)">
+            <summary>
+            Verilen ID parametresine ait kategorinin CategoryUpdateDto temsilini geriye döner.
+            </summary>
+            <param name="categoryId">0'dan büyük integer bir ID degeri</param>
+            <returns>Asenkron bir operasyon ile Task olarak islem sonucu DataResult tipinde geriye döner.</returns>
+        </member>
+        <member name="M:BusinessLayer.Concrete.CategoryManager.AddAsync(EntityLayer.Dtos.CategoryAddDto,System.String)">
+            <summary>
+            Verilen CategoryAddDto ve CreatedByName parametrelerine ait bilgiler ile yeni bir Category ekler
+            </summary>
+            <param name="categoryAddDto">categoryAddDto tipinde eklenecek kategori bilgileri</param>
+            <param name="createdByName">string tipinde kullanicinin kullanici adi</param>
+            <returns>Asenkron bir operasyon ile Task olarak bizlere ekleme isleminin sonucunu DataResult tipinde döner.</returns>
+        </member>
+    </members>
+</doc>
