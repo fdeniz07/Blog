@@ -32,7 +32,8 @@
                     <div class="form-group">
                         <label for="categoryList">Kategori</label>
                         <select id="categoryList" class="form-control">
-                            <option disabled="disabled">Lütfen bir kategori seçiniz...</option>
+                            @*<option disabled="disabled">Lütfen bir kategori seçiniz...</option>*@
+                            <option></option>
                             <option>C#</option>
                             <option>C++</option>
                             <option>Javascript</option>
@@ -42,14 +43,14 @@
                     </div>
                     <div class="form-group">
                         <label for="datepicker">Tarih</label>
-                        <input type="text" id="datepicker" value="@DateTime.Now.ToShortDateString()"  class="form-control"/>
+                        <input type="text" id="datepicker" value="@DateTime.Now.ToShortDateString()" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label for="datepicker">Küçük Resim</label>
-                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file"/>
+                        <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" />
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" id="isActive" class="form-check-input"/>
+                        <input type="checkbox" id="isActive" class="form-check-input" />
                         <label for="isActive" class="form-check-label">Aktif Mi?</label>
                     </div>
                     <div class="form-group">
@@ -67,11 +68,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="seoWriter">Yazar</label>
-                            <input type="text" id="seoWriter" class="form-control"/>
+                            <input type="text" id="seoWriter" class="form-control" />
                         </div>
                         <div class="form-group col-md-6">
                             <label for="seoTags">Etiketler</label>
-                            <input type="text" id="seoTags" class="form-control"/>
+                            <input type="text" id="seoTags" class="form-control" />
                         </div>
                         <div class="form-group col-md-12">
                             <label for="seoDescription">Makale Aciklamasi</label>
@@ -83,3 +84,26 @@
         </div>
     </div>
 </form>
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/trumbowyg.min.js" integrity="sha512-t4CFex/T+ioTF5y0QZnCY9r5fkE8bMf9uoNH2HNSwsiTaMQMO0C9KbKPMvwWNdVaEO51nDL3pAzg4ydjWXaqbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/langs/tr.min.js" integrity="sha512-+HGzdrYvtA0U9cp5kJad8OpjTvUi6ywZ9z9kXFGiV3EaAR1II5X6lfulUm6/F9GKesHW+jHFfAqwXK0juybvMw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/colors/trumbowyg.colors.min.js" integrity="sha512-4QranVVhd9HLb3yDUL6q+zlHc5mEIcUrR5pfhdyyGzsqcH9vSROL0BgN8wW47mZ1tZ44tUvFkk/JXvhfNlzvHw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/emoji/trumbowyg.emoji.min.js" integrity="sha512-PPEK09bmt7tQg/qdNokvbckNVB4EqXTu+qi4X/j9XoFag6YspjU5xO/FXXCEjBxo1+Z41oOFvIyz5QkjSuTNsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/fontfamily/trumbowyg.fontfamily.min.js" integrity="sha512-ha/jXUX4sZMHEvpHLtYOIvMDK8/a8ncRhAPSmQVUx/to+04w+zUBWWZHaPQMPt6qjx94V/lbE9ZEsTsb7F+sTw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/fontsize/trumbowyg.fontsize.min.js" integrity="sha512-eYBhHjpFi6wk8wWyuXYYu54CRcXA3bCFSkcrco4SR1nGtGSedgAXbMbm3l5X4IVEWD8U7Pur9yNjzYu8n4aIMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/history/trumbowyg.history.min.js" integrity="sha512-xGM58FJ2TEC2u3Nzi0nGzW06MqaXiAVnd60+ZZqouWEjDOzgeJ3/ttaFzJflGTlBXJjNnQjwulynEL9yoSXOZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/indent/trumbowyg.indent.min.js" integrity="sha512-8Zi4EzOY/zNHwMwkFuqFCtbQTWkwl+72GxokBtPEmnLX0x8NLhYwgp1mrz3D/gZsWhKh0I6lci8iWhtINJH17w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/lineheight/trumbowyg.lineheight.min.js" integrity="sha512-OFUipl73huXFm3oTQxm5vk+LM8aW10Ccm/O0usQh+0Xsi3f4cbJIcsuQiGrRKYYyuhM+yqcDTvTVgayg/Z4gQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/AdminLTE/js/blogAdd.js" type="application/ecmascript"></script>
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/ui/trumbowyg.min.css" integrity="sha512-nwpMzLYxfwDnu68Rt9PqLqgVtHkIJxEPrlu3PfTfLQKVgBAlTKDmim1JvCGNyNRtyvCx1nNIVBfYm8UZotWd4Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/colors/ui/trumbowyg.colors.min.css" integrity="sha512-aE073TwNBnCl/Y99fSlH/29MS7CzKgrliM9rTVDURKiiGvapXN+hTmept74zsbcadVEzJ2RtfcyEyzySiYeJuA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.25.1/plugins/emoji/ui/trumbowyg.emoji.min.css" integrity="sha512-xpR3G7LZbpAnoUgES2Xu2Z/mK8NwejLjJpNHQtmdU36yGP2AS5kgpflPwv6vEurEeruDcghOtHkWNsOkwVx2ig==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
+}
