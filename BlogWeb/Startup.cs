@@ -35,7 +35,7 @@ namespace BlogWeb
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.Preserve;
-            });//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
+            }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile),typeof(ViewModelsProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
@@ -78,6 +78,7 @@ namespace BlogWeb
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseNToastNotify();
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(

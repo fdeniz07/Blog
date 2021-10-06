@@ -44,14 +44,25 @@
                             dataTable.clear();
                             console.log(blogResult);
                             if (blogResult.Data.ResultStatus === 0) {
+                                //Ayni kategoriye sahip 2 makale varsa ikinci makalenin kategorisi bos geliyor bunu cözmek icin asagida bir dizi olusturup(let categoriesArray=[];), ilk if icerisinde null gelmeyenleri diziye atiyor, ikinci if de null geleni bulup ref olarak dizimizde aratip atamamizi yapiyoruz
+                                let categoriesArray=[];
                                 $.each(blogResult.Data.Blogs.$values,
                                     function (index, blog) {
                                         const newBlog = getJsonNetObject(blog, blogResult.Data.Blogs.$values); // Coklu dizi sonularinda ilk id den sonra ref degeri aliniyorsa buradaki const degiskeninden     });dataTable.draw(); arasindaki gibi degisiklik yapilip, site.js icerisindeki //Coklu ref degeri cözümü noktasindan yararlanilir
-                                        
+                                        let newCategory = getJsonNetObject(newBlog.Category, newBlog);
+                                        if (newCategory !==null) {
+                                            categoriesArray.push(newCategory);
+                                        }
+                                        if (newCategory==null) {
+                                            newCategory = categoriesArray.find((category) => {
+                                                return category.$id === newBlog.Category.$ref;
+                                            });
+                                        }
                                         console.log(newBlog);
+                                        console.log(newCategory);
                                         const newTableRow = dataTable.row.add([
                                             newBlog.Id,
-                                            newBlog.Category.CategoryName,
+                                            newCategory.CategoryName,
                                             newBlog.Title,
                                             `<img src="/img/${newBlog.Thumbnail}" alt="${newBlog.Title}" class="my-image-table" />`,
                                             `${convertToShortDate(newBlog.Date)}`,

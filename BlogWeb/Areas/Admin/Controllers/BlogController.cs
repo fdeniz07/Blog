@@ -11,6 +11,7 @@ using EntityLayer.ComplexTypes;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using Microsoft.AspNetCore.Identity;
+using NToastNotify;
 
 namespace BlogWeb.Areas.Admin.Controllers
 {
@@ -19,12 +20,14 @@ namespace BlogWeb.Areas.Admin.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly IToastNotification _toastNotification;
 
 
-        public BlogController(IBlogService blogService, ICategoryService categoryService, UserManager<User> userManager,IMapper mapper ,IImageHelper imageHelper):base (userManager, mapper, imageHelper)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, UserManager<User> userManager,IMapper mapper ,IImageHelper imageHelper, IToastNotification toastNotification):base (userManager, mapper, imageHelper)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _toastNotification = toastNotification;
         }
 
         [HttpGet]
@@ -61,7 +64,11 @@ namespace BlogWeb.Areas.Admin.Controllers
                 var result = await _blogService.AddAsync(blogAddDto, LoggedInUser.UserName,LoggedInUser.Id);
                 if (result.ResultStatus==ResultStatus.Success)
                 {
-                    TempData.Add("SuccessMesage",result.Message);
+                    //TempData.Add("SuccessMesage",result.Message);
+                    _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
+                    {
+                        Title = "Başarılı İşlem!"
+                    });
                     return RedirectToAction("Index", "Blog");
                 }
                 else
@@ -118,7 +125,11 @@ namespace BlogWeb.Areas.Admin.Controllers
                     {
                         ImageHelper.Delete(oldThumbnail);
                     }
-                    TempData.Add("SuccessMessage", result.Message);
+                    //TempData.Add("SuccessMessage", result.Message);
+                    _toastNotification.AddSuccessToastMessage(result.Message, new ToastrOptions
+                    {
+                        Title = "Başarılı İşlem!"
+                    });
                     return RedirectToAction("Index", "Blog");
                 }
                 else

@@ -16,6 +16,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BlogWeb.Helpers.Abstract;
 using EntityLayer.ComplexTypes;
+using NToastNotify;
 
 namespace BlogWeb.Areas.Admin.Controllers
 {
@@ -26,13 +27,15 @@ namespace BlogWeb.Areas.Admin.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IImageHelper _imageHelper;
+        private readonly IToastNotification _toastNotification;
 
-        public UserController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager, IImageHelper imageHelper)
+        public UserController(UserManager<User> userManager, IMapper mapper, SignInManager<User> signInManager, IImageHelper imageHelper, IToastNotification toastNotification)
         {
             _userManager = userManager;
             _mapper = mapper;
             _signInManager = signInManager;
             _imageHelper = imageHelper;
+            _toastNotification = toastNotification;
         }
 
         [Authorize(Roles = "Admin")]
@@ -340,7 +343,8 @@ namespace BlogWeb.Areas.Admin.Controllers
                     {
                        _imageHelper.Delete(oldUserImage); //eski resmi db den siliyoruz
                     }
-                    TempData.Add("SuccessMessage", $"{ updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.");
+                    _toastNotification.AddSuccessToastMessage($"Bilgileriniz başarıyla güncellenmiştir.");
+                    //TempData.Add("SuccessMessage", $"{ updatedUser.UserName} adlı kullanıcı başarıyla güncellenmiştir.");
                     return View(userUpdateDto);
                 }
                 else //Kullanici güncelleme bilgileri db ye dogru sekilde yansimamissa,
@@ -379,7 +383,8 @@ namespace BlogWeb.Areas.Admin.Controllers
                         await _userManager.UpdateSecurityStampAsync(user);
                         await _signInManager.SignOutAsync();
                         await _signInManager.PasswordSignInAsync(user, userPasswordChangeDto.NewPassword, true, false);
-                        TempData.Add("SuccessMessage", $"Şifreniz başarıyla güncellenmiştir.");
+                        //TempData.Add("SuccessMessage", $"Şifreniz başarıyla güncellenmiştir.");
+                        _toastNotification.AddSuccessToastMessage($"Şifreniz başarıyla güncellenmiştir.");
                         return View();
                     }
                     else
