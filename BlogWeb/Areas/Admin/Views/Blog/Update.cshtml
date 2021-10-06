@@ -1,19 +1,21 @@
-﻿@model BlogWeb.Areas.Admin.Models.BlogAddViewModel
+﻿@model BlogWeb.Areas.Admin.Models.BlogUpdateViewModel
 @{
     Layout = "_Layout";
-    ViewBag.Title = "Makale Ekle";
+    ViewBag.Title = "Makale Düzenle";
 }
 
 <ol class="breadcrumb mb-3 mt-2">
     <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
     <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="Index">Makaleler</a></li>
-    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="Add">Ekle</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="Update">Düzenle</a></li>
 </ol>
-<form asp-controller="Blog" asp-action="Add" method="post" enctype="multipart/form-data">
+<form asp-controller="Blog" asp-action="Update" method="post" enctype="multipart/form-data">
     <div class="row mt-2">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="UserId"/>
                     <div class="form-group">
                         <input type="text" id="blogTitle" class="form-control" placeholder="Makale Başlığı" asp-for="Title" />
                         <span asp-validation-for="Title" class="text-danger"></span>
@@ -37,10 +39,10 @@
                             @*<option disabled="disabled">Lütfen bir kategori seçiniz...</option>*@
                             <option></option>
                             @*<option>C#</option>
-                            <option>C++</option>
-                            <option>Javascript</option>
-                            <option>Python</option>
-                            <option>Java</option>*@
+                <option>C++</option>
+                <option>Javascript</option>
+                <option>Python</option>
+                <option>Java</option>*@
                         </select>
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
@@ -50,7 +52,13 @@
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="datepicker" asp-for="ThumbnailFile"></label>
+                        <label for="thumbnailUpload" asp-for="Thumbnail"></label>
+                        <input type="hidden" id="thumbnail" class="form-control-file" asp-for="Thumbnail" />
+                        <img class="my-image" src="~/img/@Model.Thumbnail" alt="@Model.Title" />
+                        <span asp-validation-for="Thumbnail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="thumbnailUpload" asp-for="ThumbnailFile"></label>
                         <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" asp-for="ThumbnailFile" />
                         <span asp-validation-for="ThumbnailFile" class="text-danger"></span>
                     </div>
@@ -60,7 +68,7 @@
                         <span asp-validation-for="IsActive" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block mt-4" id="btnSave"><span class="fas fa-save" ></span> Kaydet</button>
+                        <button type="submit" class="btn btn-primary btn-block" id="btnSave"><span class="fas fa-save"></span> Kaydet</button>
                     </div>
                 </div>
             </div>

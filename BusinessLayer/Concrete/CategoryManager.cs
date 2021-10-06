@@ -25,6 +25,9 @@ namespace BusinessLayer.Concrete
         }
 
 
+
+        /////////////////////// GetAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<CategoryDto>> GetAsync(int categoryId)
         {
             var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
@@ -44,6 +47,10 @@ namespace BusinessLayer.Concrete
                 Message = Messages.Category.NotFound(isPlural: false)
             });
         }
+
+
+
+        /////////////////////// GetCategoryUpdateDtoAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         /// <summary>
         /// Verilen ID parametresine ait kategorinin CategoryUpdateDto temsilini geriye döner.
@@ -65,6 +72,9 @@ namespace BusinessLayer.Concrete
             }
         }
 
+
+        /////////////////////// GetAllAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<CategoryListDto>> GetAllAsync()
         {
             var categories = await _unitOfWork.Categories.GetAllAsync(null);
@@ -85,6 +95,9 @@ namespace BusinessLayer.Concrete
                 Message = Messages.Category.NotFound(isPlural: true)
             });
         }
+
+
+        /////////////////////// GetAllByNonDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAsync() //Silinmemis olanlari getir
         {
@@ -109,6 +122,9 @@ namespace BusinessLayer.Concrete
             return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
+
+        /////////////////////// GetAllByNonDeletedAndActiveAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<CategoryListDto>> GetAllByNonDeletedAndActiveAsync()
         {
             var categories = await _unitOfWork.Categories.GetAllAsync(c => !c.IsDeleted && c.IsActive);
@@ -125,6 +141,9 @@ namespace BusinessLayer.Concrete
             return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
+
+
+        /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         /// <summary>
         /// Verilen CategoryAddDto ve CreatedByName parametrelerine ait bilgiler ile yeni bir Category ekler
@@ -169,6 +188,9 @@ namespace BusinessLayer.Concrete
 
         }
 
+
+        /////////////////////// UpdateAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName)
         {
             #region Before using Automapper
@@ -202,6 +224,9 @@ namespace BusinessLayer.Concrete
             });
         }
 
+
+        /////////////////////// DeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName)
         {
             var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
@@ -229,6 +254,9 @@ namespace BusinessLayer.Concrete
             });
         }
 
+
+        /////////////////////// HardDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IResult> HardDeleteAsync(int categoryId)
         {
             var category = await _unitOfWork.Categories.GetAsync(c => c.Id == categoryId);
@@ -242,6 +270,9 @@ namespace BusinessLayer.Concrete
             return new Result(ResultStatus.Error, Messages.Category.NotFound(isPlural: false));
         }
 
+
+        /////////////////////// CountAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<int>> CountAsync()
         {
             var categoriesCount = await _unitOfWork.Categories.CountAsync();// tüm degerleri getir
@@ -254,6 +285,9 @@ namespace BusinessLayer.Concrete
                 return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
             }
         }
+
+
+        /////////////////////// CountByNonDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {

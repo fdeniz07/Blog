@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CoreLayer.Utilities.Extensions;
 using CoreLayer.Utilities.Results.ComplexTypes;
 using CoreLayer.Utilities.Results.Concrete;
+using EntityLayer.ComplexTypes;
 
 namespace BlogWeb.Helpers.Concrete
 {
@@ -16,7 +17,9 @@ namespace BlogWeb.Helpers.Concrete
     {
         private readonly IWebHostEnvironment _env;
         private readonly string _wwwroot;
-        private readonly string imgFolder = "img";
+        private const string imgFolder = "img";
+        private const string UserImagesFolder = "userImages";
+        private const string postImagesFolder = "postImages";
 
         public ImageHelper(IWebHostEnvironment env)
         {
@@ -24,13 +27,11 @@ namespace BlogWeb.Helpers.Concrete
             _wwwroot = _env.WebRootPath;
         }
 
-        public async Task<IDataResult<ImageUploadedDto>> UploadUserImage(string userName, IFormFile imageFile, string folderName="userImages")
+        public async Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile imageFile,ImageType imageType,string folderName=null)
         {
-            // ~/img/user.Picture
-
             #region Özet
             /*
-             * 1- Bize bu metot icerisinden bir folderName parametresi geliyor
+             * 1- Bize bu metot icerisinden bir folderName parametresi geliyor. Eger foldeName degiskeni bize null gelirse, parametreyle gelen imageType'i kontrol ediyoruz. Eger bu imageType user olarak gelirse userImagesFolder, post (makale)olarak gelmisse postImagesFolder olarak geriye döndürerek atamis olacagiz. Yani yeni bir resim eklerken, her seferinde yeni bir klasör adi vermemize gerek kalmiyor.
              * 2- Biz bu dosyanin daha önceden olup olmadigini kontrol ediyoruz. Eger yoksa bu dizin olusturuluyor, varsa ilgili islemler yapiliyor.
              * 3- Resmin adini oldFileName, resmin uzantisini da fileExtension degiskenlerine aliyoruz
              * 4- Bulunulan tarihi alip, bizim core katmanimizda daha önceden olusturdugumuz extension metodumuzda(FullDateAndTimeStringWithUnderscore) aldigimiz bilgileri formatliyoruz
@@ -40,26 +41,45 @@ namespace BlogWeb.Helpers.Concrete
              */
             #endregion
 
+            /* Eğer folderName değişkeni null gelir ise, o zaman resim tipine göre (ImageType) klasör adı ataması yapılır. */
+            folderName ??= imageType == ImageType.User ? UserImagesFolder : postImagesFolder;
+
+            /* Eğer folderName değişkeni ile gelen klasör adı sistemimizde mevcut değilse, yeni bir klasör oluşturulur. */
             if (!Directory.Exists($"{_wwwroot}/{imgFolder}/{folderName}"))
             {
                 Directory.CreateDirectory($"{_wwwroot}/{imgFolder}/{folderName}");
             }
 
+            /* Resimin yüklenme sırasındaki ilk adı oldFileName adlı değişkene atanır. */
             string oldFileName = Path.GetFileNameWithoutExtension(imageFile.FileName); // fatihdeniz
-            string fileExtension = Path.GetExtension(imageFile.FileName); //.png
-            DateTime dateTime = DateTime.Now;
-            //FatihDeniz_601_5_38_12_28_09_2021_userFatihDenizResmi.png
-            //string fileName = $"{UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}_{fileName2}";
 
-            //FatihDeniz_601_5_38_12_28_09_2021.png
-            string newFileName = $"{userName}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+            /* Resimin uzantısı fileExtension adlı değişkene atanır. */
+            string fileExtension = Path.GetExtension(imageFile.FileName); //.png
+
+            DateTime dateTime = DateTime.Now;
+
+            /*
+            // Parametre ile gelen değerler kullanılarak yeni bir resim adı oluşturulur.
+            // Örn: FatihDeniz_601_5_38_12_28_09_2021.png
+            //string fileName = $"{UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}_{fileName2}";
+            */
+            string newFileName = $"{name}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+
+            /* Kendi parametrelerimiz ile sistemimize uygun yeni bir dosya yolu (path) oluşturulur. */
             var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
+
+            /* Sistemimiz için oluşturulan yeni dosya yoluna resim kopyalanır. */
             await using (var stream = new FileStream(path, FileMode.Create))
             {
                 await imageFile.CopyToAsync(stream);
             }
 
-            return new DataResult<ImageUploadedDto>(ResultStatus.Success,$"{userName} adlı kullanıcının resmi başarıyla yüklenmiştir.",new ImageUploadedDto
+            /* Resim tipine göre kullanıcı için bir mesaj oluşturulur. */
+            string nameMessage = imageType == ImageType.User
+                ? $"{name} adlı kullanıcının resmi başarıyla yüklenmiştir."
+                : $"{name} adlı makalenin resmi başarıyla yüklenmiştir.";
+            
+            return new DataResult<ImageUploadedDto>(ResultStatus.Success, nameMessage, new ImageUploadedDto
             {
                 FullName = $"{folderName}/{newFileName}",
                 OldName = oldFileName,

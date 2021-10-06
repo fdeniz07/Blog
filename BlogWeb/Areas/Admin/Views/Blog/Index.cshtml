@@ -54,11 +54,11 @@
                 <tbody>
                     @foreach (var blog in Model.Blogs)
                     {
-                        <tr>
+                        <tr name="@blog.Id">
                             <td>@blog.Id</td>
                             <td>@blog.Category.CategoryName</td>
                             <td>@blog.Title</td>
-                            <td><img src="~/img/@blog.ThumbnailImage" class="my-image-table" /></td>
+                            <td><img src="~/img/@blog.Thumbnail" class="my-image-table" /></td>
                             <td>@blog.Date.ToShortDateString()</td>
                             <td>@blog.ViewCount</td>
                             <td>@blog.CommentCount</td>
@@ -69,7 +69,7 @@
                             <td>@blog.ModifiedDate.ToShortDateString()</td>
                             <td>@blog.ModifiedByName</td>
                             <td>
-                                <button class="btn btn-primary btn-sm btn-update" data-id="@blog.Id"><span class="fas fa-edit"></span></button>
+                                <a class="btn btn-primary btn-sm btn-update" data-id="@blog.Id" asp-area="Admin" asp-controller="Blog" asp-action="Update" asp-route-blogId="@blog.Id"><span class="fas fa-edit"></span></a>
                                 <button class="btn btn-danger btn-sm btn-delete" data-id="@blog.Id"><span class="fas fa-minus-circle"></span></button>
                             </td>
                         </tr>

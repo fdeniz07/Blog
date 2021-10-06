@@ -16,7 +16,7 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.Property(b => b.Content).IsRequired().HasColumnType("NVARCHAR(MAX)");
             builder.Property(b => b.Date).IsRequired();
             builder.Property(b => b.Image).HasMaxLength(250);
-            builder.Property(b => b.ThumbnailImage).IsRequired().HasMaxLength(250);
+            builder.Property(b => b.Thumbnail).IsRequired().HasMaxLength(250);
             builder.Property(b => b.SeoAuthor).IsRequired().HasMaxLength(50);
             builder.Property(b => b.SeoDescription).IsRequired().HasMaxLength(150);
             builder.Property(b => b.SeoTags).IsRequired().HasMaxLength(100);
@@ -48,7 +48,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        CategoryId = 1,
             //        Title = "C# 9.0 ve NET 5 Yenilikleri",
             //        Content = "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir.",
-            //        ThumbnailImage = "Default.jpg",
+            //        Thumbnail = "Default.jpg",
             //        Image = "Default.jpg",
             //        SeoDescription = "C# 9.0 ve NET 5 Yenilikleri",
             //        SeoTags = "C#, C# 9, .NET 5, .NET Framework, .NET Core, .NET Core MVC",
@@ -71,7 +71,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        CategoryId = 2,
             //        Title = "Java ve Spring Yenilikleri",
             //        Content = "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
-            //        ThumbnailImage = "Default.jpg",
+            //        Thumbnail = "Default.jpg",
             //        Image = "Default.jpg",
             //        SeoDescription = "Java ve Spring Yenilikleri",
             //        SeoTags = "Java, Spring, Spring Boot, Lombok, Eclipse, Swagger, Maven",
@@ -94,7 +94,7 @@ namespace DataAccessLayer.Concrete.Configurations
             //        CategoryId = 3,
             //        Title = "Java Script ES2019 ve ES2020 Yenilikleri",
             //        Content = "Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. ",
-            //        ThumbnailImage = "Default.jpg",
+            //        Thumbnail = "Default.jpg",
             //        Image = "Default.jpg",
             //        SeoDescription = "Java Script ES2019 ve ES2020 Yenilikleri",
             //        SeoTags = "Java Script ES2019, Java Script ES2020",

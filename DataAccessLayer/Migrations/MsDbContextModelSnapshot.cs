@@ -219,7 +219,7 @@ namespace DataAccessLayer.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("ThumbnailImage")
+                    b.Property<string>("Thumbnail")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -298,12 +298,12 @@ namespace DataAccessLayer.Migrations
                             Id = 1,
                             CategoryName = "C#",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8509),
+                            CreatedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(1989),
                             Description = "C# Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8688),
+                            ModifiedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(2186),
                             Note = "C# Blog Kategorisi"
                         },
                         new
@@ -311,12 +311,12 @@ namespace DataAccessLayer.Migrations
                             Id = 2,
                             CategoryName = "Java",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8848),
+                            CreatedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(2355),
                             Description = "Java Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8850),
+                            ModifiedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(2357),
                             Note = "Java Blog Kategorisi"
                         },
                         new
@@ -324,12 +324,12 @@ namespace DataAccessLayer.Migrations
                             Id = 3,
                             CategoryName = "Java Script",
                             CreatedByName = "InitialCreate",
-                            CreatedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8856),
+                            CreatedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(2363),
                             Description = "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler",
                             IsActive = true,
                             IsDeleted = false,
                             ModifiedByName = "InitialCreate",
-                            ModifiedDate = new DateTime(2021, 10, 3, 6, 56, 2, 801, DateTimeKind.Local).AddTicks(8858),
+                            ModifiedDate = new DateTime(2021, 10, 6, 12, 56, 4, 202, DateTimeKind.Local).AddTicks(2365),
                             Note = "Java Script Blog Kategorisi"
                         });
                 });
@@ -475,14 +475,14 @@ namespace DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "4f57d71a-e3d7-4c31-968e-9c1e8d6de5c6",
+                            ConcurrencyStamp = "fcc0f2f2-f9d7-4d1c-a036-83652c711f50",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "df12f0c5-8ba8-4e5f-81a1-0d256607ab99",
+                            ConcurrencyStamp = "2e342822-5681-4c0e-adca-1d20c26bd170",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         });
@@ -587,17 +587,17 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e1988b8-92ef-444c-a828-b64f2d06c726",
+                            ConcurrencyStamp = "e41e4341-c3b4-43df-80c8-4d394433b698",
                             Email = "adminuser@gmail.com",
                             EmailConfirmed = true,
                             Image = "defaultUser.png",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMINUSER@GMAIL.COM",
                             NormalizedUserName = "ADMINUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMz/eDR7ToBko3q4UICw3TSBvP9/y4lJJxUxdJ3VXLe334eTTCV43maIrtc9mzeESg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPJ06lyk4/TTu5Jf9Wdb86HmCaQLBHOCgQ3XMTkhDuj3KPUXsk7Dv/Rnky4hR2HewQ==",
                             PhoneNumber = "+905555555555",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "0c709d94-662d-4a5d-ad7f-7deb4c116e79",
+                            SecurityStamp = "9557ec32-ca4f-4873-a602-6a205ce950d4",
                             TwoFactorEnabled = false,
                             UserName = "adminuser"
                         },
@@ -605,17 +605,17 @@ namespace DataAccessLayer.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f91908c-108f-42a0-8bb0-6b9f2ea1546a",
+                            ConcurrencyStamp = "4976efe0-c170-4c49-8e10-b4a15744a6ba",
                             Email = "editoruser@gmail.com",
                             EmailConfirmed = true,
                             Image = "defaultUser.png",
                             LockoutEnabled = false,
                             NormalizedEmail = "EDITORUSER@GMAIL.COM",
                             NormalizedUserName = "EDITORUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPN2Yt26pLfNN7kfzWCU+fxW73b8RskR8Pap6/k+JyCtK0xD8MRpf/OYraCG++j0vw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMkf8cQywu6U2q3BfDRwiEMcFhbiD+AbhS5vmjeuqCrbbJQ4aHWcohQiC/noq7g/Eg==",
                             PhoneNumber = "+905555555555",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "529fbb92-b7e2-4abb-906e-97012802d630",
+                            SecurityStamp = "b8bdde20-bc3b-4b2a-990c-e8eb75bbd22b",
                             TwoFactorEnabled = false,
                             UserName = "editoruser"
                         });

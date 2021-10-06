@@ -420,7 +420,7 @@
                 $.get(url, { userId: id }).done(function (data) {
                     placeHolderDiv.html(data);
                     placeHolderDiv.find('.modal').modal('show');
-                }).fail(function () {
+                }).fail(function (err) {
                     toastr.error(`${err.responseText}`, 'Hata!');
                 });
             });

@@ -8,7 +8,7 @@ namespace EntityLayer.Concrete
     {
         public string Title { get; set; }
         public string Content { get; set; }
-        public string ThumbnailImage { get; set; }
+        public string Thumbnail { get; set; }
         public string Image { get; set; }
         public DateTime Date { get; set; }
         public int ViewCount { get; set; } = 0; //Baslangic degeri

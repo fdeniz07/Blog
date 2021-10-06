@@ -2,12 +2,13 @@
 using EntityLayer.Dtos;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using EntityLayer.ComplexTypes;
 
 namespace BlogWeb.Helpers.Abstract
 {
     public interface IImageHelper
     {
-        Task<IDataResult<ImageUploadedDto>> UploadUserImage(string userName, IFormFile imageFile, string folderName = "userImages");
+        Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile imageFile,ImageType imageType ,string folderName = null);
         IDataResult<ImageDeletedDto> Delete(string imageName);
     }
 }

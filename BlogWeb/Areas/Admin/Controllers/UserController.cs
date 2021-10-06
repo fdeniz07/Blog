@@ -15,6 +15,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using BlogWeb.Helpers.Abstract;
+using EntityLayer.ComplexTypes;
 
 namespace BlogWeb.Areas.Admin.Controllers
 {
@@ -137,7 +138,7 @@ namespace BlogWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-               var uploadedImageDtoResult = await _imageHelper.UploadUserImage(userAddDto.UserName, userAddDto.ImageFile);
+               var uploadedImageDtoResult = await _imageHelper.Upload(userAddDto.UserName, userAddDto.ImageFile,ImageType.User);
                userAddDto.Image = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
                    ? uploadedImageDtoResult.Data.FullName: "userImages/defaultUser.png";
                 var user = _mapper.Map<User>(userAddDto);
@@ -249,7 +250,7 @@ namespace BlogWeb.Areas.Admin.Controllers
                 var oldUserImage = oldUser.Image; //kullanicinin eski resmini bir degiskene atiyoruz
                 if (userUpdateDto.ImageFile != null) //Eger kullanici yeni bir resim yüklerse
                 {
-                    var uploadedImageDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.ImageFile);
+                    var uploadedImageDtoResult = await _imageHelper.Upload(userUpdateDto.UserName, userUpdateDto.ImageFile,ImageType.User);
                     userUpdateDto.Image = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
                         ? uploadedImageDtoResult.Data.FullName : "userImages/defaultUser.png"; //kullanicinin yeni resmini güncelle
                     if (oldUserImage != "userImages/defaultUser.png") // Diger kullanicilarinda kullandigi ortak resmin kontrolü yapiliyor, ortak resim ise silme isleminin önüne geciyoruz
@@ -322,7 +323,7 @@ namespace BlogWeb.Areas.Admin.Controllers
                 var oldUserImage = oldUser.Image; //kullanicinin eski resmini bir degiskene atiyoruz
                 if (userUpdateDto.ImageFile != null) //Eger kullanici yeni bir resim yüklerse
                 {
-                    var uploadedImageDtoResult = await _imageHelper.UploadUserImage(userUpdateDto.UserName, userUpdateDto.ImageFile);
+                    var uploadedImageDtoResult = await _imageHelper.Upload(userUpdateDto.UserName, userUpdateDto.ImageFile,ImageType.User);
                     userUpdateDto.Image = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
                         ? uploadedImageDtoResult.Data.FullName : "userImages/defaultUser.png"; //kullanicinin yeni resmini güncelle
                     if (oldUserImage!= "userImages/defaultUser.png") // Diger kullanicilarinda kullandigi ortak resmin kontrolü yapiliyor, ortak resim ise silme isleminin önüne geciyoruz

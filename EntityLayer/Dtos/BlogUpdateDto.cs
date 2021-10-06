@@ -7,7 +7,7 @@ namespace EntityLayer.Dtos
 {
     public class BlogUpdateDto
     {
-        [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
+        [Required]
         public int Id { get; set; }
 
         [DisplayName("Başlık")]
@@ -38,19 +38,19 @@ namespace EntityLayer.Dtos
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
-        [DisplayName("Seo Yazar Bilgisi")]
+        [DisplayName("Seo Yazar")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         [MaxLength(50, ErrorMessage = "{0} alanı {1} karakterden büyük olmamalıdır")]
         [MinLength(0, ErrorMessage = "{0} alanı {1} karakterden küçük olmamalıdır")]
         public string SeoAuthor { get; set; }
 
-        [DisplayName("Seo Açıklama Bilgisi")]
+        [DisplayName("Seo Açıklama")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         [MaxLength(150, ErrorMessage = "{0} alanı {1} karakterden büyük olmamalıdır")]
         [MinLength(0, ErrorMessage = "{0} alanı {1} karakterden küçük olmamalıdır")]
         public string SeoDescription { get; set; }
 
-        [DisplayName("Seo Etiket Bilgisi")]
+        [DisplayName("Seo Etiketler")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         [MaxLength(100, ErrorMessage = "{0} alanı {1} karakterden büyük olmamalıdır")]
         [MinLength(0, ErrorMessage = "{0} alanı {1} karakterden küçük olmamalıdır")]
@@ -59,6 +59,7 @@ namespace EntityLayer.Dtos
         [DisplayName("Kategori")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         public int CategoryId { get; set; }
+
         public Category Category { get; set; }
 
         [DisplayName("Aktif Mi?")]
@@ -68,5 +69,8 @@ namespace EntityLayer.Dtos
         [DisplayName("Silindi Mi?")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         public bool IsDelete { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
     }
 }

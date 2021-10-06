@@ -23,6 +23,10 @@ namespace BusinessLayer.Concrete
             _mapper = mapper;
         }
 
+
+
+        /////////////////////// GetAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<BlogDto>> GetAsync(int blogId)
         {
             var blog = await _unitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category);
@@ -36,6 +40,28 @@ namespace BusinessLayer.Concrete
             }
             return new DataResult<BlogDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural:false), null);
         }
+
+
+        /////////////////////// GetBlogUpdateDtoAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<BlogUpdateDto>> GetBlogUpdateDtoAsync(int blogId)
+        {
+            var result = await _unitOfWork.Blogs.AnyAsync(b => b.Id == blogId);
+            if (result)
+            {
+                var blog = await _unitOfWork.Blogs.GetAsync(b => b.Id == blogId);
+                var blogUpdateDto = _mapper.Map<BlogUpdateDto>(blog);
+                return new DataResult<BlogUpdateDto>(ResultStatus.Success, blogUpdateDto);
+            }
+            else
+            {
+                return new DataResult<BlogUpdateDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false), null);
+            }
+        }
+
+
+
+        /////////////////////// GetAllAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<BlogListDto>> GetAllAsync()
         {
@@ -51,6 +77,9 @@ namespace BusinessLayer.Concrete
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: true), null);
         }
 
+
+        /////////////////////// GetAllByNonDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeletedAsync()
         {
             var blogs = await _unitOfWork.Blogs.GetAllAsync(b => !b.IsDeleted, bl => bl.User, bl => bl.Category);
@@ -64,6 +93,9 @@ namespace BusinessLayer.Concrete
             }
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: true), null);
         }
+
+
+        /////////////////////// GetAllByNonDeletedAndActiveAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeletedAndActiveAsync()
         {
@@ -80,12 +112,16 @@ namespace BusinessLayer.Concrete
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: true), null);
         }
 
+
+
+        /////////////////////// GetAllByCategoryAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<BlogListDto>> GetAllByCategoryAsync(int categoryId)
         {
             var result = await _unitOfWork.Categories.AnyAsync(c => c.Id == categoryId);
             if (result)
             {
-                var blogs = await _unitOfWork.Blogs.GetAllAsync(b => b.CategoryId == categoryId && !b.IsActive, bl => bl.User,
+                var blogs = await _unitOfWork.Blogs.GetAllAsync(b => b.CategoryId == categoryId && !b.IsDeleted && b.IsActive, bl => bl.User,
                     bl => bl.Category);
                 if (blogs.Count > -1)
                 {
@@ -100,26 +136,39 @@ namespace BusinessLayer.Concrete
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
         }
 
-        public async Task<IResult> AddAsync(BlogAddDto blogAddDto, string createdByName)
+
+
+        /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IResult> AddAsync(BlogAddDto blogAddDto, string createdByName, int userId)
         {
             var blog = _mapper.Map<Blog>(blogAddDto);
             blog.CreatedByName = createdByName;
             blog.ModifiedByName = createdByName;
-            blog.UserId = 1; //Ileride session a baglanacak
+            blog.UserId = userId;
                              //await _unitOfWork.Blogs.AddAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync()); // Bu bölüm hizli oldugu icin thread'in biri kayit ederken diger islem calisacagi icin hata aliyoruz (core 6 ile düzelebilir)
             await _unitOfWork.Blogs.AddAsync(blog);
             await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Blog.Add(blog.Title));
         }
 
+
+
+        /////////////////////// UpdateAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IResult> UpdateAsync(BlogUpdateDto blogUpdateDto, string modifiedByName)
         {
-            var blog = _mapper.Map<Blog>(blogUpdateDto);
+            var oldBlog = await _unitOfWork.Blogs.GetAsync(b => b.Id == blogUpdateDto.Id);
+            var blog = _mapper.Map<BlogUpdateDto,Blog>(blogUpdateDto,oldBlog);
             blog.ModifiedByName = modifiedByName; //Diger alanlar Automapper ile otomatik tamamlaniyor. Automapper, bize kod kalabaliginin ve zaman kaybinin önüne gecmemizi sagliyor.
             await _unitOfWork.Blogs.UpdateAsync(blog);
             await _unitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Blog.Update(blog.Title));
         }
+
+
+
+        /////////////////////// DeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IResult> DeleteAsync(int blogId, string modifiedByName)
         {
@@ -137,6 +186,10 @@ namespace BusinessLayer.Concrete
             return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
         }
 
+
+
+        /////////////////////// HardDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IResult> HardDeleteAsync(int blogId)
         {
             var result = await _unitOfWork.Blogs.AnyAsync(b => b.Id == blogId);
@@ -149,6 +202,10 @@ namespace BusinessLayer.Concrete
             }
             return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
         }
+
+
+
+        /////////////////////// CountAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<int>> CountAsync()
         {
@@ -163,6 +220,10 @@ namespace BusinessLayer.Concrete
             }
         }
 
+
+
+        /////////////////////// CountByNonDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
         public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
             var blogsCount = await _unitOfWork.Blogs.CountAsync(b=>!b.IsDeleted);// Silinmemis degerleri getir
@@ -175,5 +236,6 @@ namespace BusinessLayer.Concrete
                 return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
             }
         }
+
     }
 }

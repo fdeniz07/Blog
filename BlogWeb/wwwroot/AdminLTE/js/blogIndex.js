@@ -33,44 +33,55 @@
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/User/GetAllUsers/',
+                        url: '/Admin/Blog/GetAllBlogs/',
                         contentType: "application/json",
                         beforeSend: function () {
-                            $('#usersTable').hide();
+                            $('#blogsTable').hide();
                             $('.spinner-border').show();
                         },
                         success: function (data) {
-                            const userListDto = jQuery.parseJSON(data);
+                            const blogResult = jQuery.parseJSON(data);
                             dataTable.clear();
-                            console.log(userListDto);
-                            if (userListDto.ResultStatus === 0) {
-                                $.each(userListDto.Users.$values,
-                                    function (index, user) {
-                                      const newTableRow=   dataTable.row.add([
-                                            user.Id,
-                                            user.UserName,
-                                            user.Email,
-                                            user.PhoneNumber,
-                                            `<img src="/img/${user.Image}" alt="${user.UserName}" class="my-image-table" />`,
+                            console.log(blogResult);
+                            if (blogResult.Data.ResultStatus === 0) {
+                                $.each(blogResult.Data.Blogs.$values,
+                                    function (index, blog) {
+                                        const newBlog = getJsonNetObject(blog, blogResult.Data.Blogs.$values); // Coklu dizi sonularinda ilk id den sonra ref degeri aliniyorsa buradaki const degiskeninden     });dataTable.draw(); arasindaki gibi degisiklik yapilip, site.js icerisindeki //Coklu ref degeri cözümü noktasindan yararlanilir
+                                        
+                                        console.log(newBlog);
+                                        const newTableRow = dataTable.row.add([
+                                            newBlog.Id,
+                                            newBlog.Category.CategoryName,
+                                            newBlog.Title,
+                                            `<img src="/img/${newBlog.Thumbnail}" alt="${newBlog.Title}" class="my-image-table" />`,
+                                            `${convertToShortDate(newBlog.Date)}`,
+                                            newBlog.ViewCount,
+                                            newBlog.CommentCount,
+                                            `${newBlog.IsActive ? "Evet" : "Hayır"}`,
+                                            `${newBlog.IsDeleted ? "Evet" : "Hayır"}`,
+                                            `${convertToShortDate(newBlog.CreatedDate)}`,
+                                            newBlog.CreatedByName,
+                                            `${convertToShortDate(newBlog.ModifiedDate)}`,
+                                            newBlog.ModifiedByName,
                                             `
-                                                  <button class="btn btn-primary btn-sm btn-update" data-id="${user.Id}"><span class="fas fa-edit"></span></button>
-                                                  <button class="btn btn-danger btn-sm btn-delete" data-id="${user.Id}"><span class="fas fa-minus-circle"></span></button>
+                                <button class="btn btn-primary btn-sm btn-update" data-id="${newBlog.Id}"><span class="fas fa-edit"></span></button>
+                                <button class="btn btn-danger btn-sm btn-delete" data-id="${newBlog.Id}"><span class="fas fa-minus-circle"></span></button>
                                             `
-                                      ]).node();
+                                        ]).node();
                                         const jqueryTableRow = $(newTableRow);
-                                        jqueryTableRow.attr('name', `${user.Id}`);
+                                        jqueryTableRow.attr('name', `${newBlog.Id}`);
                                     });
                                 dataTable.draw();
                                 $('.spinner-border').hide();
-                                $('#usersTable').fadeIn(2000);
+                                $('#blogsTable').fadeIn(2000);
                             } else {
-                                toastr.error(`${userListDto.Message}`, 'İşlem Başarısız!');
+                                toastr.error(`${blogResult.Data.Message}`, 'İşlem Başarısız!');
                             }
                         },
                         error: function (err) {
                             console.log(err);
                             $('.spinner-border').hide();
-                            $('#usersTable').fadeIn(1000);
+                            $('#blogsTable').fadeIn(1000);
                             toastr.error(`${err.responseText}`, 'Hata!');
                         }
                     });
@@ -293,10 +304,10 @@
             event.preventDefault();
             const id = $(this).attr('data-id');
             const tableRow = $(`[name="${id}"]`);
-            const userName = tableRow.find('td:eq(1)').text();
+            const blogTitle = tableRow.find('td:eq(2)').text(); //eq(2) index numarasi (blog index)
             Swal.fire({
                 title: 'Silmek istediğinize emin misiniz?',
-                text: `${userName} adlı kullanıcı silinicektir!`,
+                text: `${blogTitle} başlıklı makale silinicektir!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -308,14 +319,14 @@
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
-                        data: { userId: id },
-                        url: '/Admin/User/Delete/',
+                        data: { blogId: id },
+                        url: '/Admin/Blog/Delete/', //istek yapilmak istenen alan
                         success: function (data) {
-                            const userDto = jQuery.parseJSON(data);
-                            if (userDto.ResultStatus === 0) {
+                            const blogResult = jQuery.parseJSON(data);
+                            if (blogResult.ResultStatus === 0) {
                                 Swal.fire(
                                     'Silindi!',
-                                    `${userDto.User.UserName} adlı kullanıcı başarıyla silinmiştir.`,
+                                    `${blogResult.Message}`,
                                     'success'
                                 );
 
@@ -323,8 +334,8 @@
                             } else {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Başarısız işlem!',
-                                    text: `${userDto.Message}`,
+                                    title: 'Başarısız İşlem!',
+                                    text: `${blogResult.Message}`,
                                 });
                             }
                         },
