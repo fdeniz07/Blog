@@ -33,8 +33,8 @@ This Project is a Blog Project.
 - Sweet Alert2 - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Toastr - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - DataTables - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
-- Trumbowyg
-- Select2
+- Trumbowyg - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
+- Select2 - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Bootstrap 4.5 - <img src="https://banner2.cleanpng.com/20180318/wwe/kisspng-check-mark-computer-icons-royalty-free-clip-art-blue-check-mark-5aae2bc6a7d722.9474025515213639106875.jpg" width=25px height=15px/>
 - Email (SMTP) Operations
 
