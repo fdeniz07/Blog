@@ -1,0 +1,51 @@
+﻿@model EntityLayer.Dtos.RoleListDto
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Roller";
+}
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Role" asp-action="Index">Roller</a></li>
+</ol>
+<div id="modalPlaceHolder" aria-hidden="true"></div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Roller
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="rolesTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Rol Adı</th>
+                </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Rol Adı</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                @foreach (var role in Model.Roles)
+                {
+                    <tr name="@role.Id">
+                        <td>@role.Id</td>
+                        <td>@role.Name</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/AdminLTE/js/roleIndex.js" type="application/ecmascript"></script>
+}
+@section Styles
+{
+    
+}

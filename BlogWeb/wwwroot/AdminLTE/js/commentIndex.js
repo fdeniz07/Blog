@@ -7,74 +7,68 @@
         .css({ 'width': '350px', 'display': 'inline-block' });
 
 
-
-
     /* DataTables start here. */
 
-    const dataTable = $('#usersTable').DataTable({
+    const dataTable = $('#commentsTable').DataTable({
         dom:
             "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [
             {
-                text: 'Ekle',
-                attr: {
-                    id: "btnAdd",
-                },
-                className: 'btn btn-success',
-                action: function (e, dt, node, config) {
-                }
-            },
-            {
                 text: 'Yenile',
                 className: 'btn btn-warning',
                 action: function (e, dt, node, config) {
                     $.ajax({
                         type: 'GET',
-                        url: '/Admin/User/GetAllUsers/',
+                        url: '/Admin/Comment/GetAllComments/',
                         contentType: "application/json",
                         beforeSend: function () {
-                            $('#usersTable').hide();
+                            $('#commentsTable').hide();
                             $('.spinner-border').show();
                         },
                         success: function (data) {
-                            const userListDto = jQuery.parseJSON(data);
+                            const commentResult = jQuery.parseJSON(data);
                             dataTable.clear();
-                            console.log(userListDto);
-                            if (userListDto.ResultStatus === 0) {
-                                $.each(userListDto.Users.$values,
-                                    function (index, user) {
-                                      const newTableRow=   dataTable.row.add([
-                                            user.Id,
-                                            user.UserName,
-                                            user.Email,
-                                            user.FirstName,
-                                            user.LastName,
-                                             user.PhoneNumber,
-                                            user.About.length > 75 ? user.About.substring(0, 75) : user.About,
-                                            `<img src="/img/${user.Image}" alt="${user.UserName}" class="my-image-table" />`,
-                                            `
-                                                    <button class="btn btn-info btn-sm btn-detail" data-id="${user.Id}"><span class="fas fa-newspaper"></span></button>
-                                                    <button class="btn btn-warning btn-sm btn-assign" data-id="${user.Id}"><span class="fas fa-user-shield"></span></button>
-                                                    <button class="btn btn-primary btn-sm btn-update" data-id="${user.Id}"><span class="fas fa-edit"></span></button>
-                                                    <button class="btn btn-danger btn-sm btn-delete" data-id="${user.Id}"><span class="fas fa-minus-circle"></span></button>
-                                            `
-                                      ]).node();
+                            console.log(commentResult);
+                            if (commentResult.Data) {
+                                const blogsArray = [];
+                                $.each(commentResult.Data.Comments.$values,
+                                    function (index, comment) {
+                                        const newComment = getJsonNetObject(comment, commentResult.Data.Comments.$values);
+                                        let newBlog = getJsonNetObject(newComment.Blog, newComment);
+                                        if (newBlog !== null) {
+                                            blogsArray.push(newBlog);
+                                        }
+                                        if (newBlog === null) {
+                                            newBlog = blogsArray.find((blog) => {
+                                                return blog.$id === newComment.Blog.$ref;
+                                            });
+                                        }
+                                        const newTableRow = dataTable.row.add([
+                                            newComment.Id,
+                                            newBlog.Title,
+                                            newComment.Content.length > 75 ? newComment.Content.substring(0, 75) : newComment.Content,
+                                            `${newComment.IsActive ? "Evet" : "Hayır"}`,
+                                            `${newComment.IsDeleted ? "Evet" : "Hayır"}`,
+                                            `${convertToShortDate(newComment.CreatedDate)}`, newComment.CreatedByName,
+                                            `${convertToShortDate(newComment.ModifiedDate)}`, newComment.ModifiedByName,
+                                            getButtonsForDataTable(newComment)
+                                        ]).node();
                                         const jqueryTableRow = $(newTableRow);
-                                        jqueryTableRow.attr('name', `${user.Id}`);
+                                        jqueryTableRow.attr('name', `${newComment.Id}`);
                                     });
                                 dataTable.draw();
                                 $('.spinner-border').hide();
-                                $('#usersTable').fadeIn(2000);
+                                $('#commentsTable').fadeIn(1400);
                             } else {
-                                toastr.error(`${userListDto.Message}`, 'İşlem Başarısız!');
+                                toastr.error(`${commentResult.Message}`, 'İşlem Başarısız!');
                             }
                         },
                         error: function (err) {
                             console.log(err);
                             $('.spinner-border').hide();
-                            $('#usersTable').fadeIn(1000);
+                            $('#commentsTable').fadeIn(1000);
                             toastr.error(`${err.responseText}`, 'Hata!');
                         }
                     });
@@ -286,86 +280,9 @@
         }
     });
 
-    /* DataTables ends here */
+    /* DataTables end here */
 
-    /* Ajax GET / Getting the _UserAddPartial as Modal Form starts from here. */
-
-    $(function () {
-        const url = '/Admin/User/Add/';
-        const placeHolderDiv = $('#modalPlaceHolder');
-        $('#btnAdd').click(function () {
-            $.get(url).done(function (data) {
-                placeHolderDiv.html(data);
-                placeHolderDiv.find(".modal").modal('show');
-            });
-        });
-
-        /* Ajax GET / Getting the _UserAddPartial as Modal Form ends here. */
-
-        /* Ajax POST / Posting the FormData as UserAddDto starts from here. */
-
-        placeHolderDiv.on('click',
-            '#btnSave',
-            function (event) {
-                event.preventDefault();
-                const form = $('#form-user-add');
-                const actionUrl = form.attr('action');
-                const dataToSend = new FormData(form.get(0));
-                $.ajax({
-                    url: actionUrl,
-                    type: 'POST',
-                    data: dataToSend,
-                    processData: false,
-                    contentType: false,
-                    success: function (data) {
-                        console.log(data);
-                        const userAddAjaxModel = jQuery.parseJSON(data);
-                        console.log(userAddAjaxModel);
-                        const newFormBody = $('.modal-body', userAddAjaxModel.UserAddPartial);
-                        placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
-                        const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
-                        if (isValid) {
-                            placeHolderDiv.find('.modal').modal('hide');
-                            const newTableRow= dataTable.row.add([
-                                userAddAjaxModel.UserDto.User.Id,
-                                userAddAjaxModel.UserDto.User.UserName,
-                                userAddAjaxModel.UserDto.User.Email,
-                                userAddAjaxModel.UserDto.User.FirstName,
-                                userAddAjaxModel.UserDto.User.LastName,
-                                userAddAjaxModel.UserDto.User.PhoneNumber,
-                                userAddAjaxModel.UserDto.User.About.length > 75 ? userAddAjaxModel.UserDto.User.About.substring(0, 75) : userAddAjaxModel.UserDto.User.About,
-                                `<img src="/img/${userAddAjaxModel.UserDto.User.Image}" alt="${userAddAjaxModel.UserDto.User.UserName}" class="my-image-table" />`,
-                                `
-                                        <button class="btn btn-info btn-sm btn-detail" data-id="${userAddAjaxModel.UserDto.User.Id}"><span class="fas fa-newspaper"></span></button>
-                                        <button class="btn btn-warning btn-sm btn-assign" data-id="${userAddAjaxModel.UserDto.User.Id}"><span class="fas fa-user-shield"></span></button>
-                                        <button class="btn btn-primary btn-sm btn-update" data-id="${userAddAjaxModel.UserDto.User.Id}"><span class="fas fa-edit"></span></button>
-                                        <button class="btn btn-danger btn-sm btn-delete" data-id="${userAddAjaxModel.UserDto.User.Id}"><span class="fas fa-minus-circle"></span></button>
-                                `
-                            ]).node();
-                            const jqueryTableRow = $(newTableRow);
-                            jqueryTableRow.attr('name', `${userAddAjaxModel.UserDto.User.Id}`);
-                            dataTable.row(newTableRow).draw();
-                            toastr.success(`${userAddAjaxModel.UserDto.Message}`, 'Başarılı İşlem!');
-                        } else {
-                            let summaryText = "";
-                            $('#validation-summary > ul > li').each(function () {
-                                let text = $(this).text();
-                                summaryText = `*${text}\n`;
-                            });
-                            toastr.warning(summaryText);
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err);
-                        toastr.error(`${err.responseText}`, 'Hata!');
-                    }
-                });
-            });
-    });
-
-    /* Ajax POST / Posting the FormData as UserAddDto ends here. */
-
-    /* Ajax POST / Deleting a User starts from here. */
+    /* Ajax POST / Deleting a Comment starts from here */
 
     $(document).on('click',
         '.btn-delete',
@@ -373,10 +290,11 @@
             event.preventDefault();
             const id = $(this).attr('data-id');
             const tableRow = $(`[name="${id}"]`);
-            const userName = tableRow.find('td:eq(1)').text();
+            let commentContent = tableRow.find('td:eq(2)').text();
+            commentContent = commentContent.length > 75 ? commentContent.substring(0, 75) : commentContent;
             Swal.fire({
                 title: 'Silmek istediğinize emin misiniz?',
-                text: `${userName} adlı kullanıcı silinicektir!`,
+                text: `${commentContent} içerikli yorum silinicektir!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -388,14 +306,15 @@
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
-                        data: { userId: id },
-                        url: '/Admin/User/Delete/',
+                        data: { commentId: id },
+                        url: '/Admin/Comment/Delete/',
                         success: function (data) {
-                            const userDto = jQuery.parseJSON(data);
-                            if (userDto.ResultStatus === 0) {
+                            const commentResult = jQuery.parseJSON(data);
+                            console.log(commentResult);
+                            if (commentResult.Data) {
                                 Swal.fire(
                                     'Silindi!',
-                                    `${userDto.User.UserName} adlı kullanıcı başarıyla silinmiştir.`,
+                                    `${commentResult.Message}`,
                                     'success'
                                 );
 
@@ -403,8 +322,8 @@
                             } else {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'Başarısız işlem!',
-                                    text: `${userDto.Message}`,
+                                    title: 'Başarısız İşlem!',
+                                    text: `${commentResult.Message}`,
                                 });
                             }
                         },
@@ -417,17 +336,17 @@
             });
         });
 
-    /* Ajax GET / Getting the _UserUpdatePartial as Modal Form starts from here. */
+    /* Ajax GET / Getting the _CommentUpdatePartial as Modal Form starts from here. */
 
     $(function () {
-        const url = '/Admin/User/Update/';
+        const url = '/Admin/Comment/Update/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $(document).on('click',
             '.btn-update',
             function (event) {
                 event.preventDefault();
                 const id = $(this).attr('data-id');
-                $.get(url, { userId: id }).done(function (data) {
+                $.get(url, { commentId: id }).done(function (data) {
                     placeHolderDiv.html(data);
                     placeHolderDiv.find('.modal').modal('show');
                 }).fail(function (err) {
@@ -435,14 +354,13 @@
                 });
             });
 
-        /* Ajax POST / Updating a User starts from here */
+        /* Ajax POST / Updating a Comment starts from here */
 
         placeHolderDiv.on('click',
             '#btnUpdate',
             function (event) {
                 event.preventDefault();
-
-                const form = $('#form-user-update');
+                const form = $('#form-comment-update');
                 const actionUrl = form.attr('action');
                 const dataToSend = new FormData(form.get(0));
                 $.ajax({
@@ -451,74 +369,154 @@
                     data: dataToSend,
                     processData: false,
                     contentType: false,
-                    success: function(data) {
-                        const userUpdateAjaxModel = jQuery.parseJSON(data);
-                        console.log(userUpdateAjaxModel);
-                        //if (userUpdateAjaxModel.UserDto != null) {
-                        //    
-                        //    
+                    success: function (data) {
+                        const commentUpdateAjaxModel = jQuery.parseJSON(data);
+                        console.log(commentUpdateAjaxModel);
+                        //if (commentUpdateAjaxModel) {
+                        //    const id = commentUpdateAjaxModel.CommentDto.Comment.Id;
+                        //    const tableRow = $(`[name="${id}"]`);
                         //}
-                        const newFormBody = $('.modal-body', userUpdateAjaxModel.UserUpdatePartial);
+                        const newFormBody = $('.modal-body', commentUpdateAjaxModel.CommentUpdatePartial);
                         placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
                         const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
                         if (isValid) {
-                            const id = userUpdateAjaxModel.UserDto.User.Id;
+                            const id = commentUpdateAjaxModel.CommentDto.Comment.Id;
                             const tableRow = $(`[name="${id}"]`);
                             placeHolderDiv.find('.modal').modal('hide');
                             dataTable.row(tableRow).data([
-                                userUpdateAjaxModel.UserDto.User.Id,
-                                userUpdateAjaxModel.UserDto.User.UserName,
-                                userUpdateAjaxModel.UserDto.User.Email,
-                                userUpdateAjaxModel.UserDto.User.FirstName,
-                                userUpdateAjaxModel.UserDto.User.LastName,
-                                userUpdateAjaxModel.UserDto.User.PhoneNumber,
-                                userUpdateAjaxModel.UserDto.User.About.length > 75 ? userUpdateAjaxModel.UserDto.User.About.substring(0, 75) : userUpdateAjaxModel.UserDto.User.About,
-                                `<img src="/img/${userUpdateAjaxModel.UserDto.User.Image}" alt="${userUpdateAjaxModel.UserDto.User.UserName}" class="my-image-table" />`,
-                                `
-                                        <button class="btn btn-info btn-sm btn-detail" data-id="${userUpdateAjaxModel.UserDto.User.Id}"><span class="fas fa-newspaper"></span></button>
-                                        <button class="btn btn-warning btn-sm btn-assign" data-id="${userUpdateAjaxModel.UserDto.User.Id}"><span class="fas fa-user-shield"></span></button>
-                                        <button class="btn btn-primary btn-sm btn-update" data-id="${userUpdateAjaxModel.UserDto.User.Id}"><span class="fas fa-edit"></span></button>
-                                        <button class="btn btn-danger btn-sm btn-delete" data-id="${userUpdateAjaxModel.UserDto.User.Id}"><span class="fas fa-minus-circle"></span></button>
-                                `
+                                commentUpdateAjaxModel.CommentDto.Comment.Id,
+                                commentUpdateAjaxModel.CommentDto.Comment.Blog.Title,
+                                commentUpdateAjaxModel.CommentDto.Comment.Content.length > 75 ? commentUpdateAjaxModel.CommentDto.Comment.Content.substring(0, 75) : commentUpdateAjaxModel.CommentDto.Comment.Content,
+                                `${commentUpdateAjaxModel.CommentDto.Comment.IsActive ? "Evet" : "Hayır"}`,
+                                `${commentUpdateAjaxModel.CommentDto.Comment.IsDeleted ? "Evet" : "Hayır"}`,
+                                `${convertToShortDate(commentUpdateAjaxModel.CommentDto.Comment.CreatedDate)}`,
+                                commentUpdateAjaxModel.CommentDto.Comment.CreatedByName,
+                                `${convertToShortDate(commentUpdateAjaxModel.CommentDto.Comment.ModifiedDate)}`,
+                                commentUpdateAjaxModel.CommentDto.Comment.ModifiedByName,
+                                getButtonsForDataTable(commentUpdateAjaxModel.CommentDto.Comment)
                             ]);
                             tableRow.attr("name", `${id}`);
                             dataTable.row(tableRow).invalidate();
-                            toastr.success(`${userUpdateAjaxModel.UserDto.Message}`, "Başarılı İşlem!");
+                            toastr.success(`${commentUpdateAjaxModel.CommentDto.Comment.Id} no'lu yorum başarıyla güncellenmiştir`, "Başarılı İşlem!");
                         } else {
                             let summaryText = "";
-                            $('#validation-summary > ul > li').each(function() {
+                            $('#validation-summary > ul > li').each(function () {
                                 let text = $(this).text();
                                 summaryText = `*${text}\n`;
                             });
                             toastr.warning(summaryText);
                         }
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.log(error);
                         toastr.error(`${err.responseText}`, 'Hata!');
                     }
                 });
             });
+
     });
 
     // Get Detail Ajax Operation
 
-    $(function () {
-
-        const url = '/Admin/User/GetDetail/';
+    $(function() {
+        const url = '/Admin/Comment/GetDetail/';
         const placeHolderDiv = $('#modalPlaceHolder');
         $(document).on('click',
             '.btn-detail',
             function (event) {
                 event.preventDefault();
                 const id = $(this).attr('data-id');
-                $.get(url, { userId: id }).done(function (data) {
+                $.get(url, { commentId: id }).done(function (data) {
                     placeHolderDiv.html(data);
                     placeHolderDiv.find('.modal').modal('show');
                 }).fail(function (err) {
                     toastr.error(`${err.responseText}`, 'Hata!');
                 });
             });
-
     });
+
+    /* Ajax POST / Approving a Comment starts from here */
+
+    $(document).on('click',
+        '.btn-approve',
+        function (event) {
+            event.preventDefault();
+            const id = $(this).attr('data-id');
+            const tableRow = $(`[name="${id}"]`);
+            let commentContent = tableRow.find('td:eq(2)').text();
+            commentContent = commentContent.length > 75 ? commentContent.substring(0, 75) : commentContent;
+            Swal.fire({
+                title: 'Onaylamak istediğinize emin misiniz?',
+                text: `${commentContent} içerikli yorum onaylanacaktır!`,
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, onaylamak istiyorum.',
+                cancelButtonText: 'Hayır, onaylamak istemiyorum.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { commentId: id },
+                        url: '/Admin/Comment/Approve/',
+                        success: function (data) {
+                            const commentResult = jQuery.parseJSON(data);
+                            console.log(commentResult);
+                            if (commentResult.Data) {
+                                dataTable.row(tableRow).data([
+                                    commentResult.Data.Comment.Id,
+                                    commentResult.Data.Comment.Blog.Title,
+                                    commentResult.Data.Comment.Content.length > 75 ? commentResult.Data.Comment.Content.substring(0, 75) : commentResult.Data.Comment.Content,
+                                    `${commentResult.Data.Comment.IsActive ? "Evet" : "Hayır"}`,
+                                    `${commentResult.Data.Comment.IsDeleted ? "Evet" : "Hayır"}`,
+                                    `${convertToShortDate(commentResult.Data.Comment.CreatedDate)}`,
+                                    commentResult.Data.Comment.CreatedByName,
+                                    `${convertToShortDate(commentResult.Data.Comment.ModifiedDate)}`,
+                                    commentResult.Data.Comment.ModifiedByName,
+                                    getButtonsForDataTable(commentResult.Data.Comment)
+                                ]);
+                                tableRow.attr("name", `${id}`);
+                                dataTable.row(tableRow).invalidate();
+                                Swal.fire(
+                                    'Onaylandı!',
+                                    `${commentResult.Data.Comment.Id} no'lu yorum başarıyla onaylanmıştır.`,
+                                    'success'
+                                );
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Başarısız İşlem!',
+                                    text: `Beklenmedik bir hata ile karşılaşıldı.`,
+                                });
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            toastr.error(`${err.responseText}`, "Hata!");
+                        }
+                    });
+                }
+            });
+        });
+    
+    function getButtonsForDataTable(comment) {
+        if (!comment.IsActive) {
+            return `
+                                <button class="btn btn-warning btn-sm btn-approve" data-id="${comment.Id
+                }"><span class="fas fa-thumbs-up"></span></button>
+                                <button class="btn btn-info btn-sm btn-detail" data-id="${comment.Id
+                }"><span class="fas fa-newspaper"></span></button>
+                                <button class="btn btn-primary btn-sm mt-1 btn-update" data-id="${comment.Id
+                }"><span class="fas fa-edit"></span></button>
+                                <button class="btn btn-danger btn-sm mt-1 btn-delete" data-id="${comment.Id
+                }"><span class="fas fa-minus-circle"></span></button>
+                                            `;
+        }
+        return `<button class="btn btn-info btn-sm btn-detail" data-id="${comment.Id}"><span class="fas fa-newspaper"></span></button>
+                                <button class="btn btn-primary btn-sm mt-1 btn-update" data-id="${comment.Id}"><span class="fas fa-edit"></span></button>
+                                <button class="btn btn-danger btn-sm mt-1 btn-delete" data-id="${comment.Id}"><span class="fas fa-minus-circle"></span></button>`
+    }
 });

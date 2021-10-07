@@ -27,47 +27,182 @@ namespace DataAccessLayer.Concrete.Configurations
 
             //Manuel olarak ilk örnek verimizi eklemek istersek;
 
+            //builder.HasData(
+            //    new Category
+            //    {
+            //        //DB olusturulmadan önce data olusturulacaksa mutlaka Id girilmelidir. Sonradan girilecek Id degeri girmeye gerek yoktur.
+            //        Id = 1,
+            //        CategoryName = "C#",
+            //        Description = "C# Programlama Dili ile Ilgili En Güncel Bilgiler",
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate", //InitialCreate degerini Db nin olusturacagini belirtiyoruz
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "C# Blog Kategorisi"
+            //    },
+            //    new Category
+            //    {
+            //        Id = 2,
+            //        CategoryName = "Java",
+            //        Description = "Java Programlama Dili ile Ilgili En Güncel Bilgiler",
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate",
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "Java Blog Kategorisi"
+            //    },
+            //    new Category
+            //    {
+            //        Id = 3,
+            //        CategoryName = "Java Script",
+            //        Description = "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler",
+            //        IsActive = true,
+            //        IsDeleted = false,
+            //        CreatedByName = "InitialCreate",
+            //        CreatedDate = DateTime.Now,
+            //        ModifiedByName = "InitialCreate",
+            //        ModifiedDate = DateTime.Now,
+            //        Note = "Java Script Blog Kategorisi"
+            //    });
+
+
             builder.HasData(
                 new Category
                 {
-                    //DB olusturulmadan önce data olusturulacaksa mutlaka Id girilmelidir. Sonradan girilecek Id degeri girmeye gerek yoktur.
                     Id = 1,
                     CategoryName = "C#",
-                    Description = "C# Programlama Dili ile Ilgili En Güncel Bilgiler",
+                    Description = "C# Programlama Dili ile İlgili En Güncel Bilgiler",
                     IsActive = true,
                     IsDeleted = false,
-                    CreatedByName = "InitialCreate", //InitialCreate degerini Db nin olusturacagini belirtiyoruz
+                    CreatedByName = "InitialCreate",
                     CreatedDate = DateTime.Now,
                     ModifiedByName = "InitialCreate",
                     ModifiedDate = DateTime.Now,
-                    Note = "C# Blog Kategorisi"
+                    Note = "C# Blog Kategorisi",
                 },
                 new Category
                 {
                     Id = 2,
-                    CategoryName = "Java",
-                    Description = "Java Programlama Dili ile Ilgili En Güncel Bilgiler",
+                    CategoryName = "C++",
+                    Description = "C++ Programlama Dili ile İlgili En Güncel Bilgiler",
                     IsActive = true,
                     IsDeleted = false,
                     CreatedByName = "InitialCreate",
                     CreatedDate = DateTime.Now,
                     ModifiedByName = "InitialCreate",
                     ModifiedDate = DateTime.Now,
-                    Note = "Java Blog Kategorisi"
+                    Note = "C++ Blog Kategorisi",
                 },
                 new Category
                 {
                     Id = 3,
-                    CategoryName = "Java Script",
-                    Description = "Java Script Programlama Dili ile Ilgili En Güncel Bilgiler",
+                    CategoryName = "JavaScript",
+                    Description = "JavaScript Programlama Dili ile İlgili En Güncel Bilgiler",
                     IsActive = true,
                     IsDeleted = false,
                     CreatedByName = "InitialCreate",
                     CreatedDate = DateTime.Now,
                     ModifiedByName = "InitialCreate",
                     ModifiedDate = DateTime.Now,
-                    Note = "Java Script Blog Kategorisi"
-                });
+                    Note = "JavaScript Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 4,
+                    CategoryName = "Typescript",
+                    Description = "Typescript Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Typescript Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 5,
+                    CategoryName = "Java",
+                    Description = "Java Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Java Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 6,
+                    CategoryName = "Python",
+                    Description = "Python Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Python Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 7,
+                    CategoryName = "Php",
+                    Description = "Php Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Php Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 8,
+                    CategoryName = "Kotlin",
+                    Description = "Kotlin Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Kotlin Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 9,
+                    CategoryName = "Swift",
+                    Description = "Swift Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Swift Blog Kategorisi",
+                },
+                new Category
+                {
+                    Id = 10,
+                    CategoryName = "Ruby",
+                    Description = "Ruby Programlama Dili ile İlgili En Güncel Bilgiler",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreatedByName = "InitialCreate",
+                    CreatedDate = DateTime.Now,
+                    ModifiedByName = "InitialCreate",
+                    ModifiedDate = DateTime.Now,
+                    Note = "Ruby Blog Kategorisi",
+                }
+            );
+
         }
     }
 }

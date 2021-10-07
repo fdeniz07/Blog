@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 namespace BlogWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,Editor")]
     public class HomeController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -27,6 +26,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles = "SuperAdmin,AdminArea.Home.Read")]
         public async Task<IActionResult> Index()
         {
             var categoriesCountResult = await _categoryService.CountByNonDeletedAsync();

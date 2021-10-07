@@ -70,6 +70,11 @@
                 return "Böyle bir yorum bulunamadı.";
             }
 
+            public static string Approve(int commentId)
+            {
+                return $"{commentId} no'lu yorum başarıyla onaylanmıştır.";
+            }
+
             public static string Add(string createdByName)
             {
                 return $"Sayın {createdByName}, yorumunuz başarıyla eklenmiştir.";

@@ -18,7 +18,7 @@ namespace DataAccessLayer.Concrete.Configurations
             builder.Property(t => t.Name).HasMaxLength(256);
 
             // Maps to the AspNetUserTokens table
-            builder.ToTable("AspNetUserTokens");
+            builder.ToTable("UserTokens");
         }
 
         #endregion

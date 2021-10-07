@@ -1,0 +1,84 @@
+﻿@model EntityLayer.Dtos.CommentListDto
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Yorumlar";
+}
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Comment" asp-action="Index">Yorumlar</a></li>
+</ol>
+<div id="modalPlaceHolder" aria-hidden="true"></div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Yorumlar
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="commentsTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Makale</th>
+                    <th>Yorum İçeriği</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Oluşturan Kullanıcı Adı</th>
+                    <th>Son Düzenlenme Tarihi</th>
+                    <th>Son Düzenleyen Kullanıcı Adı</th>
+                    <th>İşlemler</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Makale</th>
+                    <th>Yorum İçeriği</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Oluşturan Kullanıcı Adı</th>
+                    <th>Son Düzenlenme Tarihi</th>
+                    <th>Son Düzenleyen Kullanıcı Adı</th>
+                    <th>İşlemler</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                @foreach (var comment in Model.Comments)
+                {
+                    <tr name="@comment.Id">
+                        <td>@comment.Id</td>
+                        <td>@comment.Blog.Title</td>
+                        <td>@(comment.Content.Length>75 ? comment.Content.Substring(0, 75):comment.Content)</td> @*Burada substring i kontrol ediyoruz. Eger 75 karakterden kücük bir icerik olursa exception firlatmasini istemiyoruz.*@
+                        <td>@(comment.IsActive ? "Evet" : "Hayır")</td>
+                        <td>@(comment.IsDeleted ? "Evet" : "Hayır")</td>
+                        <td>@comment.CreatedDate.ToShortDateString()</td>
+                        <td>@comment.CreatedByName</td>
+                        <td>@comment.ModifiedDate.ToShortDateString()</td>
+                        <td>@comment.ModifiedByName</td>
+                        <td>
+                            @if (!comment.IsActive)
+                            {
+                                <button class="btn btn-warning btn-sm btn-approve" data-id="@comment.Id"><span class="fas fa-thumbs-up"></span></button>
+                            }
+                            <button class="btn btn-info btn-sm btn-detail" data-id="@comment.Id"><span class="fas fa-newspaper"></span></button>
+                            <button class="btn btn-primary btn-sm mt-1 btn-update" data-id="@comment.Id"><span class="fas fa-edit"></span></button>
+                            <button class="btn btn-danger btn-sm mt-1 btn-delete" data-id="@comment.Id"><span class="fas fa-minus-circle"></span></button>
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/AdminLTE/js/commentIndex.js" type="application/ecmascript"></script>
+}
+@section Styles
+{
+    
+}

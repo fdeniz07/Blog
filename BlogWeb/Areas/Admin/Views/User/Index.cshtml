@@ -1,9 +1,8 @@
 ﻿@using CoreLayer.Utilities.Results.ComplexTypes
-@using BlogWeb.Areas.Admin.Controllers
 @model EntityLayer.Dtos.UserListDto
 @{
     Layout = "_Layout";
-    ViewBag.Title = "Kullanıcılar Index";
+    ViewBag.Title = "Kullanıcılar";
 }
 <ol class="breadcrumb mb-3 mt-2">
     <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
@@ -12,14 +11,13 @@
 @if (Model.ResultStatus == ResultStatus.Success)
 {
     <div id="modalPlaceHolder" aria-hidden="true"></div>
-
     <div class="card mb-4 mt-2">
-        <div class="card-header">
-            <i class="fas fa-table mr-1"></i>
-            Kullanıcılar
-        </div>
+                    <div class="card-header">
+                        <i class="fas fa-table mr-1"></i>
+                        Kullanıcılar
+                    </div>
         <div class="card-body">
-            <div class="spinner-border text-success" role="status" style="display: none;">
+            <div class="spinner-border role="status" style="display: none;">
                 <span class="sr-only">Yükleniyor...</span>
             </div>
             <div class="table-responsive">
@@ -28,8 +26,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Kullanıcı Adı</th>
-                            <th>E.Posta Adresı</th>
+                            <th>E-Posta Adresi</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
                             <th>Telefon Numarası</th>
+                            <th>Hakkında</th>
                             <th>Resim</th>
                             <th>İşlemler</th>
                         </tr>
@@ -38,8 +39,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Kullanıcı Adı</th>
-                            <th>E.Posta Adresı</th>
+                            <th>E-Posta Adresi</th>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
                             <th>Telefon Numarası</th>
+                            <th>Hakkında</th>
                             <th>Resim</th>
                             <th>İşlemler</th>
                         </tr>
@@ -51,11 +55,16 @@
                                 <td>@user.Id</td>
                                 <td>@user.UserName</td>
                                 <td>@user.Email</td>
+                                <td>@user.FirstName</td>
+                                <td>@user.LastName</td>
                                 <td>@user.PhoneNumber</td>
+                                <td>@(user.About.Length>75 ? user.About.Substring(0,75):user.About)</td>
                                 <td><img src="~/img/@user.Image" alt="@user.UserName" class="my-image-table"/></td>
                                <td>
-                                    <button class="btn btn-primary btn-sm btn-update" data-id="@user.Id"><span class="fas fa-edit"></span></button>
-                                    <button class="btn btn-danger btn-sm btn-delete" data-id="@user.Id"><span class="fas fa-minus-circle"></span></button>
+                                   <button class="btn btn-info btn-sm btn-detail" data-id="@user.Id"><span class="fas fa-newspaper"></span></button>
+                                   <button class="btn btn-warning btn-sm btn-assign" data-id="@user.Id"><span class="fas fa-user-shield"></span></button>
+                                   <button class="btn btn-primary btn-sm btn-update" data-id="@user.Id"><span class="fas fa-edit"></span></button>
+                                   <button class="btn btn-danger btn-sm btn-delete" data-id="@user.Id"><span class="fas fa-minus-circle"></span></button>
                                 </td>
                             </tr>
                         }

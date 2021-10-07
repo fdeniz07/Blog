@@ -6,8 +6,8 @@
 }
 
 <div class="row">
-    <div class="col-lg-6 offset-lg-3">
-        <div class="card mt-3">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card mt-1 mb-1">
             <div class="card-header">
                 <h4 class="text-center"><span class="fas fa-edit"></span> Profil Düzenle</h4>
             </div>
@@ -15,34 +15,86 @@
                 <form asp-controller="User" asp-action="ChangeDetails" enctype="multipart/form-data" method="post" id="form-user-update">
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <input asp-for="Id" type="hidden" />
-                    <div class="form-group">
-                        <label asp-for="UserName"></label>
-                        <input class="form-control" asp-for="UserName" placeholder="Lütfen, kullanıcı adı giriniz." />
-                        <span class="text-danger" asp-validation-for="UserName"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Email"></label>
-                        <input type="email" class="form-control" asp-for="Email" placeholder="Lütfen, e-posta adresi giriniz." />
-                        <span class="text-danger" asp-validation-for="Email"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PhoneNumber"></label>
-                        <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Lütfen, telefon numarası giriniz." />
-                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Image"></label>
-                        <input asp-for="Image" type="hidden" />
-                        <img class="my-image" src="~/img/@Model.Image" alt="@Model.UserName" />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ImageFile"></label>
-                        <input type="file" accept="image/*" class="form-control-file" asp-for="ImageFile" placeholder="Lütfen, resim seçiniz." />
-                        <span class="text-danger" asp-validation-for="ImageFile"></span>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block"><span class="fas fa-save"></span> Kaydet</button>
-                        <a class="btn btn-danger btn-block" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="fas fa-times"></span>  İptal</a>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="UserName"></label>
+                            <input class="form-control" asp-for="UserName" placeholder="Lütfen, kullanıcı adı giriniz." />
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Email"></label>
+                            <input type="email" class="form-control" asp-for="Email" placeholder="Lütfen, e-posta adresi giriniz." />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="FirstName"></label>
+                            <input type="text" class="form-control" asp-for="FirstName" placeholder="Lütfen, ad giriniz." />
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="LastName"></label>
+                            <input type="text" class="form-control" asp-for="LastName" placeholder="Lütfen, soyad giriniz." />
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="PhoneNumber"></label>
+                            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="Lütfen, telefon numarası giriniz." />
+                            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="WebsiteLink"></label>
+                            <input type="text" class="form-control" asp-for="WebsiteLink" placeholder="Lütfen, website link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="WebsiteLink"></span>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label asp-for="About"></label>
+                            <textarea class="form-control" asp-for="About" placeholder="Lütfen, hakkında bilgisi giriniz." rows="4"></textarea>
+                            <span class="text-danger" asp-validation-for="About"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="TwitterLink"></label>
+                            <input type="text" class="form-control" asp-for="TwitterLink" placeholder="Lütfen, twitter profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="TwitterLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="FacebookLink"></label>
+                            <input type="text" class="form-control" asp-for="FacebookLink" placeholder="Lütfen, facebook profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="FacebookLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="InstagramLink"></label>
+                            <input type="text" class="form-control" asp-for="InstagramLink" placeholder="Lütfen, instagram profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="InstagramLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="LinkedInLink"></label>
+                            <input type="text" class="form-control" asp-for="LinkedInLink" placeholder="Lütfen, linkedin profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="LinkedInLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="YoutubeLink"></label>
+                            <input type="text" class="form-control" asp-for="YoutubeLink" placeholder="Lütfen, youtube profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="YoutubeLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="GitHubLink"></label>
+                            <input type="text" class="form-control" asp-for="GitHubLink" placeholder="Lütfen, github profil link'i giriniz." />
+                            <span class="text-danger" asp-validation-for="GitHubLink"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Image"></label>
+                            <input asp-for="Image" type="hidden" />
+                            <img class="my-image" src="~/img/@Model.Image" alt="@Model.UserName" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="ImageFile"></label>
+                            <input type="file" accept="image/*" class="form-control-file" asp-for="ImageFile" placeholder="Lütfen, resim seçiniz." />
+                            <span class="text-danger" asp-validation-for="ImageFile"></span>
+                        </div>
+                        <div class="form-group col-md-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg"><span class="fas fa-save"></span> Kaydet</button>
+                            <a class="btn btn-danger btn-lg" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="fas fa-times"></span>  İptal</a>
+                        </div>
                     </div>
                 </form>
             </div>

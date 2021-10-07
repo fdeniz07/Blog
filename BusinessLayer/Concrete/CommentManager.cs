@@ -12,15 +12,12 @@ using EntityLayer.Dtos;
 
 namespace BusinessLayer.Concrete
 {
-    public class CommentManager : ICommentService
+    public class CommentManager :ManagerBase, ICommentService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public CommentManager(IUnitOfWork unitOfWork, IMapper mapper)
+
+        public CommentManager(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork, mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
 
@@ -28,7 +25,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentDto>> GetAsync(int commentId)
         {
-            var comment = await _unitOfWork.Comments.GetAsync(c => c.Id == commentId);
+            var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId);
             if (comment != null)
             {
                 return new DataResult<CommentDto>(ResultStatus.Success, new CommentDto
@@ -49,11 +46,11 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentUpdateDto>> GetCommentUpdateDtoAsync(int commentId)
         {
-            var result = await _unitOfWork.Comments.AnyAsync(c => c.Id == commentId);
+            var result = await UnitOfWork.Comments.AnyAsync(c => c.Id == commentId);
             if (result)
             {
-                var comment = await _unitOfWork.Comments.GetAsync(c => c.Id == commentId);
-                var commentUpdateDto = _mapper.Map<CommentUpdateDto>(comment);
+                var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId);
+                var commentUpdateDto = Mapper.Map<CommentUpdateDto>(comment);
                 return new DataResult<CommentUpdateDto>(ResultStatus.Success, commentUpdateDto);
             }
             else
@@ -68,7 +65,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentListDto>> GetAllAsync()
         {
-            var comments = await _unitOfWork.Comments.GetAllAsync();
+            var comments = await UnitOfWork.Comments.GetAllAsync(null,c=>c.Blog);
             if (comments.Count > -1)
             {
                 return new DataResult<CommentListDto>(ResultStatus.Success, new CommentListDto
@@ -89,7 +86,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentListDto>> GetAllByDeletedAsync()
         {
-            var comments = await _unitOfWork.Comments.GetAllAsync(c => c.IsDeleted);
+            var comments = await UnitOfWork.Comments.GetAllAsync(c => c.IsDeleted, c => c.Blog);
             if (comments.Count > -1)
             {
                 return new DataResult<CommentListDto>(ResultStatus.Success, new CommentListDto
@@ -109,7 +106,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentListDto>> GetAllByNonDeletedAsync()
         {
-            var comments = await _unitOfWork.Comments.GetAllAsync(c => !c.IsDeleted);
+            var comments = await UnitOfWork.Comments.GetAllAsync(c => !c.IsDeleted, c => c.Blog);
             if (comments.Count > -1)
             {
                 return new DataResult<CommentListDto>(ResultStatus.Success, new CommentListDto
@@ -130,7 +127,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentListDto>> GetAllByNonDeletedAndActiveAsync()
         {
-            var comments = await _unitOfWork.Comments.GetAllAsync(c => !c.IsDeleted && c.IsActive);
+            var comments = await UnitOfWork.Comments.GetAllAsync(c => !c.IsDeleted && c.IsActive, c => c.Blog);
             if (comments.Count > -1)
             {
                 return new DataResult<CommentListDto>(ResultStatus.Success, new CommentListDto
@@ -147,13 +144,34 @@ namespace BusinessLayer.Concrete
         }
 
 
+        /////////////////////// ApproveAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<CommentDto>> ApproveAsync(int commentId, string modifiedByName)
+        {
+            var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId, c => c.Blog);
+            if (comment!=null)
+            {
+                comment.IsActive = true;
+                comment.ModifiedByName = modifiedByName;
+                comment.ModifiedDate=DateTime.Now;
+                var updatedComment = await UnitOfWork.Comments.UpdateAsync(comment);
+                await UnitOfWork.SaveAsync();
+                return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Approve(commentId), new CommentDto
+                {
+                    Comment = updatedComment
+                });
+            }
+            return new DataResult<CommentDto>(ResultStatus.Error, Messages.Comment.NotFound(false), null);
+        }
+
+        
         /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<CommentDto>> AddAsync(CommentAddDto commentAddDto)
         {
-            var comment = _mapper.Map<Comment>(commentAddDto);
-            var addedComment = await _unitOfWork.Comments.AddAsync(comment);
-            await _unitOfWork.SaveAsync();
+            var comment = Mapper.Map<Comment>(commentAddDto);
+            var addedComment = await UnitOfWork.Comments.AddAsync(comment);
+            await UnitOfWork.SaveAsync();
             return new DataResult<CommentDto>(ResultStatus.Success,
                 Messages.Comment.Add(commentAddDto.CreatedByName), new CommentDto
                 {
@@ -167,11 +185,12 @@ namespace BusinessLayer.Concrete
         public async Task<IDataResult<CommentDto>> UpdateAsync(CommentUpdateDto commentUpdateDto,
             string modifiedByName)
         {
-            var oldComment = await _unitOfWork.Comments.GetAsync(c => c.Id == commentUpdateDto.Id);
-            var comment = _mapper.Map<CommentUpdateDto, Comment>(commentUpdateDto, oldComment);
+            var oldComment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentUpdateDto.Id);
+            var comment = Mapper.Map<CommentUpdateDto, Comment>(commentUpdateDto, oldComment);
             comment.ModifiedByName = modifiedByName;
-            var updatedComment = await _unitOfWork.Comments.UpdateAsync(comment);
-            await _unitOfWork.SaveAsync();
+            var updatedComment = await UnitOfWork.Comments.UpdateAsync(comment);
+            updatedComment.Blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == updatedComment.BlogId);
+            await UnitOfWork.SaveAsync();
             return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Update(comment.CreatedByName),
                 new CommentDto
                 {
@@ -184,14 +203,14 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CommentDto>> DeleteAsync(int commentId, string modifiedByName)
         {
-            var comment = await _unitOfWork.Comments.GetAsync(c => c.Id == commentId);
+            var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId);
             if (comment != null)
             {
                 comment.IsDeleted = true;
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
-                var deletedComment = await _unitOfWork.Comments.UpdateAsync(comment);
-                await _unitOfWork.SaveAsync();
+                var deletedComment = await UnitOfWork.Comments.UpdateAsync(comment);
+                await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success,
                     Messages.Comment.Delete(deletedComment.CreatedByName), new CommentDto
                     {
@@ -211,11 +230,11 @@ namespace BusinessLayer.Concrete
 
         public async Task<IResult> HardDeleteAsync(int commentId)
         {
-            var comment = await _unitOfWork.Comments.GetAsync(c => c.Id == commentId);
+            var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId);
             if (comment != null)
             {
-                await _unitOfWork.Comments.DeleteAsync(comment);
-                await _unitOfWork.SaveAsync();
+                await UnitOfWork.Comments.DeleteAsync(comment);
+                await UnitOfWork.SaveAsync();
                 return new Result(ResultStatus.Success, Messages.Comment.HardDelete(comment.CreatedByName));
             }
 
@@ -227,7 +246,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<int>> CountAsync()
         {
-            var commentsCount = await _unitOfWork.Comments.CountAsync(); // tüm degerleri getir
+            var commentsCount = await UnitOfWork.Comments.CountAsync(); // tüm degerleri getir
             if (commentsCount > -1)
             {
                 return new DataResult<int>(ResultStatus.Success, commentsCount);
@@ -244,7 +263,7 @@ namespace BusinessLayer.Concrete
         public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
             var commentsCount =
-                await _unitOfWork.Comments.CountAsync(c => !c.IsDeleted); // Silinmemis degerleri getir
+                await UnitOfWork.Comments.CountAsync(c => !c.IsDeleted); // Silinmemis degerleri getir
             if (commentsCount > -1)
             {
                 return new DataResult<int>(ResultStatus.Success, commentsCount);

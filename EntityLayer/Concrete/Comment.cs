@@ -9,6 +9,7 @@ namespace EntityLayer.Concrete
         public string Content { get; set; } 
         
         public int BlogId { get; set; }
+
         public Blog Blog { get; set; } // Bir yorum bir makaleye sahip olmak zorundadir
     }
 }

@@ -43,8 +43,8 @@ namespace BlogWeb
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = new PathString("/Admin/User/Login");
-                options.LogoutPath = new PathString("/Admin/User/Logout");
+                options.LoginPath = new PathString("/Admin/Auth/Login");
+                options.LogoutPath = new PathString("/Admin/Auth/Logout");
                 options.Cookie = new CookieBuilder
                 {
                     Name = "Blog",
@@ -54,7 +54,7 @@ namespace BlogWeb
                 };
                 options.SlidingExpiration = true; //Cookie süresi belirleme
                 options.ExpireTimeSpan = System.TimeSpan.FromDays(7); // 7 gün boyunca tarayici üzerinde gecerliligi olacak
-                options.AccessDeniedPath = new PathString("/Admin/User/AccessDenied"); //Yetkisiz erisimde yönlendirilecek sayfa
+                options.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied"); //Yetkisiz erisimde yönlendirilecek sayfa
             });
         }
 

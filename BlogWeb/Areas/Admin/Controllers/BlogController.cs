@@ -10,6 +10,7 @@ using CoreLayer.Utilities.Results.ComplexTypes;
 using EntityLayer.ComplexTypes;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using NToastNotify;
 
@@ -30,6 +31,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             _toastNotification = toastNotification;
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -38,6 +40,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -53,6 +56,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Create")]
         [HttpPost]
         public async Task<IActionResult> Add(BlogAddViewModel blogAddViewModel)
         {
@@ -81,6 +85,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return View(blogAddViewModel);
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Update")]
         [HttpGet]
         public async Task<IActionResult> Update(int blogId)
         {
@@ -98,6 +103,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Update")]
         [HttpPost]
         public async Task<IActionResult> Update(BlogUpdateViewModel blogUpdateViewModel)
         {
@@ -143,6 +149,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return View(blogUpdateViewModel);
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Delete")]
         [HttpPost]
         public async Task<JsonResult> Delete(int blogId)
         {
@@ -151,6 +158,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             return Json(blogResult);
         }
 
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
         [HttpGet]
         public async Task<JsonResult> GetAllBlogs()
         {
