@@ -38,7 +38,7 @@ namespace BlogWeb
             }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile),typeof(ViewModelsProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
+            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile),typeof(ViewModelsProfile),typeof(CommentProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
             services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
