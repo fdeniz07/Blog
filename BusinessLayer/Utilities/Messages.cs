@@ -27,6 +27,11 @@
                 return $"{categoryName}  adlı kategori başarıyla silinmistir.";
             }
 
+            public static string UndoDelete(string categoryName)
+            {
+                return $"{categoryName} adlı kategori başarıyla arşivden geri getirilmiştir.";
+            }
+
             public static string HardDelete(string categoryName)
             {
                 return $"{categoryName} adlı kategori veritabanindan başarıyla silinmiştir.";
@@ -56,6 +61,10 @@
                 return $"{title}  başlıklı makale başarıyla silinmiştir.";
             }
 
+            public static string UndoDelete(string title)
+            {
+                return $"{title} adlı makale başarıyla arşivden geri getirilmiştir.";
+            }
             public static string HardDelete(string title)
             {
                 return $"{title} başlıklı makale veritabanından başarıyla silinmiştir.";
@@ -88,6 +97,11 @@
             {
                 return $"{createdByName} tarafından eklenen yorum başarıyla silinmiştir.";
             }
+            public static string UndoDelete(string createdByName)
+            {
+                return $"{createdByName} tarafından eklenen yorum başarıyla arşivden geri getirilmiştir.";
+            }
+
             public static string HardDelete(string createdByName)
             {
                 return $"{createdByName} tarafından eklenen yorum başarıyla veritabanından silinmiştir.";

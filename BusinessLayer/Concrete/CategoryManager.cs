@@ -12,12 +12,12 @@ using BusinessLayer.Utilities;
 
 namespace BusinessLayer.Concrete
 {
-    public class CategoryManager :ManagerBase, ICategoryService
+    public class CategoryManager : ManagerBase, ICategoryService
     {
 
 
 
-        public CategoryManager(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork, mapper)
+        public CategoryManager(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
 
         }
@@ -38,7 +38,7 @@ namespace BusinessLayer.Concrete
                 });
             }
 
-            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural:false), new CategoryDto
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
             {
                 Category = null,
                 ResultStatus = ResultStatus.Error,
@@ -140,6 +140,24 @@ namespace BusinessLayer.Concrete
         }
 
 
+        /////////////////////// GetAllByDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\ Silinmisleri Getir
+
+        public async Task<IDataResult<CategoryListDto>> GetAllByDeletedAsync()
+        {
+            var categories = await UnitOfWork.Categories.GetAllAsync(c => c.IsDeleted);
+
+            if (categories.Count > -1) //Hic kategorisi de olmayabilir. O yüzden 0 yerine -1 yaziyoruz
+            {
+                return new DataResult<CategoryListDto>(ResultStatus.Success, new CategoryListDto
+                {
+                    Categories = categories,
+                    ResultStatus = ResultStatus.Success
+                });
+            }
+
+            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
+        }
+
 
         /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -167,7 +185,7 @@ namespace BusinessLayer.Concrete
             //ContinueWith den itibaren zincirleme task islemini devam ettiriyoruz. Kayit daha tamamlanmadan asagidaki result kismina gecer. Cok performansli bir yapi olmasina karsi yönetimi biraz daha zor bir yapidir.
             // await _unitOfWork.SaveAsync();
             #endregion
-            
+
             //After using Automapper
 
             var category = Mapper.Map<Category>(categoryAddDto);
@@ -209,7 +227,7 @@ namespace BusinessLayer.Concrete
 
             //After using Automapper
             var oldCategory = await UnitOfWork.Categories.GetAsync(c => c.Id == categoryUpdateDto.Id);
-            var category = Mapper.Map<CategoryUpdateDto,Category>(categoryUpdateDto,oldCategory);
+            var category = Mapper.Map<CategoryUpdateDto, Category>(categoryUpdateDto, oldCategory);
             category.ModifiedByName = modifiedByName;
 
             var updatedCategory = await UnitOfWork.Categories.UpdateAsync(category);
@@ -232,6 +250,7 @@ namespace BusinessLayer.Concrete
             if (category != null)
             {
                 category.IsDeleted = true;
+                category.IsActive = false;
                 category.ModifiedByName = modifiedByName;
                 category.ModifiedDate = DateTime.Now;
 
@@ -252,6 +271,36 @@ namespace BusinessLayer.Concrete
             });
         }
 
+
+        /////////////////////// UndoDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<CategoryDto>> UndoDeleteAsync(int categoryId, string modifiedByName)
+        {
+            var category = await UnitOfWork.Categories.GetAsync(c => c.Id == categoryId);
+
+            if (category != null)
+            {
+                category.IsDeleted = false;
+                category.IsActive = true;
+                category.ModifiedByName = modifiedByName;
+                category.ModifiedDate = DateTime.Now;
+
+                var deletedCategory = await UnitOfWork.Categories.UpdateAsync(category);
+                await UnitOfWork.SaveAsync();
+                return new DataResult<CategoryDto>(ResultStatus.Success, Messages.Category.UndoDelete(deletedCategory.CategoryName), new CategoryDto
+                {
+                    Category = deletedCategory,
+                    ResultStatus = ResultStatus.Success,
+                    Message = Messages.Category.UndoDelete(deletedCategory.CategoryName)
+                });
+            }
+            return new DataResult<CategoryDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), new CategoryDto
+            {
+                Category = null,
+                ResultStatus = ResultStatus.Error,
+                Message = Messages.Category.NotFound(isPlural: false)
+            });
+        }
 
         /////////////////////// HardDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -274,7 +323,7 @@ namespace BusinessLayer.Concrete
         public async Task<IDataResult<int>> CountAsync()
         {
             var categoriesCount = await UnitOfWork.Categories.CountAsync();// tüm degerleri getir
-            if (categoriesCount>-1)
+            if (categoriesCount > -1)
             {
                 return new DataResult<int>(ResultStatus.Success, categoriesCount);
             }
@@ -289,7 +338,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
-            var categoriesCount = await UnitOfWork.Categories.CountAsync(c=>!c.IsDeleted);// Silinmemis degerleri getir
+            var categoriesCount = await UnitOfWork.Categories.CountAsync(c => !c.IsDeleted);// Silinmemis degerleri getir
             if (categoriesCount > -1)
             {
                 return new DataResult<int>(ResultStatus.Success, categoriesCount);

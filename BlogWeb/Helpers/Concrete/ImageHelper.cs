@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreLayer.Utilities.Extensions;
 using CoreLayer.Utilities.Results.ComplexTypes;
@@ -56,7 +57,11 @@ namespace BlogWeb.Helpers.Concrete
             /* Resimin uzantısı fileExtension adlı değişkene atanır. */
             string fileExtension = Path.GetExtension(imageFile.FileName); //.png
 
-            DateTime dateTime = DateTime.Now;
+            Regex regex = new Regex("[*'\",._&#^@|/<>~]");
+            //name = regex.Replace(name, string.Empty); // biz burada string.Empty ile regex degerlerinden gelen karakterleri resimden kaldirdik
+            name = regex.Replace(name, "_");
+
+           DateTime dateTime = DateTime.Now;
 
             /*
             // Parametre ile gelen değerler kullanılarak yeni bir resim adı oluşturulur.

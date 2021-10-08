@@ -110,6 +110,23 @@ namespace BusinessLayer.Concrete
         }
 
 
+        /////////////////////// GetAllByDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\ Tüm Silinmisleri Getir
+
+        public async Task<IDataResult<BlogListDto>> GetAllByDeletedAsync()
+        {
+            var blogs = await UnitOfWork.Blogs.GetAllAsync(b => b.IsDeleted, bl => bl.User,
+                bl => bl.Category);
+            if (blogs.Count > -1)
+            {
+                return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+                {
+                    Blogs = blogs,
+                    ResultStatus = ResultStatus.Success
+                });
+            }
+            return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: true), null);
+        }
+
 
         /////////////////////// GetAllByCategoryAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -132,7 +149,6 @@ namespace BusinessLayer.Concrete
             }
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
         }
-
 
 
         /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -174,6 +190,7 @@ namespace BusinessLayer.Concrete
             {
                 var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId);
                 blog.IsDeleted = true;
+                blog.IsActive = false;
                 blog.ModifiedByName = modifiedByName;
                 blog.ModifiedDate = DateTime.Now;
                 await UnitOfWork.Blogs.UpdateAsync(blog);
@@ -183,6 +200,25 @@ namespace BusinessLayer.Concrete
             return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
         }
 
+
+        /////////////////////// UndoDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\ Silinmisleri Geri Al
+        /// 
+        public async Task<IResult> UndoDeleteAsync(int blogId, string modifiedByName)
+        {
+            var result = await UnitOfWork.Blogs.AnyAsync(b => b.Id == blogId);
+            if (result)
+            {
+                var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId);
+                blog.IsDeleted = false;
+                blog.IsActive = true;
+                blog.ModifiedByName = modifiedByName;
+                blog.ModifiedDate = DateTime.Now;
+                await UnitOfWork.Blogs.UpdateAsync(blog);
+                await UnitOfWork.SaveAsync();
+                return new Result(ResultStatus.Success, Messages.Blog.UndoDelete(blog.Title));
+            }
+            return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
+        }
 
 
         /////////////////////// HardDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
