@@ -186,9 +186,6 @@ This Project is a Blog Project.
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Edit.JPG" />
   
   <p>Admin Panel - Users - User Soft Delete (Passive)<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Soft%20Delete%20(Passive).JPG" />
-
-  <p>Admin Panel - Editor User<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Delete.JPG" />
 
 #### Others
