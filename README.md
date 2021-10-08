@@ -70,7 +70,7 @@ This Project is a Blog Project.
 
 #### Coming Soon
 
-  <p>Admin Panel - ComingSoon Page<p/>
+  <p>Home Page - ComingSoon Page<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/ComingSoon%20Page.JPG" />
 
 #### Login
@@ -83,8 +83,15 @@ This Project is a Blog Project.
   <p>Admin Panel - Dashboard<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Dashboard.JPG" />
 
+  <p>Admin Panel - Dashboard 2<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Dashboard%202.JPG" />
+
   <p>Admin Panel - User Information Change<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20Information%20Change.JPG" />
+  
+  <p>Admin Panel - Users - User Profil Change<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Profil%20Change.JPG" />
+
   
   <p>Admin Panel - Password Change<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Password%20Change.JPG" />
@@ -114,10 +121,44 @@ This Project is a Blog Project.
 
 #### Blogs (Articles)
 
+  <p>Admin Panel - Blogs<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Blogs.JPG" />
+
+  <p>Admin Panel - Blogs - Add - RequirementControls<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Blogs%20-%20Add%20-%20RequirementControls.JPG" />
+
+  <p>Admin Panel - Blogs - Add Blog<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Blogs%20-%20Add%20Blog.JPG" />
+  
+#### Comments
+
+  <p>Admin Panel - Comments<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comments.JPG" />
+  
+  <p>Admin Panel - Comments - Detail<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comments%20-%20Detail.JPG" />
+  
+  <p>Admin Panel - Comments - Edit<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comments%20-%20Edit.JPG" />
+  
+  <p>Admin Panel - Comment - Activation<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comment%20-%20Activation.JPG" />
+
+  
+  <p>Admin Panel - Comment - Activation - Successfull<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comment%20-%20Activation%20-%20Successfull.JPG" />
+
+  
+  <p>Admin Panel - Comment - Delete<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Comment%20-%20Delete.JPG" />
+
+
 
 #### Roles
 
-
+  <p>Admin Panel - Roles<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Roles.JPG" />
+   
 #### Users & Role Assignment
 
   <p>Admin Panel - Users<p/>
@@ -129,14 +170,23 @@ This Project is a Blog Project.
   <p>Admin Panel - Add New User Requirements<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Add%20New%20User%20Requirements.JPG" />
 
-  <p>Admin Panel - Users - User Profil Change<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Profil%20Change.JPG" />
+  <p>Admin Panel - User - Details<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Details.JPG" />
 
+  <p>Admin Panel - User - Roles<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Roles.JPG" />
+  
+  <p>Admin Panel - User - Role Assignment<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Role%20Assignment.JPG" />
+  
+  <p>Admin Panel - User - Edit<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Edit.JPG" />
+  
   <p>Admin Panel - Users - User Soft Delete (Passive)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users%20-%20User%20Soft%20Delete%20(Passive).JPG" />
 
   <p>Admin Panel - Editor User<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Editor%20User.JPG" />
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20User%20-%20Delete.JPG" />
 
 #### Others
 
