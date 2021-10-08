@@ -68,28 +68,28 @@ namespace DataAccessLayer.Concrete.Configurations
                 {
                     Id = 5,
                     Name = "Blog.Create",
-                    NormalizedName = "ARTICLE.CREATE",
+                    NormalizedName = "BLOG.CREATE",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new Role
                 {
                     Id = 6,
                     Name = "Blog.Read",
-                    NormalizedName = "ARTICLE.READ",
+                    NormalizedName = "BLOG.READ",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new Role
                 {
                     Id = 7,
                     Name = "Blog.Update",
-                    NormalizedName = "ARTICLE.UPDATE",
+                    NormalizedName = "BLOG.UPDATE",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new Role
                 {
                     Id = 8,
                     Name = "Blog.Delete",
-                    NormalizedName = "ARTICLE.DELETE",
+                    NormalizedName = "BLOG.DELETE",
                     ConcurrencyStamp = Guid.NewGuid().ToString()
                 },
                 new Role

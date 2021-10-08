@@ -454,10 +454,6 @@
                     success: function(data) {
                         const userUpdateAjaxModel = jQuery.parseJSON(data);
                         console.log(userUpdateAjaxModel);
-                        //if (userUpdateAjaxModel.UserDto != null) {
-                        //    
-                        //    
-                        //}
                         const newFormBody = $('.modal-body', userUpdateAjaxModel.UserUpdatePartial);
                         placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
                         const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
@@ -493,8 +489,8 @@
                             toastr.warning(summaryText);
                         }
                     },
-                    error: function(error) {
-                        console.log(error);
+                    error: function(err) {
+                        console.log(err);
                         toastr.error(`${err.responseText}`, 'Hata!');
                     }
                 });
@@ -519,6 +515,67 @@
                     toastr.error(`${err.responseText}`, 'Hata!');
                 });
             });
+    });
 
+
+        /* Ajax POST / Updating a Role Assign starts from here */
+
+    $(function () {
+        const url = '/Admin/Role/Assign/';
+        const placeHolderDiv = $('#modalPlaceHolder');
+        $(document).on('click',
+            '.btn-assign',
+            function (event) {
+                event.preventDefault();
+                const id = $(this).attr('data-id');
+                $.get(url, { userId: id }).done(function (data) {
+                    placeHolderDiv.html(data);
+                    placeHolderDiv.find('.modal').modal('show');
+                }).fail(function (err) {
+                    toastr.error(`${err.responseText}`, 'Hata!');
+                });
+            });
+
+        /* Ajax POST / Updating a Role Assign starts from here */
+
+        placeHolderDiv.on('click',
+            '#btnAssign',
+            function (event) {
+                event.preventDefault();
+                const form = $('#form-role-assign');
+                const actionUrl = form.attr('action');
+                const dataToSend = new FormData(form.get(0));
+                $.ajax({
+                    url: actionUrl,
+                    type: 'POST',
+                    data: dataToSend,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        const userRoleAssignAjaxModel = jQuery.parseJSON(data);
+                        console.log(userRoleAssignAjaxModel);
+                        const newFormBody = $('.modal-body', userRoleAssignAjaxModel.RoleAssignPartial);
+                        placeHolderDiv.find('.modal-body').replaceWith(newFormBody);
+                        const isValid = newFormBody.find('[name="IsValid"]').val() === 'True';
+                        if (isValid) {
+                            const id = userRoleAssignAjaxModel.UserDto.User.Id;
+                            const tableRow = $(`[name="${id}"]`);
+                            //placeHolderDiv.find('.modal').modal('hide');
+                            toastr.success(`${userRoleAssignAjaxModel.UserDto.Message}`, "Başarılı İşlem!");
+                        } else {
+                            let summaryText = "";
+                            $('#validation-summary > ul > li').each(function () {
+                                let text = $(this).text();
+                                summaryText = `*${text}\n`;
+                            });
+                            toastr.warning(summaryText);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        toastr.error(`${err.responseText}`, 'Hata!');
+                    }
+                });
+            });
     });
 });

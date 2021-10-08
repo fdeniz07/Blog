@@ -407,8 +407,8 @@
                             toastr.warning(summaryText);
                         }
                     },
-                    error: function (error) {
-                        console.log(error);
+                    error: function (err) {
+                        console.log(err);
                         toastr.error(`${err.responseText}`, 'Hata!');
                     }
                 });

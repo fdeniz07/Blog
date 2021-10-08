@@ -22,9 +22,6 @@
                 },
                 className: 'btn btn-success',
                 action: function (e, dt, node, config) {
-                    let url = window.location.href;
-                    url = url.replace("/Index", "");
-                    window.open(`${url}/Add`, "_self");
                 }
             },
             {

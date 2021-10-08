@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+ï»¿using System.Text.Json.Serialization;
 using BlogWeb.AutoMapper.Profiles;
 using BlogWeb.Helpers.Abstract;
 using BlogWeb.Helpers.Concrete;
@@ -25,21 +25,24 @@ namespace BlogWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //UI katmanina 2 paket yüklenmeli
+            //UI katmanina 2 paket yÃ¼klenmeli
             /*
              * 1-AutoMapper.Extensions.Microsoft.DependencyInjection
              * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
              */
 
-            services.AddControllersWithViews().AddRazorRuntimeCompilation().AddJsonOptions(opt =>
+            services.AddControllersWithViews(options =>
+            {
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boÅŸ geÃ§ilmemelidir."); //Ingilzce hata mesajlari yerine, hatali dÃ¶nÃ¼sler icin bizim belirledigimiz mesaj gÃ¶sterilecektir.
+            }).AddRazorRuntimeCompilation().AddJsonOptions(opt =>
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 opt.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.Preserve;
-            }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
+            }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri gÃ¶rebiliriz.
 
             services.AddSession();
             services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile),typeof(ViewModelsProfile),typeof(CommentProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
-            services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha Ã¶nceden kurdugumuz yapiyi buradan yÃ¼klÃ¼yoruz
             services.AddScoped<IImageHelper, ImageHelper>();
             services.ConfigureApplicationCookie(options =>
             {
@@ -49,12 +52,12 @@ namespace BlogWeb
                 {
                     Name = "Blog",
                     HttpOnly = true,
-                    SameSite =SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
+                    SameSite =SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi Ã¶nlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
                     SecurePolicy = CookieSecurePolicy.SameAsRequest //Site canliya tasindiginda bu alan .Always olarak degistirilmelidir.!!!
                 };
-                options.SlidingExpiration = true; //Cookie süresi belirleme
-                options.ExpireTimeSpan = System.TimeSpan.FromDays(7); // 7 gün boyunca tarayici üzerinde gecerliligi olacak
-                options.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied"); //Yetkisiz erisimde yönlendirilecek sayfa
+                options.SlidingExpiration = true; //Cookie sÃ¼resi belirleme
+                options.ExpireTimeSpan = System.TimeSpan.FromDays(7); // 7 gÃ¼n boyunca tarayici Ã¼zerinde gecerliligi olacak
+                options.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied"); //Yetkisiz erisimde yÃ¶nlendirilecek sayfa
             });
         }
 
@@ -64,7 +67,7 @@ namespace BlogWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseStatusCodePages(); // Sayfa bulunmadiginda 404 hata sayfasina yönlendirecektir
+                app.UseStatusCodePages(); // Sayfa bulunmadiginda 404 hata sayfasina yÃ¶nlendirecektir
             }
             else
             {
