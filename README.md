@@ -64,15 +64,21 @@ This Project is a Blog Project.
   <p>UI Layer (Presentation) -2<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-2.JPG" />
 
-### Pages
+## Pages
 
-#### Admin Panel
+### Admin Panel
+
+#### Coming Soon
 
   <p>Admin Panel - ComingSoon Page<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/ComingSoon%20Page.JPG" />
 
+#### Login
+
   <p>Admin Panel - Login<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Login.JPG" />
+
+#### Dashboard
 
   <p>Admin Panel - Dashboard<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Dashboard.JPG" />
@@ -85,6 +91,8 @@ This Project is a Blog Project.
 
   <p>Admin Panel - Password Change Requirements<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Password%20Change%20Requirements.JPG" />
+  
+  #### Categories
   
   <p>Admin Panel - Categories<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Categories.JPG" />
@@ -104,6 +112,14 @@ This Project is a Blog Project.
   <p>Admin Panel - Category Soft Delete (Passive)<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Category%20Soft%20Delete%20(Passive).JPG" />
 
+#### Blogs (Articles)
+
+
+#### Roles
+
+
+#### Users & Role Assignment
+
   <p>Admin Panel - Users<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Users.JPG" />
 
@@ -121,6 +137,8 @@ This Project is a Blog Project.
 
   <p>Admin Panel - Editor User<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Admin%20Panel%20-%20Editor%20User.JPG" />
+
+#### Others
 
   <p>Admin Panel - Access Denied - 403<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Access%20Denied%20-%20403.JPG" />
