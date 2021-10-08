@@ -64,6 +64,9 @@ This Project is a Blog Project.
   <p>UI Layer (Presentation) -2<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-2.JPG" />
 
+  <p>UI Layer (Presentation) -3<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-3.JPG" />
+  
 ## Pages
 
 ### Admin Panel
