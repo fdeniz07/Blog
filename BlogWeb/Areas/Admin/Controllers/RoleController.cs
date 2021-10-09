@@ -104,6 +104,8 @@ namespace BlogWeb.Areas.Admin.Controllers
                         await UserManager.RemoveFromRoleAsync(user, roleAssignDto.RoleName);
                 }
 
+                await UserManager.UpdateSecurityStampAsync(user); // Kullanici rolü degistiginde default olarak 30dk icerisinde sistemden atilacak ve yeniden giris yapmaya zorlanacaktir.
+
                 var userRoleAssignAjaxViewModel = JsonSerializer.Serialize(new UserRoleAssignAjaxViewModel
                 {
                     UserDto = new UserDto

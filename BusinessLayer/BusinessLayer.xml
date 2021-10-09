@@ -19,6 +19,9 @@
             <param name="createdByName">string tipinde kullanicinin kullanici adi</param>
             <returns>Asenkron bir operasyon ile Task olarak bizlere ekleme isleminin sonucunu DataResult tipinde döner.</returns>
         </member>
+        <member name="M:BusinessLayer.Concrete.BlogManager.UndoDeleteAsync(System.Int32,System.String)">
+            
+        </member>
         <member name="M:BusinessLayer.Concrete.CategoryManager.GetCategoryUpdateDtoAsync(System.Int32)">
             <summary>
             Verilen ID parametresine ait kategorinin CategoryUpdateDto temsilini geriye döner.

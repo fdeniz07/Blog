@@ -1,9 +1,11 @@
-﻿using BusinessLayer.Abstract;
+﻿using System;
+using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.Abstract.UnitOfWorks;
 using DataAccessLayer.Concrete.EntityFramework.Contexts;
 using DataAccessLayer.Concrete.UnitOfWorks;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,6 +33,10 @@ namespace BusinessLayer.Extensions
                 options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$"; //Kullanici adinda hangi karakterler olsun
                 options.User.RequireUniqueEmail = true; // ayni mail adresi ile kayda izin verilmemeli mi?
             }).AddEntityFrameworkStores<MsDbContext>();
+            serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval=TimeSpan.FromMinutes(5); //buradaki islem default olarak 30 dk gelmektedir. Yani bu sistem her 30 dk da bir kullanicilarin isteklerini kontrol eder. Örnek olarak bir kullanicinin rol yetkisi degistiginde 30 dk sonra sistemden atilip yeniden giris yapmasi gerekecektir. Ancak büyük sistemler server tarafinda asirin istek yükü getireceginden dikkat edilerek karar verilmelidir. Birkac kullanicinin oldugu sistemlerde bu süre 30 sn ye kadar düsürülebilir.
+            });
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
             serviceCollection.AddScoped<IBlogService, BlogManager>();

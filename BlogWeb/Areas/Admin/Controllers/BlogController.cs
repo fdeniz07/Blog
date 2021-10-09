@@ -169,5 +169,44 @@ namespace BlogWeb.Areas.Admin.Controllers
             });
             return Json(blogResult);
         }
+
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
+        [HttpGet]
+        public async Task<IActionResult> DeletedBlogs()
+        {
+            var result = await _blogService.GetAllByDeletedAsync();
+            return View(result.Data);
+
+        }
+
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
+        [HttpGet]
+        public async Task<JsonResult> GetAllDeletedBlogs()
+        {
+            var result = await _blogService.GetAllByDeletedAsync();
+            var blogs = JsonSerializer.Serialize(result, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            return Json(blogs);
+        }
+
+        [Authorize(Roles = "SuperAdmin,Blog.Update")]
+        [HttpPost]
+        public async Task<JsonResult> UndoDelete(int blogId)
+        {
+            var result = await _blogService.UndoDeleteAsync(blogId, LoggedInUser.UserName);
+            var undoDeleteBlogResult = JsonSerializer.Serialize(result);
+            return Json(undoDeleteBlogResult);
+        }
+
+        [Authorize(Roles = "SuperAdmin,Blog.Delete")]
+        [HttpPost]
+        public async Task<JsonResult> HardDelete(int blogId)
+        {
+            var result = await _blogService.HardDeleteAsync(blogId);
+            var hardDeletedBlogResult = JsonSerializer.Serialize(result);
+            return Json(hardDeletedBlogResult);
+        }
     }
 }

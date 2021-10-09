@@ -1,0 +1,90 @@
+﻿@model EntityLayer.Dtos.BlogListDto
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Silinmiş Makaleler";
+}
+<ol class="breadcrumb mb-3 mt-2">
+    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a></li>
+    <li class="breadcrumb-item active"><a asp-area="Admin" asp-controller="Blog" asp-action="DeletedBlogs">Silinmiş Makaleler</a></li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        Silinmiş Makaleler
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="deletedBlogsTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori</th>
+                    <th>Başlık</th>
+                    <th>Küçük Resim</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>Yorum Sayısı</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Oluşturan Kullanıcı Adı</th>
+                    <th>Son Düzenlenme Tarihi</th>
+                    <th>Son Düzenleyen Kullanıcı Adı</th>
+                    <th>İşlemler</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Kategori</th>
+                    <th>Başlık</th>
+                    <th>Küçük Resim</th>
+                    <th>Tarih</th>
+                    <th>Okunma Sayısı</th>
+                    <th>Yorum Sayısı</th>
+                    <th>Aktif Mi?</th>
+                    <th>Silinmiş Mi?</th>
+                    <th>Oluşturulma Tarihi</th>
+                    <th>Oluşturan Kullanıcı Adı</th>
+                    <th>Son Düzenlenme Tarihi</th>
+                    <th>Son Düzenleyen Kullanıcı Adı</th>
+                    <th>İşlemler</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                @foreach (var blog in Model.Blogs)
+                {
+                    <tr name="@blog.Id">
+                        <td>@blog.Id</td>
+                        <td>@blog.Category.CategoryName</td>
+                        <td>@blog.Title</td>
+                        <td><img src="~/img/@blog.Thumbnail" class="my-image-table" /></td>
+                        <td>@blog.Date.ToShortDateString()</td>
+                        <td>@blog.ViewCount</td>
+                        <td>@blog.CommentCount</td>
+                        <td>@(blog.IsActive ? "Evet" : "Hayır")</td>
+                        <td>@(blog.IsDeleted ? "Evet" : "Hayır")</td>
+                        <td>@blog.CreatedDate.ToShortDateString()</td>
+                        <td>@blog.CreatedByName</td>
+                        <td>@blog.ModifiedDate.ToShortDateString()</td>
+                        <td>@blog.ModifiedByName</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm btn-undo" data-id="@blog.Id"><span class="fas fa-undo"></span></button>
+                            <button class="btn btn-danger btn-sm btn-delete" data-id="@blog.Id"><span class="fas fa-minus-circle"></span></button>
+                        </td>
+                    </tr>
+                }
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/AdminLTE/js/deletedBlogs.js" type="application/ecmascript"></script>
+}
+@section Styles
+{
+    
+}

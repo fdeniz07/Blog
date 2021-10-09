@@ -122,5 +122,43 @@ namespace BlogWeb.Areas.Admin.Controllers
             return Json(commentUpdateAjaxErrorModel);
         }
 
+        [Authorize(Roles = "SuperAdmin,Comment.Read")]
+        [HttpGet]
+        public async Task<IActionResult> DeletedComments()
+        {
+            var result = await _commentService.GetAllByDeletedAsync();
+            return View(result.Data);
+
+        }
+
+        [Authorize(Roles = "SuperAdmin,Comment.Read")]
+        [HttpGet]
+        public async Task<JsonResult> GetAllDeletedComments()
+        {
+            var result = await _commentService.GetAllByDeletedAsync();
+            var comments = JsonSerializer.Serialize(result, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            return Json(comments);
+        }
+
+        [Authorize(Roles = "SuperAdmin,Comment.Update")]
+        [HttpPost]
+        public async Task<JsonResult> UndoDelete(int commentId)
+        {
+            var result = await _commentService.UndoDeleteAsync(commentId, LoggedInUser.UserName);
+            var undoDeleteCommentResult = JsonSerializer.Serialize(result);
+            return Json(undoDeleteCommentResult);
+        }
+
+        [Authorize(Roles = "SuperAdmin,Comment.Delete")]
+        [HttpPost]
+        public async Task<JsonResult> HardDelete(int commentId)
+        {
+            var result = await _commentService.HardDeleteAsync(commentId);
+            var hardDeletedCommentResult = JsonSerializer.Serialize(result);
+            return Json(hardDeletedCommentResult);
+        }
     }
 }
