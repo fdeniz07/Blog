@@ -21,7 +21,6 @@ namespace BusinessLayer.Concrete
         }
 
 
-
         /////////////////////// GetAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<BlogDto>> GetAsync(int blogId)
@@ -55,7 +54,6 @@ namespace BusinessLayer.Concrete
                 return new DataResult<BlogUpdateDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false), null);
             }
         }
-
 
 
         /////////////////////// GetAllAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -166,7 +164,6 @@ namespace BusinessLayer.Concrete
         }
 
 
-
         /////////////////////// UpdateAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IResult> UpdateAsync(BlogUpdateDto blogUpdateDto, string modifiedByName)
@@ -178,7 +175,6 @@ namespace BusinessLayer.Concrete
             await UnitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Blog.Update(blog.Title));
         }
-
 
 
         /////////////////////// DeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -237,7 +233,6 @@ namespace BusinessLayer.Concrete
         }
 
 
-
         /////////////////////// CountAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<int>> CountAsync()
@@ -252,7 +247,6 @@ namespace BusinessLayer.Concrete
                 return new DataResult<int>(ResultStatus.Error, $"Beklenmeyen bir hata ile karşılaşıldı.", -1);
             }
         }
-
 
 
         /////////////////////// CountByNonDeletedAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\

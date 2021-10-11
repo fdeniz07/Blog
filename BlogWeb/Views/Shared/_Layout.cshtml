@@ -1,10 +1,4 @@
-﻿<!--
-    Author: W3layouts
-    Author URL: http://w3layouts.com
-    License: Creative Commons Attribution 3.0 Unported
-    License URL: http://creativecommons.org/licenses/by/3.0/
--->
-
+﻿
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -15,13 +9,13 @@
     <meta name="author" content="ProgrammersBlog">
 
     <meta name="keywords" content="Weblog a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
-    
-    <title>@ViewBag.Title | ProgrammersBlog</title>
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+    <title>@ViewBag.Title | Fatih's Blog</title>
 
     <script>
         addEventListener("load",
-            function() {
+            function () {
                 setTimeout(hideURLbar, 0);
             },
             false);
@@ -30,9 +24,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             window.scrollTo(0, 1);
         }
     </script>
-    <link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css'/>
+    <link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="~/BlogHome/css/jquery.desoslide.css">
-    <link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css' />
     <link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
           rel="stylesheet">
@@ -40,42 +34,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <body>
     <!--Header-->
-
     <header>
         <div class="top-bar_sub_w3layouts container-fluid">
             <div class="row">
                 <div class="col-md-4 logo text-left">
                     <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                        <i class="fab fa-linode"></i> ProgrammersBlog
+                        <i class="fab fa-linode"></i> Fatih's Blog
                     </a>
                 </div>
                 <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-                    <span>Ana Sayfa</span>
+                    <span>Hoş Geldiniz</span>
                     <span class="mx-lg-4 mx-md-2  mx-1">
-                        <a href="login.html">
-                            <i class="fas fa-lock"></i> Hakkında
+                        <a asp-controller="Home" asp-action="SignIn">
+                            <i class="fas fa-lock"></i> Giriş Yap
                         </a>
                     </span>
                     <span>
-                        <a href="register.html">
-                            <i class="far fa-user"></i> İletişim
+                        <a asp-controller="Home" asp-action="Register">
+                            <i class="far fa-user"></i> Üye Ol
                         </a>
                     </span>
                 </div>
                 <div class="col-md-4 log-icons text-right">
-
                     <ul class="social_list1 mt-3">
 
                         <li>
                             <a href="#" class="facebook1 mx-2">
                                 <i class="fab fa-facebook-f"></i>
-
                             </a>
                         </li>
                         <li>
                             <a href="#" class="twitter2">
                                 <i class="fab fa-twitter"></i>
-
                             </a>
                         </li>
                         <li>
@@ -99,46 +89,42 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">
-                                Home
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">
+                                Ana Sayfa
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Hakkımızda</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                Features
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"></a>
-                                <a class="dropdown-item" href="blog1.html">Standard Blog</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="blog2.html">2 Column Blog</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="blog3.html">3 Column Blog</a>
-
-                            </div>
+                        @*<li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-controller="Home" asp-action="Index" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Features
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#"></a>
+                                    <a class="dropdown-item" href="blog1.html">Standard Blog</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="blog2.html">2 Column Blog</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="blog3.html">3 Column Blog</a>
+                                </div>
+                            </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Makaleler</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">İletişim</a>
                         </li>
-
                     </ul>
                     <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search here..." name="Search" required="">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Aranmak istenen anahtar kelime..." name="Search" required="">
                         <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                     </form>
-
-
-
                 </div>
             </nav>
 
@@ -210,286 +196,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </a>
         </div>
     </div>
-    <!--/model-->
     <!--//banner-->
-    <section class="bottom-slider">
-        <div class="course_demo1">
-            <ul id="flexiselDemo1">
-                <li>
-                    <div class="blog-item">
-                        <img src="images/1.jpg" alt=" " class="img-fluid" />
-                        <button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-play"></i>
-                        </button>
-
-                        <div class="floods-text">
-                            <h3>
-                                The fed and inequality
-                                <span>
-                                    Blogger
-                                    <label>|</label>
-                                    <i>Adom Smith</i>
-                                </span>
-                            </h3>
-
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="blog-item">
-                        <img src="images/2.jpg" alt=" " class="img-fluid" />
-                        <button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-play"></i>
-                        </button>
-
-                        <div class="floods-text">
-                            <h3>
-                                The fastest insect in the world
-                                <span>
-                                    Blogger
-                                    <label>|</label>
-                                    <i>Adom Smith</i>
-                                </span>
-                            </h3>
-
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="blog-item">
-                        <img src="images/3.jpg" alt=" " class="img-fluid" />
-                        <button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-play"></i>
-                        </button>
-
-
-                        <div class="floods-text">
-                            <h3>
-                                Billionaires versus Millionaires
-                                <span>
-                                    Blogger
-                                    <label>|</label>
-                                    <i>Adom Smith</i>
-                                </span>
-                            </h3>
-
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="blog-item">
-                        <img src="images/4.jpg" alt=" " class="img-fluid" />
-                        <button type="button" class="btn btn-primary play" data-toggle="modal" data-target="#exampleModal">
-                            <i class="fas fa-play"></i>
-                        </button>
-
-
-                        <div class="floods-text">
-                            <h3>
-                                Billionaires versus Millionaires
-                                <span>
-                                    Blogger
-                                    <label>|</label>
-                                    <i>Adom Smith</i>
-                                </span>
-                            </h3>
-
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="embed-responsive embed-responsive-21by9">
-                            <iframe src="https://player.vimeo.com/video/145787219"></iframe>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
     <!--/main-->
     <section class="main-content-w3layouts-agileits">
         <div class="container">
-            <div class="row">
+            <h3 class="tittle">Son Paylaşılan Makaleler</h3>
+            <div class="row inner-sec">
                 <!--left-->
-                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-                    <div class="blog-grid-top">
-                        <div class="b-grid-top">
-                            <div class="blog_info_left_grid">
-                                <a href="single.html">
-                                    <img src="images/b1.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="blog-info-middle">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-calendar-alt"></i> FEB 15,2018
-                                        </a>
-                                    </li>
-                                    <li class="mx-2">
-                                        <a href="#">
-                                            <i class="far fa-thumbs-up"></i> 201 Likes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-comment"></i> 15 Comments
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <h3>
-                            <a href="single.html">Amet consectetur adipisicing </a>
-                        </h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua uta enim ad minim ven iam quis nostrud exercitation ullamco labor nisi ut aliquip exea commodo consequat duis
-                            aute irudre dolor in elit sed uta labore dolore reprehender
-                        </p>
-                        <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                    </div>
-                    <!--//silder-->
-                    <div class="blog-mid-sec">
-                        <ul id="flexiselDemo2">
-                            <li>
-                                <div class="blog-item">
-                                    <img src="images/5.jpg" alt=" " class="img-fluid" />
-                                    <button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <div class="floods-text">
-                                        <h3>Lorem ipsum </h3>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="blog-item">
-                                    <img src="images/6.jpg" alt=" " class="img-fluid" />
-                                    <button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <div class="floods-text">
-                                        <h3>Lorem ipsum </h3>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="blog-item">
-                                    <img src="images/7.jpg" alt=" " class="img-fluid" />
-                                    <button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <div class="floods-text">
-                                        <h3>Lorem ipsum </h3>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="blog-item">
-                                    <img src="images/8.jpg" alt=" " class="img-fluid" />
-                                    <button type="button" class="btn btn-primary play sec" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <div class="floods-text">
-                                        <h3>Lorem ipsum </h3>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!--//silder-->
-                    <div class="blog-girds-sec">
-                        <div class="row">
-                            <div class="col-md-6 blog-grid-top">
-                                <div class="b-grid-top">
-                                    <div class="blog_info_left_grid">
-                                        <a href="single.html">
-                                            <img src="images/b2.jpg" class="img-fluid" alt="">
-                                        </a>
-                                    </div>
-                                    <h3>
-                                        <a href="single.html">Amet consectetur </a>
-                                    </h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
-                                </div>
-                                <ul class="blog-icons">
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-clock"></i> 5 Monts
-                                        </a>
-                                    </li>
-                                    <li class="mx-2">
-                                        <a href="#">
-                                            <i class="far fa-comment"></i> 21
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fas fa-eye"></i> 2000
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <div class="col-md-6 blog-grid-top">
-                                <div class="b-grid-top">
-                                    <div class="blog_info_left_grid">
-                                        <a href="single.html">
-                                            <img src="images/b3.jpg" class="img-fluid" alt="">
-                                        </a>
-                                    </div>
-                                    <h3>
-                                        <a href="single.html">Amet adipisicing </a>
-                                    </h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt aliqua uta enim.</p>
-
-                                </div>
-                                <ul class="blog-icons">
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-clock"></i> 5 Monts
-                                        </a>
-                                    </li>
-                                    <li class="mx-2">
-                                        <a href="#">
-                                            <i class="far fa-comment"></i> 21
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fas fa-eye"></i> 2000
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @RenderBody()
                 <!--//left-->
                 <!--right-->
-                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
                     <div class="right-blog-info text-left">
                         <div class="tech-btm">
-                            <img src="images/banner1.jpg" class="img-fluid" alt="">
+                            <img src="~/BlogHome/images/banner1.jpg" class="card-img-top img-fluid" alt="">
                         </div>
                         <div class="tech-btm">
-                            <h4>Sign up to our newsletter</h4>
+                            <h4>Bültene Abone Ol</h4>
                             <p>Pellentesque dui, non felis. Maecenas male </p>
                             <form action="#" method="post">
                                 <input type="email" placeholder="Email" required="">
@@ -497,8 +220,109 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </form>
 
                         </div>
-                        <div class="tech-btm widget_social">
-                            <h4>Stay Connect</h4>
+                        <div class="tech-btm">
+                            <h4>Kategoriler</h4>
+                            <ul class="list-group single">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Cras justo odio
+                                    <span class="badge badge-primary badge-pill">14</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Dapibus ac facilisis in
+                                    <span class="badge badge-primary badge-pill">2</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Morbi leo risus
+                                    <span class="badge badge-primary badge-pill">1</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-btm">
+                            <h4>En Çok Okunan Makaleleri</h4>
+
+                            <div class="blog-grids row mb-3">
+                                <div class="col-md-5 blog-grid-left">
+                                    <a href="single.html">
+                                        <img src="images/1.jpg" class="card-img-top img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-md-7 blog-grid-right">
+
+                                    <h5>
+                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                                    </h5>
+                                    <div class="sub-meta">
+                                        <span>
+                                            <i class="far fa-clock"></i> 20 Jan, 2018
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="blog-grids row mb-3">
+                                <div class="col-md-5 blog-grid-left">
+                                    <a href="single.html">
+                                        <img src="images/6.jpg" class="card-img-top img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-md-7 blog-grid-right">
+                                    <h5>
+                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                                    </h5>
+                                    <div class="sub-meta">
+                                        <span>
+                                            <i class="far fa-clock"></i> 20 Feb, 2018
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="single-gd my-5 tech-btm">
+                            <h4>Our Progress</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="single-gd tech-btm text-left">
+                            <h4>Son Makale</h4>
+                            <div class="blog-grids">
+                                <div class="blog-grid-left">
+                                    <a href="single.html">
+                                        <img src="images/b1.jpg" class="card-img-top img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog-grid-right">
+
+                                    <h5>
+                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male</a>
+                                    </h5>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="tech-btm widget_social text-left">
+                            <h4>Sosyal Medya</h4>
                             <ul>
 
                                 <li>
@@ -532,10 +356,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="tech-btm">
                             <h4>Recent Posts</h4>
 
-                            <div class="blog-grids row mb-3">
+                            <div class="blog-grids row mb-3 text-left">
                                 <div class="col-md-5 blog-grid-left">
                                     <a href="single.html">
-                                        <img src="images/1.jpg" class="img-fluid" alt="">
+                                        <img src="~/BlogHome/images/1.jpg" class="card-img-top img-fluid" alt="">
                                     </a>
                                 </div>
                                 <div class="col-md-7 blog-grid-right">
@@ -551,10 +375,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </div>
 
                             </div>
-                            <div class="blog-grids row mb-3">
+                            <div class="blog-grids row mb-3 text-left">
                                 <div class="col-md-5 blog-grid-left">
                                     <a href="single.html">
-                                        <img src="images/5.jpg" class="img-fluid" alt="">
+                                        <img src="~/BlogHome/images/5.jpg" class="card-img-top img-fluid" alt="">
                                     </a>
                                 </div>
                                 <div class="col-md-7 blog-grid-right">
@@ -570,66 +394,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </div>
                                 <div class="clearfix"> </div>
                             </div>
-                            <div class="blog-grids row mb-3">
+                            <div class="blog-grids row mb-3 text-left">
                                 <div class="col-md-5 blog-grid-left">
                                     <a href="single.html">
-                                        <img src="images/3.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-7 blog-grid-right">
-                                    <h5>
-                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                    </h5>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Feb, 2018
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="blog-grids row mb-3">
-                                <div class="col-md-5 blog-grid-left">
-                                    <a href="single.html">
-                                        <img src="images/2.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-7 blog-grid-right">
-
-                                    <h5>
-                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                    </h5>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Jan, 2018
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="blog-grids row mb-3">
-                                <div class="col-md-5 blog-grid-left">
-                                    <a href="single.html">
-                                        <img src="images/4.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-md-7 blog-grid-right">
-
-                                    <h5>
-                                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                    </h5>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Jan, 2018
-                                        </span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="blog-grids row mb-3">
-                                <div class="col-md-5 blog-grid-left">
-                                    <a href="single.html">
-                                        <img src="images/6.jpg" class="img-fluid" alt="">
+                                        <img src="~/BlogHome/images/3.jpg" class="card-img-top img-fluid" alt="">
                                     </a>
                                 </div>
                                 <div class="col-md-7 blog-grid-right">
@@ -646,254 +414,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </div>
                     </div>
-
-                </aside>
-                <!--//right-->
-            </div>
-        </div>
-    </section>
-    <!--//main-->
-    <!--/middle-->
-    <section class="middle-sec-agileinfo-w3ls">
-        <div class="container">
-            <div class="row inner-sec">
-                <div class="col-md-4 news-left">
-                    <ul id="demo1_thumbs" class="list-inline">
-                        <li>
-                            <a href="images/m1.jpg">
-                                <img src="images/m1.jpg" alt="" data-desoslide-caption="<h3>Latest Post 1</h3>">
-                                <div class="mid-text-info">
-                                    <h4>Maecenas aliqua</h4>
-                                    <p>Integer </p>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Feb, 2018
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="images/m2.jpg">
-                                <img src="images/m2.jpg" alt="" data-desoslide-caption="<h3>Latest Post 2</h3>">
-                                <div class="mid-text-info">
-                                    <h4>Maecenas aliqua</h4>
-                                    <p>Integer </p>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Feb, 2018
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="images/m3.jpg">
-                                <img src="images/m3.jpg" alt="" data-desoslide-caption="<h3>Latest Post 3</h3>">
-                                <div class="mid-text-info">
-                                    <h4>Maecenas aliqua</h4>
-                                    <p>Integer </p>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Feb, 2018
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="images/m4.jpg">
-                                <img src="images/m4.jpg" alt="" data-desoslide-caption="<h3>Latest Post 4</h3>">
-                                <div class="mid-text-info">
-                                    <h4>Maecenas aliqua</h4>
-                                    <p>Integer </p>
-                                    <div class="sub-meta">
-                                        <span>
-                                            <i class="far fa-clock"></i> 20 Feb, 2018
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="demo1_main_image" class="col-md-8  news-right"></div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-
-    </section>
-    <!--//middle-->
-    <!---->
-    <section class="main-content-w3layouts-agileits">
-        <div class="container">
-            <div class="row">
-                <!--left-->
-                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
-                    <div class="blog-grid-top">
-                        <div class="b-grid-top">
-                            <div class="blog_info_left_grid">
-                                <a href="single.html">
-                                    <img src="images/b4.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="blog-info-middle">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-calendar-alt"></i> FEB 15,2018
-                                        </a>
-                                    </li>
-                                    <li class="mx-2">
-                                        <a href="#">
-                                            <i class="far fa-thumbs-up"></i> 201 Likes
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-comment"></i> 15 Comments
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-
-                        <h3>
-                            <a href="single.html">Amet consectetur adipisicing </a>
-                        </h3>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua uta enim ad minim ven iam quis nostrud exercitation ullamco labor nisi ut aliquip exea commodo consequat duis
-                            aute irudre dolor in elit sed uta labore dolore reprehender
-                        </p>
-                        <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                    </div>
-                    <!--//silder-->
-
-
-                </div>
-                <!--//left-->
-                <!--right-->
-                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-left">
-                    <div class="tech-btm">
-                        <h4>Recent Posts</h4>
-
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/5.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/6.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/7.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Feb, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/8.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/4.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="images/6.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Feb, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
                 </aside>
                 <!--//right-->
             </div>
@@ -918,7 +438,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="blog-grids row mb-3">
                             <div class="col-md-5 blog-grid-left">
                                 <a href="single.html">
-                                    <img src="images/4.jpg" class="img-fluid" alt="">
+                                    <img src="~/BlogHome/images/4.jpg" class="img-fluid" alt="">
                                 </a>
                             </div>
                             <div class="col-md-7 blog-grid-right">
@@ -937,7 +457,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="blog-grids row mb-3">
                             <div class="col-md-5 blog-grid-left">
                                 <a href="single.html">
-                                    <img src="images/5.jpg" class="img-fluid" alt="">
+                                    <img src="~/BlogHome/images/5.jpg" class="img-fluid" alt="">
                                 </a>
                             </div>
                             <div class="col-md-7 blog-grid-right">
@@ -956,7 +476,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="blog-grids row mb-3">
                             <div class="col-md-5 blog-grid-left">
                                 <a href="single.html">
-                                    <img src="images/6.jpg" class="img-fluid" alt="">
+                                    <img src="~/BlogHome/images/6.jpg" class="img-fluid" alt="">
                                 </a>
                             </div>
                             <div class="col-md-7 blog-grid-right">
@@ -1024,9 +544,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
                 </div>
                 <div class="w3layouts-agile-copyrightbottom">
-                    <p>
-                        © 2018 Weblog. All Rights Reserved | Design by
-                        <a href="http://w3layouts.com/">W3layouts</a>
+                    <p class="m-0 text.text-center text-white">
+                        © Tüm hakları saklıdır | Fatih's Blog @DateTime.Now.Year
                     </p>
 
                 </div>
@@ -1152,3 +671,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 
 </html>
+
+
