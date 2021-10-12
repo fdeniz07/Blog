@@ -1,0 +1,91 @@
+﻿@model EntityLayer.Dtos.BlogDto
+@{
+    Layout = "_BlogLayout";
+    ViewBag.Title = Model.Blog.Title;
+    ViewBag.Description = Model.Blog.SeoDescription;
+    ViewBag.Author = Model.Blog.SeoAuthor;
+    ViewBag.Tags = Model.Blog.SeoTags;
+}
+<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="~/BlogHome/css/single.css">
+<link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css' />
+<link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+      rel="stylesheet">
+
+<!--left-->
+<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+    <div class="blog-grid-top">
+        <div class="b-grid-top">
+            <div class="blog_info_left_grid">
+                <!-- Prevıew Image -->
+                <div class="text-center">
+                    <img class="img-fluid rounded" src="~/img/@Model.Blog.Thumbnail" alt="@Model.Blog.Title">
+                </div>
+            </div>
+            <div class="blog-info-middle">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> @Model.Blog.Date.ToShortDateString()
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-thumbs-up"></i> @Model.Blog.ViewCount
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="far fa-comment"></i> @Model.Blog.CommentCount
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="mt-4">@Model.Blog.Title</h1>
+
+        <!-- Author -->
+        <p class="lead">@Model.Blog.User.UserName tarafından @Model.Blog.Date.ToShortDateString() tarihinde paylaşılmıştır.</p>
+
+        <!-- Content -->
+        @Html.Raw(@Model.Blog.Content)
+
+        <hr />
+
+        @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
+
+    </div>
+
+    <div class="comment-top">
+        <h4>Bir yorum ekle</h4>
+        <div class="comment-bottom">
+            <form action="#" method="post">
+                <input class="form-control" type="text" name="Name" placeholder="Name" required="">
+                <input class="form-control" type="email" name="Email" placeholder="Email" required="">
+                <input class="form-control" type="text" name="Subject" placeholder="Subject" required="">
+                <textarea class="form-control" name="Message" placeholder="Message..." required=""></textarea>
+                <button type="submit" class="btn btn-primary submit">Ekle</button>
+            </form>
+        </div>
+    </div>
+    @foreach (var comment in Model.Blog.Comments)
+    {
+        <div class="comment-top">
+            <h4>Comments</h4>
+            <div class="media">
+                <img class="d-flex mr-3 rounded-circle" src="~/img/userImages/defaultUser.png" alt="" /> @*"img-fluid"*@
+                <div class="media-body">
+                    <h5 class="mt-0">@comment.CreatedByName</h5>
+                    @comment.Content
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--//left-->

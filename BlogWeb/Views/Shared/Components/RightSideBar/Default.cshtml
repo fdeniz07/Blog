@@ -1,0 +1,250 @@
+﻿
+@model RightSideBarViewModel
+<!--right-->
+
+<div class="col-md-4">
+    <div class="right-blog-info text-left">
+        <div class="tech-btm">
+            <img src="~/BlogHome/images/banner1.jpg" class="card-img-top img-fluid" alt="">
+        </div>
+        <div class="tech-btm">
+            <h4>Bültene Abone Ol</h4>
+            <p>Pellentesque dui, non felis. Maecenas male </p>
+            <form action="#" method="post">
+                <input type="email" placeholder="Email" required="">
+                <input type="submit" value="Subscribe">
+            </form>
+
+        </div>
+        <div class="card my-4">
+            @* "tech-btm" *@
+            @*<h4>Kategoriler</h4>*@
+            <h5 class="card-header">Kategoriler</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="list-group">
+                            @* single *@
+                            <li class="list-group-item">
+                                @*  d-flex justify-content-between align-items-center *@
+                                <a asp-controller="Home" asp-action="Index">Hepsi</a>
+                            </li>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.CategoryName</a>
+                                    <span class="badge badge-primary badge-pill">14</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tech-btm">
+        <h4>En Çok Okunan Makaleler</h4>
+        @for (int i = 0; i < Model.Blogs.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                <div class="blog-grids row mb-3">
+                    <div class="col-md-5 blog-grid-left">
+                        <a href="single.html">
+                            <img src="~/img/@Model.Blogs[i].Thumbnail" class="card-img-top img-fluid" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-7 blog-grid-right">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
+                            <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
+                            <span class="badge badge-primary badge-pill fas fa-eye"> @Model.Blogs[i].ViewCount</span>
+                        </li>
+                        <div class="sub-meta">
+                            <span>
+                                <i class="far fa-clock"></i> @Model.Blogs[i].Date.ToShortDateString();
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="blog-grids row mb-3">
+                    <div class="col-md-5 blog-grid-left">
+                        <a href="single.html">
+                            <img src="~/img/@Model.Blogs[i].Thumbnail" class="card-img-top img-fluid" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-7 blog-grid-right">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
+                            <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
+                            <span class="badge badge-primary badge-pill fas fa-eye"> @Model.Blogs[i].ViewCount</span>
+                        </li>
+                        <div class="sub-meta">
+                            <span>
+                                <i class="far fa-clock"></i>  @Model.Blogs[i].Date.ToShortDateString();
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @*<div class="blog-grids row mb-3">
+                <div class="col-md-5 blog-grid-left">
+                    <a href="single.html">
+                        <img src="images/6.jpg" class="card-img-top img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-md-7 blog-grid-right">
+                    <h5>
+                        <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                    </h5>
+                    <div class="sub-meta">
+                        <span>
+                            <i class="far fa-clock"></i> 20 Feb, 2018
+                        </span>
+                    </div>
+                </div>
+
+            </div>*@
+    </div>
+    <div class="single-gd my-5 tech-btm">
+        <h4>Our Progress</h4>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                 aria-valuemax="100"></div>
+        </div>
+    </div>
+    <div class="single-gd tech-btm text-left">
+        <h4>Son Makale</h4>
+        <div class="blog-grids">
+            <div class="blog-grid-left">
+                <a href="single.html">
+                    <img src="images/b1.jpg" class="card-img-top img-fluid" alt="">
+                </a>
+            </div>
+            <div class="blog-grid-right">
+
+                <h5>
+                    <a href="single.html">Pellentesque dui, non felis. Maecenas male</a>
+                </h5>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+
+
+    <div class="tech-btm widget_social text-left">
+        <h4>Sosyal Medya</h4>
+        <ul>
+
+            <li>
+                <a class="twitter" href="#">
+                    <i class="fab fa-twitter"></i>
+                    <span class="count">317K</span> Twitter Followers
+                </a>
+            </li>
+            <li>
+                <a class="facebook" href="#">
+                    <i class="fab fa-facebook-f"></i>
+                    <span class="count">218k</span> Twitter Followers
+                </a>
+            </li>
+            <li>
+                <a class="dribble" href="#">
+                    <i class="fab fa-dribbble"></i>
+
+                    <span class="count">215k</span> Dribble Followers
+                </a>
+            </li>
+            <li>
+                <a class="pin" href="#">
+                    <i class="fab fa-pinterest"></i>
+                    <span class="count">190k</span> Pinterest Followers
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="tech-btm">
+        <h4>Recent Posts</h4>
+
+        <div class="blog-grids row mb-3 text-left">
+            <div class="col-md-5 blog-grid-left">
+                <a href="single.html">
+                    <img src="~/BlogHome/images/1.jpg" class="card-img-top img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-md-7 blog-grid-right">
+
+                <h5>
+                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                </h5>
+                <div class="sub-meta">
+                    <span>
+                        <i class="far fa-clock"></i> 20 Jan, 2018
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="blog-grids row mb-3 text-left">
+            <div class="col-md-5 blog-grid-left">
+                <a href="single.html">
+                    <img src="~/BlogHome/images/5.jpg" class="card-img-top img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-md-7 blog-grid-right">
+
+                <h5>
+                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                </h5>
+                <div class="sub-meta">
+                    <span>
+                        <i class="far fa-clock"></i> 20 Jan, 2018
+                    </span>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="blog-grids row mb-3 text-left">
+            <div class="col-md-5 blog-grid-left">
+                <a href="single.html">
+                    <img src="~/BlogHome/images/3.jpg" class="card-img-top img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-md-7 blog-grid-right">
+                <h5>
+                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
+                </h5>
+                <div class="sub-meta">
+                    <span>
+                        <i class="far fa-clock"></i> 20 Feb, 2018
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--//right-->

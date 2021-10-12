@@ -962,10 +962,10 @@ li.breadcrumb-item a {
     border:none;
 }
 .card-img-top {
-    width: 100%;
+	width: 100%;
 	border: none;
 	background: #ebecec;
-    padding: .4em;
+	padding: .4em;
 }
 /*--//about--*/
 /*-- /blog --*/

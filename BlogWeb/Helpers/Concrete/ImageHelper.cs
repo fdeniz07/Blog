@@ -54,10 +54,10 @@ namespace BlogWeb.Helpers.Concrete
             /* Resimin yüklenme sırasındaki ilk adı oldFileName adlı değişkene atanır. */
             string oldFileName = Path.GetFileNameWithoutExtension(imageFile.FileName); // fatihdeniz
 
-            /* Resimin uzantısı fileExtension adlı değişkene atanır. */
+            /* Resmin uzantısı fileExtension adlı değişkene atanır. */
             string fileExtension = Path.GetExtension(imageFile.FileName); //.png
 
-            Regex regex = new Regex("[*'\",._&#^@|/<>~]");
+            Regex regex = new Regex("[*'\",+-._&#^@|/<>~]");
             //name = regex.Replace(name, string.Empty); // biz burada string.Empty ile regex degerlerinden gelen karakterleri resimden kaldirdik
             name = regex.Replace(name, "_");
 

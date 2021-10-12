@@ -1,12 +1,9 @@
 ﻿using BlogWeb.Models;
+using BusinessLayer.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using BusinessLayer.Abstract;
 
 namespace BlogWeb.Controllers
 {
@@ -22,10 +19,13 @@ namespace BlogWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? categoryId)
         {
-            var blogListDto = await _blogService.GetAllByNonDeletedAndActiveAsync();
-            return View(blogListDto.Data);
+            //var blogListDto = await _blogService.GetAllByNonDeletedAndActiveAsync();
+            var blogResult = await (categoryId == null
+                ? _blogService.GetAllByNonDeletedAndActiveAsync()
+                : _blogService.GetAllByCategoryAsync(categoryId.Value));
+            return View(blogResult.Data);
         }
 
         public IActionResult Privacy()

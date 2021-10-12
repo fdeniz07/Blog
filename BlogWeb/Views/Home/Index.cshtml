@@ -7,261 +7,257 @@
     Regex regex = new Regex("<[^>]*>"); //Editörden gelen text deki html etiketlerini kaldirmak icin kullaniyoruz.
 }
 
+<h1 class="my-4">Son Paylaşılan Makaleler</h1>
 <!--left-->
 <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
     <div class="row mb-4">
+
+
         @foreach (var blog in Model.Blogs)
         {
             <!-- Blog Post -->
-            <div class="col-md-6 card">
-                <a href="single.html">
-                    <img src="~/img/@blog.Thumbnail" class="card-img-top img-fluid" alt="@blog.Title">
-                </a>
+            <div class="col-md-6 card my-4">
+                <img src="~/img/@blog.Thumbnail" class="card-img-top img-fluid" alt="@blog.Title">
                 <div class="card-body">
                     <ul class="blog-icons my-4">
                         <li>
-                            <a href="#">
-                                <i class="far fa-calendar-alt"></i> @*@blog.User.UserName tarafından*@ @blog.Date.ToShortDateString() @*tarihinde paylaşıldı.*@
-                            </a>
+                            <i class="far fa-calendar-alt"></i> @*@blog.User.UserName tarafından*@ @blog.Date.ToShortDateString() @*tarihinde paylaşıldı.*@
                         </li>
                         <li class="mx-2">
-                            <a href="#">
-                                <i class="far fa-comment"></i> 21
-                            </a>
+                            <i class="far fa-comment"></i> @blog.CommentCount
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fas fa-eye"></i> 2000
-                            </a>
+                            <i class="fas fa-eye"></i> @blog.ViewCount
                         </li>
-
+                        <li>
+                            <i class="fab fa-kickstarter"></i> @blog.Category.CategoryName
+                        </li>
                     </ul>
-                    <h5 class="card-title ">
-                        <a href="single.html">@blog.Title</a>
-                    </h5>
+                    <h5 class="card-title ">@blog.Title</h5>
                     <p class="card-text mb-3">
                         @{
                             blog.Content = regex.Replace(blog.Content, ""); //Html etiketlerini burada bos karakterle yer degistiriyoruz.
-                            //Yukarida regex yerine su formatta kullanilabilirdi : @Hmtl.Raw(blog.Content) 
+                                                                            //Yukarida regex yerine su formatta kullanilabilirdi : @Hmtl.Raw(blog.Content)
                         }
-                        @(blog.Content.Length>150 ? blog.Content.Substring(0,150):blog.Content); @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
+                        @(blog.Content.Length > 150 ? blog.Content.Substring(0, blog.Content.Substring(0, 155).LastIndexOf(" ")) + "..." : blog.Content + "...") @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
                     </p>
-                    <a asp-controller="Blog" asp-action="Detail" class="btn btn-primary read-m"> Daha fazla oku</a>
+                    <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
                 </div>
             </div>
+            <br>
         }
         <!--
-            <div class="col-md-6 card">
-        <a href="single.html">
-            <img src="~/BlogHome/images/6.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Feb 22 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card">
+            <a href="single.html">
+                <img src="~/BlogHome/images/6.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Feb 22 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card my-4">
-        <a href="single.html">
-            <img src="~/BlogHome/images/2.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Feb 23 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card my-4">
+            <a href="single.html">
+                <img src="~/BlogHome/images/2.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Feb 23 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card my-4">
-        <a href="single.html">
-            <img src="~/BlogHome/images/8.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Mar 20 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card my-4">
+            <a href="single.html">
+                <img src="~/BlogHome/images/8.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Mar 20 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card">
-        <a href="single.html">
-            <img src="~/BlogHome/images/4.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Mar 25 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card">
+            <a href="single.html">
+                <img src="~/BlogHome/images/4.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Mar 25 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card">
-        <a href="single.html">
-            <img src="~/BlogHome/images/3.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Feb 30 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card">
+            <a href="single.html">
+                <img src="~/BlogHome/images/3.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Feb 30 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card my-4">
-        <a href="single.html">
-            <img src="~/BlogHome/images/1.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Mar 31 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card my-4">
+            <a href="single.html">
+                <img src="~/BlogHome/images/1.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Mar 31 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-6 card my-4">
-        <a href="single.html">
-            <img src="~/BlogHome/images/5.jpg" class="card-img-top img-fluid" alt="">
-        </a>
-        <div class="card-body">
-            <ul class="blog-icons my-4">
-                <li>
-                    <a href="#">
-                        <i class="far fa-calendar-alt"></i> Apr 01 .2018
-                    </a>
-                </li>
-                <li class="mx-2">
-                    <a href="#">
-                        <i class="far fa-comment"></i> 21
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-eye"></i> 2000
-                    </a>
-                </li>
+        <div class="col-md-6 card my-4">
+            <a href="single.html">
+                <img src="~/BlogHome/images/5.jpg" class="card-img-top img-fluid" alt="">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <a href="#">
+                            <i class="far fa-calendar-alt"></i> Apr 01 .2018
+                        </a>
+                    </li>
+                    <li class="mx-2">
+                        <a href="#">
+                            <i class="far fa-comment"></i> 21
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-eye"></i> 2000
+                        </a>
+                    </li>
 
-            </ul>
-            <h5 class="card-title ">
-                <a href="single.html">Blog Post Title</a>
-            </h5>
-            <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
-            <a href="single.html" class="btn btn-primary read-m">Read More</a>
+                </ul>
+                <h5 class="card-title ">
+                    <a href="single.html">Blog Post Title</a>
+                </h5>
+                <p class="card-text mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit sedc dnmo eiusmod tempor incididunt.. </p>
+                <a href="single.html" class="btn btn-primary read-m">Read More</a>
+            </div>
         </div>
-    </div>
-    -->
+        -->
     </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-left mt-4">

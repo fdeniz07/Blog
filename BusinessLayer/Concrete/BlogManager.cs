@@ -7,6 +7,7 @@ using DataAccessLayer.Abstract.UnitOfWorks;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Utilities;
 
@@ -25,7 +26,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<BlogDto>> GetAsync(int blogId)
         {
-            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category);
+            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category,b=>b.Comments);
             if (blog != null)
             {
                 return new DataResult<BlogDto>(ResultStatus.Success, new BlogDto
@@ -146,6 +147,23 @@ namespace BusinessLayer.Concrete
                 return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: true), null);
             }
             return new DataResult<BlogListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: false), null);
+        }
+
+
+        /////////////////////// GetAllByViewCountAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\   Siralama türüne ve kac tane makale almamiza göre getirecek. Mesala en cok okunan 5 makale gibi. Vermezsek hepsi gelir, verirsek istedigimiz kadar
+
+        public async Task<IDataResult<BlogListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize)
+        {
+            var blogs = await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted, b => b.User);
+            var sortedBlogs =
+                isAscending
+                    ? blogs.OrderBy(b => b.ViewCount)
+                    : blogs.OrderByDescending(b =>
+                        b.ViewCount); //Orderby default olarak ascending siralama yapar (azdan coka)
+            return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+            {
+                Blogs = takeSize == null ? sortedBlogs.ToList() : sortedBlogs.Take(takeSize.Value).ToList() //takeSize kontrolü yapiyoruz. Vermezsek, hepsi gelecek
+            });
         }
 
 
