@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <meta name="description" content="Programcılar ve Yazılımcılar için Türkçe Kaynak, Rehber ve İçerikler">
-    <meta name="author" content="ProgrammersBlog">
+    <meta name="author" content="Fatih'sBlog">
     <meta name="keywords" content="Weblog a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 
@@ -30,7 +30,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
     <!--Header-->
     <header>
-
         <div class="top-bar_sub_w3layouts container-fluid">
             <div class="row">
                 <div class="col-md-4 logo text-left">
@@ -65,7 +64,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
         </div>
-
         @await Html.PartialAsync("_LayoutHeaderMenuPartial")
     </header>
     <!--//header-->
@@ -75,12 +73,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--/main-->
     <section class="main-content-w3layouts-agileits">
         <div class="container">
-
+            <h3 class="tittle">Son Paylaşılan Makaleler</h3>
             <div class="row inner-sec">
                 <!--left-->
                 @RenderBody()
                 <!--//left-->
-
                 <!--right-->
                 @await Component.InvokeAsync("RightSideBar")
                 <!--//right-->
@@ -97,7 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </a>
 
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false);
+    @await RenderSectionAsync("Scripts", false)
 </body>
 
 </html>

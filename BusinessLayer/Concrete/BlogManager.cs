@@ -13,10 +13,10 @@ using BusinessLayer.Utilities;
 
 namespace BusinessLayer.Concrete
 {
-    public class BlogManager :ManagerBase,IBlogService
+    public class BlogManager : ManagerBase, IBlogService
     {
 
-        public BlogManager(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork,mapper)
+        public BlogManager(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
 
         }
@@ -26,7 +26,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<BlogDto>> GetAsync(int blogId)
         {
-            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category,b=>b.Comments);
+            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category, b => b.Comments);
             if (blog != null)
             {
                 return new DataResult<BlogDto>(ResultStatus.Success, new BlogDto
@@ -35,7 +35,7 @@ namespace BusinessLayer.Concrete
                     ResultStatus = ResultStatus.Success
                 });
             }
-            return new DataResult<BlogDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural:false), null);
+            return new DataResult<BlogDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false), null);
         }
 
 
@@ -167,6 +167,26 @@ namespace BusinessLayer.Concrete
         }
 
 
+        /////////////////////// GetAllByPagingAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<BlogListDto>> GetAllByPagingAsync(int? categroyId, int currentPage = 1, int pageSize = 5, bool isAscending = false)
+        {
+            var blogs = categroyId == null ? await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted, b => b.Category, b => b.User) : await UnitOfWork.Blogs.GetAllAsync(b => b.CategoryId == categroyId && b.IsActive && !b.IsDeleted, b => b.Category, b => b.User);
+            var sortedBlogs =
+                isAscending
+                    ? blogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList() 
+                    : blogs.OrderByDescending(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList(); //Skip() degeri bulunan sayfayi atla, Take() ile de sonraki sayfalardaki degerleri getir anlaminda kullaniliyor
+            return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+            {
+                Blogs = sortedBlogs,
+                CategoryId = categroyId == null ? null : categroyId.Value,
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalCount = blogs.Count
+            });
+        }
+
+
         /////////////////////// AddAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IResult> AddAsync(BlogAddDto blogAddDto, string createdByName, int userId)
@@ -175,7 +195,7 @@ namespace BusinessLayer.Concrete
             blog.CreatedByName = createdByName;
             blog.ModifiedByName = createdByName;
             blog.UserId = userId;
-                             //await _unitOfWork.Blogs.AddAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync()); // Bu bölüm hizli oldugu icin thread'in biri kayit ederken diger islem calisacagi icin hata aliyoruz (core 6 ile düzelebilir)
+            //await _unitOfWork.Blogs.AddAsync(blog).ContinueWith(t => _unitOfWork.SaveAsync()); // Bu bölüm hizli oldugu icin thread'in biri kayit ederken diger islem calisacagi icin hata aliyoruz (core 6 ile düzelebilir)
             await UnitOfWork.Blogs.AddAsync(blog);
             await UnitOfWork.SaveAsync();
             return new Result(ResultStatus.Success, Messages.Blog.Add(blog.Title));
@@ -187,7 +207,7 @@ namespace BusinessLayer.Concrete
         public async Task<IResult> UpdateAsync(BlogUpdateDto blogUpdateDto, string modifiedByName)
         {
             var oldBlog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogUpdateDto.Id);
-            var blog = Mapper.Map<BlogUpdateDto,Blog>(blogUpdateDto,oldBlog);
+            var blog = Mapper.Map<BlogUpdateDto, Blog>(blogUpdateDto, oldBlog);
             blog.ModifiedByName = modifiedByName; //Diger alanlar Automapper ile otomatik tamamlaniyor. Automapper, bize kod kalabaliginin ve zaman kaybinin önüne gecmemizi sagliyor.
             await UnitOfWork.Blogs.UpdateAsync(blog);
             await UnitOfWork.SaveAsync();
@@ -271,7 +291,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<int>> CountByNonDeletedAsync()
         {
-            var blogsCount = await UnitOfWork.Blogs.CountAsync(b=>!b.IsDeleted);// Silinmemis degerleri getir
+            var blogsCount = await UnitOfWork.Blogs.CountAsync(b => !b.IsDeleted);// Silinmemis degerleri getir
             if (blogsCount > -1)
             {
                 return new DataResult<int>(ResultStatus.Success, blogsCount);

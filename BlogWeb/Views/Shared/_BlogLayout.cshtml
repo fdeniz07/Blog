@@ -11,12 +11,7 @@
     <meta name="keywords" content="@ViewBag.Tags" />
 
     <title>@ViewBag.Title | Fatih's Blog</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="~/BlogHome/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="~/BlogHome/css/blog-home.css" rel="stylesheet">
 
     <script>
         addEventListener("load",
@@ -29,12 +24,7 @@
             window.scrollTo(0, 1);
         }
     </script>
-    @*<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />*@
-    <link rel="stylesheet" href="~/BlogHome/css/jquery.desoslide.css">
-    <link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css' />
-    <link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">
-    <link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-          rel="stylesheet">
+    @await Html.PartialAsync("_LayoutCssPartial")
 </head>
 
 <body>
@@ -47,22 +37,9 @@
                         <i class="fab fa-linode"></i> Fatih's Blog
                     </a>
                 </div>
-                <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
-                    <span>Hoş Geldiniz</span>
-                    <span class="mx-lg-4 mx-md-2  mx-1">
-                        <a asp-controller="Home" asp-action="SignIn">
-                            <i class="fas fa-lock"></i> Giriş Yap
-                        </a>
-                    </span>
-                    <span>
-                        <a asp-controller="Home" asp-action="Register">
-                            <i class="far fa-user"></i> Üye Ol
-                        </a>
-                    </span>
-                </div>
+                @await Html.PartialAsync("_LayoutHeaderLoginPartial")
                 <div class="col-md-4 log-icons text-right">
                     <ul class="social_list1 mt-3">
-
                         <li>
                             <a href="#" class="facebook1 mx-2">
                                 <i class="fab fa-facebook-f"></i>
@@ -87,377 +64,39 @@
                 </div>
             </div>
         </div>
-
-        <div class="header_top" id="home">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">
-                                Ana Sayfa
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Hakkımızda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Makaleler</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">İletişim</a>
-                        </li>
-                    </ul>
-                    <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Aranmak istenen anahtar kelime..." name="Search" required="">
-                        <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-            </nav>
-
-        </div>
+        @await Html.PartialAsync("_LayoutHeaderMenuPartial")
     </header>
     <!--//header-->
-    <!--/banner-->
-    <div class="banner">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <div class="carousel-caption">
-                        <h3>
-                            Create the lifestyle
-                            <span>you desire</span>
-                        </h3>
-                        <div class="read">
-                            <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item2">
-                    <div class="carousel-caption">
-                        <h3>
-                            Engaging Purposeful
-                            <span>and Creative</span>
-                        </h3>
-                        <div class="read">
-                            <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item3">
-                    <div class="carousel-caption">
-                        <h3>
-                            Create the lifestyle
-                            <span>you desire</span>
-                        </h3>
-                        <div class="read">
-                            <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item item4">
-                    <div class="carousel-caption">
-                        <h3>
-                            Engaging Purposeful
-                            <span>and Creative</span>
-                        </h3>
-                        <div class="read">
-                            <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-    <!--//banner-->
+<!--/banner-->
+
+<!--//banner-->
     <!--/main-->
     <section class="main-content-w3layouts-agileits">
         <div class="container">
-
             <div class="row inner-sec">
                 <!--left-->
                 @RenderBody()
                 <!--//left-->
                 <!--right-->
-                @await  Component.InvokeAsync("RightSideBar")
+                @await Component.InvokeAsync("RightSideBar")
                 <!--//right-->
             </div>
         </div>
     </section>
     <!--//main-->
     <!--footer-->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-                    <h3>About US</h3>
-                    <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. lacinia eget consectetur sed, convallis at tellus..</p>
-                    <div class="read">
-                        <a href="single.html" class="btn btn-primary read-m">Read More</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 footer-grid-agileits-w3ls text-left">
-
-                    <div class="tech-btm">
-                        <h3>Latest Posts</h3>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="~/BlogHome/images/4.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="~/BlogHome/images/5.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="blog-grids row mb-3">
-                            <div class="col-md-5 blog-grid-left">
-                                <a href="single.html">
-                                    <img src="~/BlogHome/images/6.jpg" class="img-fluid" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-7 blog-grid-right">
-
-                                <h5>
-                                    <a href="single.html">Pellentesque dui, non felis. Maecenas male non felis </a>
-                                </h5>
-                                <div class="sub-meta">
-                                    <span>
-                                        <i class="far fa-clock"></i> 20 Jan, 2018
-                                    </span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- subscribe -->
-                <div class="col-lg-4 subscribe-main footer-grid-agileits-w3ls text-left">
-                    <h2>Signup to our newsletter</h2>
-                    <div class="subscribe-main text-left">
-                        <div class="subscribe-form">
-                            <form action="#" method="post" class="subscribe_form">
-                                <input class="form-control" type="email" placeholder="Enter your email..." required="">
-                                <button type="submit" class="btn btn-primary submit">Submit</button>
-                            </form>
-                            <div class="clearfix"> </div>
-                        </div>
-                        <p>We respect your privacy.No spam ever!</p>
-                    </div>
-                    <!-- //subscribe -->
-                </div>
-            </div>
-            <!-- footer -->
-            <div class="footer-cpy text-center">
-                <div class="footer-social">
-                    <div class="copyrighttop">
-                        <ul>
-                            <li class="mx-3">
-                                <a class="facebook" href="#">
-                                    <i class="fab fa-facebook-f"></i>
-                                    <span>Facebook</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="facebook" href="#">
-                                    <i class="fab fa-twitter"></i>
-                                    <span>Twitter</span>
-                                </a>
-                            </li>
-                            <li class="mx-3">
-                                <a class="facebook" href="#">
-                                    <i class="fab fa-google-plus-g"></i>
-                                    <span>Google+</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="facebook" href="#">
-                                    <i class="fab fa-pinterest-p"></i>
-                                    <span>Pinterest</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-                <div class="w3layouts-agile-copyrightbottom">
-                    <p class="m-0 text.text-center text-white">
-                        © Tüm hakları saklıdır | Fatih's Blog @DateTime.Now.Year
-                    </p>
-
-                </div>
-            </div>
-
-            <!-- //footer -->
-        </div>
-    </footer>
+    @await Html.PartialAsync("_LayoutFooterPartial")
     <!---->
-    <!-- js -->
-    <script src="~/BlogHome/js/jquery-2.2.3.min.js"></script>
-    <!-- //js -->
-    <!-- desoslide-JavaScript -->
-    <script src="~/BlogHome/js/jquery.desoslide.js"></script>
-    <script>
-        $('#demo1_thumbs').desoSlide({
-            main: {
-                container: '#demo1_main_image',
-                cssClass: 'img-responsive'
-            },
-            effect: 'sideFade',
-            caption: true
-        });
-    </script>
 
-    <!-- requried-jsfiles-for owl -->
-    <script>
-        $(window).load(function () {
-            $("#flexiselDemo1").flexisel({
-                visibleItems: 3,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
-                }
-            });
-
-        });
-    </script>
-    <script>
-        $(window).load(function () {
-            $("#flexiselDemo2").flexisel({
-                visibleItems: 3,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
-                }
-            });
-
-        });
-    </script>
-    <script src="~/BlogHome/js/jquery.flexisel.js"></script>
-    <!-- //password-script -->
-    <!--/ start-smoth-scrolling -->
-    <script src="~/BlogHome/js/move-top.js"></script>
-    <script src="~/BlogHome/js/easing.js"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <!--// end-smoth-scrolling -->
-
-    <script>
-        $(document).ready(function () {
-
-            var defaults = {
-                containerID: 'toTop', // fading element id
-                containerHoverID: 'toTopHover', // fading element hover id
-                scrollSpeed: 1200,
-                easingType: 'linear'
-            };
-
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
     <a href="#home" class="scroll" id="toTop" style="display: block;">
         <span id="toTopHover" style="opacity: 1;"> </span>
     </a>
 
-    <!-- //Custom-JavaScript-File-Links -->
-    <script src="~/BlogHome/js/bootstrap.js"></script>
-
-
-
-<!-- Bootstrap core JavaScript -->
-<script src="~/BlogHome/vendor/jquery/jquery.min.js"></script>
-<script src="~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    @await Html.PartialAsync("_LayoutJsPartial")
+    @await RenderSectionAsync("Scripts", false)
 </body>
 
 </html>
+
 
 

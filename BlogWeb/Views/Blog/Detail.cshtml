@@ -17,6 +17,7 @@
 <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
     <div class="blog-grid-top">
         <div class="b-grid-top">
+
             <div class="blog_info_left_grid">
                 <!-- Prevıew Image -->
                 <div class="text-center">
@@ -44,44 +45,44 @@
                 </ul>
             </div>
         </div>
-
         <!-- Title -->
         <h1 class="mt-4">@Model.Blog.Title</h1>
-
         <!-- Author -->
         <p class="lead">@Model.Blog.User.UserName tarafından @Model.Blog.Date.ToShortDateString() tarihinde paylaşılmıştır.</p>
-
         <!-- Content -->
         @Html.Raw(@Model.Blog.Content)
-
-        <hr />
-
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
-
     </div>
-
     <div class="comment-top">
         <h4>Bir yorum ekle</h4>
         <div class="comment-bottom">
             <form action="#" method="post">
-                <input class="form-control" type="text" name="Name" placeholder="Name" required="">
+                <input class="form-control" type="text" name="Name" placeholder="İsim" required="">
                 <input class="form-control" type="email" name="Email" placeholder="Email" required="">
-                <input class="form-control" type="text" name="Subject" placeholder="Subject" required="">
-                <textarea class="form-control" name="Message" placeholder="Message..." required=""></textarea>
+                <input class="form-control" type="text" name="Subject" placeholder="Konu" required="">
+                <textarea class="form-control" name="Message" placeholder="Mesaj..." required=""></textarea>
                 <button type="submit" class="btn btn-primary submit">Ekle</button>
             </form>
         </div>
     </div>
+    <hr/>
+    <br/>
+    <h4>Yorumlar</h4>
     @foreach (var comment in Model.Blog.Comments)
     {
         <div class="comment-top">
-            <h4>Comments</h4>
+
             <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="~/img/userImages/defaultUser.png" alt="" /> @*"img-fluid"*@
-                <div class="media-body">
-                    <h5 class="mt-0">@comment.CreatedByName</h5>
-                    @comment.Content
-                </div>
+                <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
+            <div class="media-body">
+                <h5 class="mt-0">
+                    <i class="far fa-user"></i> @comment.CreatedByName
+                </h5>
+                <i class="far fa-clock"></i> @comment.CreatedDate.Date
+                <br />
+                <br />
+                @comment.Content
+            </div>
             </div>
         </div>
     }
