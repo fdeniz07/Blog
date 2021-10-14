@@ -34,8 +34,8 @@
                     <a class="nav-link" asp-controller="Home" asp-action="Index">İletişim</a>
                 </li>
             </ul>
-            <form action="#" method="post" class="form-inline my-2 my-lg-0 header-search">
-                <input class="form-control mr-sm-2" type="search" placeholder="Aranmak istenen anahtar kelime..." name="Search" required="">
+            <form asp-controller="Blog" asp-action="Search" method="get" class="form-inline my-2 my-lg-0 header-search" >
+                <input class="form-control mr-sm-2" type="text" placeholder="Aranmak istenen kelime..." name="keyword">
                 <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>

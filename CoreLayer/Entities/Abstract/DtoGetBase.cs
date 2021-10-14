@@ -7,16 +7,18 @@ namespace CoreLayer.Entities.Abstract
     {
         public virtual ResultStatus ResultStatus { get; set; }
         public virtual string Message { get; set; }
-        public int CurrentPage { get; set; } = 1;  //Sayfalama yapisi icin ilk deger atamasi
+        public virtual int CurrentPage { get; set; } = 1;  //Sayfalama yapisi icin ilk deger atamasi
 
-        public int PageSize { get; set; } = 6; // Sayfalama basina düsecek degerler
+        public virtual int PageSize { get; set; } = 6; // Sayfalama basina düsecek degerler
 
-        public int TotalCount { get; set; } //Toplam Entity sayisi
+        public virtual int TotalCount { get; set; } //Toplam Entity sayisi
 
-        public int TotalPages => (int)Math.Ceiling(decimal.Divide(TotalCount, PageSize));  //Toplam Sayfa Sayisi
+        public virtual int TotalPages => (int)Math.Ceiling(decimal.Divide(TotalCount, PageSize));  //Toplam Sayfa Sayisi
 
-        public bool ShowPrevious => CurrentPage > 1; // Geri tusu
+        public virtual bool ShowPrevious => CurrentPage > 1; // Geri tusu
 
-        public bool ShowNext => CurrentPage < TotalPages; // Ileri tusu
+        public virtual bool ShowNext => CurrentPage < TotalPages; // Ileri tusu
+
+        public virtual bool IsAscending { get; set; } = false;
     }
 }

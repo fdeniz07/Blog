@@ -7,7 +7,9 @@ using DataAccessLayer.Abstract.UnitOfWorks;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BusinessLayer.Utilities;
 
@@ -26,9 +28,10 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<BlogDto>> GetAsync(int blogId)
         {
-            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category, b => b.Comments);
+            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId, b => b.User, b => b.Category);
             if (blog != null)
             {
+                blog.Comments = await UnitOfWork.Comments.GetAllAsync(c => c.BlogId == blogId && !c.IsDeleted && c.IsActive);
                 return new DataResult<BlogDto>(ResultStatus.Success, new BlogDto
                 {
                     Blog = blog,
@@ -169,8 +172,9 @@ namespace BusinessLayer.Concrete
 
         /////////////////////// GetAllByPagingAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-        public async Task<IDataResult<BlogListDto>> GetAllByPagingAsync(int? categroyId, int currentPage = 1, int pageSize = 5, bool isAscending = false)
+        public async Task<IDataResult<BlogListDto>> GetAllByPagingAsync(int? categroyId, int currentPage = 1, int pageSize = 6, bool isAscending = false)
         {
+            pageSize = pageSize > 24 ? 24 : pageSize; // Pagesize degerimizi 24 den fazla olamaz. Bu projeye göre degisiklik gösterebilir.
             var blogs = categroyId == null ? await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted, b => b.Category, b => b.User) : await UnitOfWork.Blogs.GetAllAsync(b => b.CategoryId == categroyId && b.IsActive && !b.IsDeleted, b => b.Category, b => b.User);
             var sortedBlogs =
                 isAscending
@@ -182,7 +186,53 @@ namespace BusinessLayer.Concrete
                 CategoryId = categroyId == null ? null : categroyId.Value,
                 CurrentPage = currentPage,
                 PageSize = pageSize,
-                TotalCount = blogs.Count
+                TotalCount = blogs.Count,
+                IsAscending = isAscending
+            });
+        }
+
+
+        /////////////////////// SearchAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<BlogListDto>> SearchAsync(string keyword, int currentPage = 1, int pageSize = 6, bool isAscending = false)
+        {
+            pageSize = pageSize > 24 ? 24 : pageSize; // Pagesize degerimizi 24 den fazla olamaz. Bu projeye göre degisiklik gösterebilir.
+            if (string.IsNullOrWhiteSpace(keyword)) //burada kullanici arama alanina hicbirsey girmemis ya da space araciligi ile bosluklar koyarak arama yapmaya calisabilirligini kontrol ediyoruz.
+            {
+                var blogs = await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted, b => b.Category, b => b.User);
+                var sortedBlogs =
+                    isAscending
+                        ? blogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
+                        : blogs.OrderByDescending(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList(); //Skip() degeri bulunan sayfayi atla, Take() ile de sonraki sayfalardaki degerleri getir anlaminda kullaniliyor
+                return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+                {
+                    Blogs = sortedBlogs,
+                    CurrentPage = currentPage,
+                    PageSize = pageSize,
+                    TotalCount = blogs.Count,
+                    IsAscending = isAscending
+                });
+            }
+
+            //Kullanici arama alanina birsey girerse, biz bunu 4 farkli kriter icerisinde arayip kullaniciya dönüyoruz.
+            var searchBlogs = await UnitOfWork.Blogs.SearchAsync(new List<Expression<Func<Blog, bool>>>
+            {
+                (b) => b.Title.Contains(keyword),
+                (b) => b.Category.CategoryName.Contains(keyword),
+                (b) => b.SeoDescription.Contains(keyword),
+                (b) => b.SeoTags.Contains(keyword)
+            },b=>b.Category,b=>b.User);
+            var searchedAndSortedBlogs =
+                isAscending
+                    ? searchBlogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
+                    : searchBlogs.OrderByDescending(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList(); //Skip() degeri bulunan sayfayi atla, Take() ile de sonraki sayfalardaki degerleri getir anlaminda kullaniliyor
+            return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+            {
+                Blogs = searchedAndSortedBlogs,
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                TotalCount = searchBlogs.Count,
+                IsAscending = isAscending
             });
         }
 

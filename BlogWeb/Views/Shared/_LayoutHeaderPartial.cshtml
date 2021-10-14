@@ -1,0 +1,26 @@
+﻿@model EntityLayer.Dtos.BlogListDto
+
+<h3 class="tittle">Son Paylaşılan Makaleler</h3>
+
+<br />
+<br />
+<form>
+    <div class="form-row">
+        <input type="hidden" id="category-id" value="@(Model.CategoryId != null ?  Model.CategoryId.Value : null)" />
+        <input type="hidden" id="current-page" value="@Model.CurrentPage"/>
+        <div class="form-group col col-md-6">
+            <select class="form-control" id="select-page-size">
+                <option selected="@(Model.PageSize == 6 ? "selected" : null)" value="6">6</option>
+                <option selected="@(Model.PageSize == 12 ? "selected" : null)" value="12">12</option>
+                <option selected="@(Model.PageSize == 18 ? "selected" : null)" value="18">18</option>
+                <option selected="@(Model.PageSize == 24 ? "selected" : null)" value="24">24</option>
+            </select>
+        </div>
+        <div class="form-group col col-md-6">
+            <select class="form-control" id="select-is-ascending">
+                <option selected="@(Model.IsAscending == false ? "selected" : null)" value="false">En Yeni</option>
+                <option selected="@(Model.IsAscending ? "selected" : null)" value="true">En Eski</option>
+            </select>
+        </div>
+    </div>
+</form>

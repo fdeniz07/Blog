@@ -19,12 +19,12 @@ namespace BlogWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? categoryId,int currentPage=1,int pageSize=6)
+        public async Task<IActionResult> Index(int? categoryId,int currentPage=1,int pageSize=6,bool isAscending=false)
         {
             //var blogListDto = await _blogService.GetAllByNonDeletedAndActiveAsync();
             var blogResult = await (categoryId == null
-                ? _blogService.GetAllByPagingAsync(null, currentPage, pageSize)
-                : _blogService.GetAllByPagingAsync(categoryId.Value, currentPage, pageSize));
+                ? _blogService.GetAllByPagingAsync(null, currentPage, pageSize,isAscending)
+                : _blogService.GetAllByPagingAsync(categoryId.Value, currentPage, pageSize,isAscending));
             return View(blogResult.Data);
         }
 

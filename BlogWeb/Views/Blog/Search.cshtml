@@ -1,0 +1,134 @@
+﻿@using System.Text.RegularExpressions
+@model BlogSearchViewModel
+@{
+    ViewBag.Title = "Arama Sonuçları";
+    Layout = "_Layout";
+    Regex regex = new Regex("<[^>]*>"); //Editörden gelen text deki html etiketlerini kaldirmak icin kullaniyoruz.
+}
+@*<div class="col-md-8">*@
+
+<section class="col-md-12">
+    <h1 class="tittle">Arama Sonuçları</h1>
+    <br />
+    <form>
+        <div class="form-row">
+            <input type="hidden" id="keyword" value="@Model.Keyword" />
+            <input type="hidden" id="current-page" value="@Model.BlogListDto.CurrentPage" />
+            <div class="form-group col-md-6">
+                <select class="form-control" id="select-page-size">
+                    <option selected="@(Model.BlogListDto.PageSize == 6 ? "selected" : null)" value="6">6</option>
+                    <option selected="@(Model.BlogListDto.PageSize == 12 ? "selected" : null)" value="12">12</option>
+                    <option selected="@(Model.BlogListDto.PageSize == 18 ? "selected" : null)" value="18">18</option>
+                    <option selected="@(Model.BlogListDto.PageSize == 24 ? "selected" : null)" value="24">24</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <select class="form-control" id="select-is-ascending">
+                    <option selected="@(Model.BlogListDto.IsAscending == false ? "selected" : null)" value="false">En Yeni</option>
+                    <option selected="@(Model.BlogListDto.IsAscending ? "selected" : null)" value="true">En Eski</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</section>
+<!--left-->
+<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+    <div class="row mb-4">
+        @foreach (var blog in Model.BlogListDto.Blogs)
+        {
+            <!-- Blog Post -->
+            <div class="col-md-6 card">
+                @*col-md-6*@
+                <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">
+                    <img src="~/img/@blog.Thumbnail" class="card-img-top img-fluid" alt="@blog.Title">
+                </a>
+                <div class="card-body">
+                    <ul class="blog-icons my-4">
+                        <li>
+                            <i class="far fa-calendar-alt"></i> @*@blog.User.UserName tarafından*@ @blog.Date.ToShortDateString() @*tarihinde paylaşıldı.*@
+                        </li>
+                        <li class="mx-2">
+                            <i class="far fa-comment"></i> @blog.CommentCount
+                        </li>
+                        <li>
+                            <i class="fas fa-eye"></i> @blog.ViewCount
+                        </li>
+                        <br />
+                        <li>
+                            <i class="fab fa-kickstarter"></i> @blog.Category.CategoryName
+                        </li>
+                        <li>
+                            <i class="fas fa-user"></i> @blog.User.UserName
+                        </li>
+                    </ul>
+                    <h5 class="card-title ">
+                        <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">@blog.Title</a>
+                    </h5>
+                    <p class="card-text mb-3">
+                        @{
+                            blog.Content = regex.Replace(blog.Content, ""); //Html etiketlerini burada bos karakterle yer degistiriyoruz.
+                                                                            //Yukarida regex yerine su formatta kullanilabilirdi : @Hmtl.Raw(blog.Content)
+                        }
+                        @(blog.Content.Length > 150 ? blog.Content.Substring(0, blog.Content.Substring(0, 155).LastIndexOf(" ")) + "..." : blog.Content + "...") @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
+                    </p>
+                    <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
+                </div>
+            </div>
+            <br>
+        }
+    </div>
+    <!-- Pagination -->@* Burada hangi sayfada oldugumuzu görüyoruz *@
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mb-4">
+            @{
+                @if (Model.BlogListDto.ShowPrevious)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.BlogListDto.CurrentPage-1)" asp-route-isAscending="@Model.BlogListDto.IsAscending" asp-route-pageSize="@Model.BlogListDto.PageSize" asp-route-keyword="@Model.Keyword">Önceki</a>
+                    </li>
+                }
+                @for (var i = 1; i <= Model.BlogListDto.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.BlogListDto.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-route-currentPage="@i" asp-route-isAscending="@Model.BlogListDto.IsAscending" asp-route-pageSize="@Model.BlogListDto.PageSize" asp-route-keyword="@Model.Keyword">@i</a>
+                    </li>
+                }
+                @if (Model.BlogListDto.ShowNext)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-route-currentPage="@(Model.BlogListDto.CurrentPage+1)" asp-route-isAscending="@Model.BlogListDto.IsAscending" asp-route-pageSize="@Model.BlogListDto.PageSize" asp-route-keyword="@Model.Keyword">Sonraki</a>
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>
+
+@*</div>*@
+@section Scripts {
+    <script>
+        //Bu scripteki amacimiz; ana sayfa üzerinde yer alan makalelere ve sayfalamaya ait filtrelemelerin baska sayfalara da gecildiginde, secili degerlerin korunmasi saglanmaktadir.
+        $(document).ready(function () {
+
+            $(function () {
+                const selectPageSize = $('#select-page-size');
+                const selectIsAscending = $('#select-is-ascending');
+                const keyword = $('#keyword-id').val();
+                const currentPage = $('#current-page').val();
+                const keywordQuery = keyword !== null ? `&keyword=${keyword}` : null;
+
+                selectPageSize.on('change',
+                    function () {
+                        window.location =
+                            `/?pageSize=${selectPageSize.val()}&isAscending=${selectIsAscending.val()}${keywordQuery != null ? keywordQuery : null}&currentPage=${currentPage}`;
+                    });
+                selectIsAscending.on('change',
+                    function () {
+                        window.location =
+                            `/?pageSize=${selectPageSize.val()}&isAscending=${selectIsAscending.val()}${keywordQuery != null ? keywordQuery : null}&currentPage=${currentPage}`;
+                    });
+            });
+        });
+    </script>
+}
+<!--//left-->

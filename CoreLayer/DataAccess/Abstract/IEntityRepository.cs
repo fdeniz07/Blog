@@ -40,6 +40,8 @@ namespace CoreLayer.DataAccess.Abstract
 
         void DeleteRange(IEnumerable<TEntity> entities);
 
+        Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, params Expression<Func<TEntity, object>>[] includeProperties); //Ayni anda birden fazla arama kriteri istenilebilir. Aradigimiz makalelerin, kategori,yorum,kullanicilari ile gelmelerini isteyecegimizden params kullaniyoruz.
+
         //TEntity Update(TEntity entity); --> Default senkron
 
         Task<TEntity> UpdateAsync(TEntity entity);// Biz burada asenkron olarak ayarlayacagiz

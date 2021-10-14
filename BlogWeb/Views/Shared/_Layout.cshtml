@@ -73,8 +73,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--/main-->
     <section class="main-content-w3layouts-agileits">
         <div class="container">
-            <h3 class="tittle">Son Paylaşılan Makaleler</h3>
-            <div class="row inner-sec">
+            @*<h3 class="tittle">Son Paylaşılan Makaleler</h3>*@
+            @*@await Html.PartialAsync("_LayoutHeaderPartial")*@
+            <div class="row">
+                @*inner-sec*@
                 <!--left-->
                 @RenderBody()
                 <!--//left-->
@@ -94,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </a>
 
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false)
+    @await RenderSectionAsync("Scripts", false) @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
 </body>
 
 </html>

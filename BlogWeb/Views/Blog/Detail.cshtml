@@ -1,4 +1,5 @@
-﻿@model EntityLayer.Dtos.BlogDto
+﻿@using EntityLayer.Dtos
+@model EntityLayer.Dtos.BlogDto
 @{
     Layout = "_BlogLayout";
     ViewBag.Title = Model.Blog.Title;
@@ -53,39 +54,31 @@
         @Html.Raw(@Model.Blog.Content)
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
     </div>
-    <div class="comment-top">
-        <h4>Bir yorum ekle</h4>
-        <div class="comment-bottom">
-            <form action="#" method="post">
-                <input class="form-control" type="text" name="Name" placeholder="İsim" required="">
-                <input class="form-control" type="email" name="Email" placeholder="Email" required="">
-                <input class="form-control" type="text" name="Subject" placeholder="Konu" required="">
-                <textarea class="form-control" name="Message" placeholder="Mesaj..." required=""></textarea>
-                <button type="submit" class="btn btn-primary submit">Ekle</button>
-            </form>
-        </div>
-    </div>
+   <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.Blog.Id}"/>
     <hr/>
     <br/>
-    <h4>Yorumlar</h4>
-    @foreach (var comment in Model.Blog.Comments)
-    {
-        <div class="comment-top">
+   <h4>Yorumlar</h4>
+   <div id="comments">
+       @foreach (var comment in Model.Blog.Comments)
+       {
+           <div class="comment-top">
 
-            <div class="media">
-                <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
-            <div class="media-body">
-                <h5 class="mt-0">
-                    <i class="far fa-user"></i> @comment.CreatedByName
-                </h5>
-                <i class="far fa-clock"></i> @comment.CreatedDate.Date
-                <br />
-                <br />
-                @comment.Content
-            </div>
-            </div>
-        </div>
-    }
+               <div class="media">
+                   <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
+                   <div class="media-body">
+                       <h5 class="mt-0">
+                           <i class="far fa-user"></i> @comment.CreatedByName
+                       </h5>
+                       <i class="far fa-clock"></i> @comment.CreatedDate.Date
+                       <br />
+                       <br />
+                       @comment.Content
+                   </div>
+               </div>
+           </div>
+       }
+   </div>
+
 </div>
 
 

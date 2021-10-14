@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CoreLayer.DataAccess.Abstract;
 using CoreLayer.Entities.Abstract;
+using LinqKit;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreLayer.DataAccess.Concrete.EntityFramework
@@ -99,6 +100,36 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
         public void DeleteRange(IEnumerable<TEntity> entities)
         {
             _dbSet.RemoveRange(entities);
+        }
+
+        //Ayni anda birden fazla arama kriteri istenilebilir. Aradigimiz makalelerin, kategori,yorum,kullanicilari ile gelmelerini isteyecegimizden params kullaniyoruz.
+        public async Task<IList<TEntity>> SearchAsync(IList<Expression<Func<TEntity, bool>>> predicates, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (predicates.Any())
+            {
+                var predicateChain = PredicateBuilder.New<TEntity>();
+                foreach (var predicate in predicates)
+                {
+                    //query.Where(predicate) predicate1 && predicate2 && predicate3 && predicateN ve operatörü ile calisir. Bize veya ile ilgili detayli sorgulama islemleri gerektigi icin bir nugetpaket kurmamiz gerekiyor.LinqKit.Microsoft.EntityFrameworkCore isimli paketi kuruyoruz.
+                    //query = query.Where(predicate);
+
+                    //predicateChain.Or(predicate) predicate1 || predicate2 || predicate3 || predicateN
+                    predicateChain.Or(predicate);
+                }
+
+                query = query.Where(predicateChain);
+            }
+
+            if (includeProperties.Any())
+            {
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)

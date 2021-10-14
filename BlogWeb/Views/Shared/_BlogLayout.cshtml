@@ -1,5 +1,4 @@
 ﻿
-
 <!DOCTYPE html>
 <html lang="tr">
 
@@ -93,7 +92,8 @@
     </a>
 
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false)
+    @await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
+
 </body>
 
 </html>
