@@ -336,7 +336,7 @@
                         let summaryText = "";
                         $('#validation-summary > ul > li').each(function () {
                             let text = $(this).text();
-                            summaryText = `*${text}\n`;
+                            summaryText += `*${text}\n`;
                         });
                         toastr.warning(summaryText);
                     }
@@ -458,7 +458,7 @@
                     let summaryText = "";
                     $('#validation-summary > ul > li').each(function () {
                         let text = $(this).text();
-                        summaryText = `*${text}\n`;
+                        summaryText += `*${text}\n`;
                     });
                     toastr.warning(summaryText);
                 }

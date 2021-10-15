@@ -1,6 +1,8 @@
-﻿using CoreLayer.Utilities.Results.Abstract;
+﻿using System;
+using CoreLayer.Utilities.Results.Abstract;
 using EntityLayer.Dtos;
 using System.Threading.Tasks;
+using EntityLayer.ComplexTypes;
 
 namespace BusinessLayer.Abstract
 {
@@ -16,9 +18,13 @@ namespace BusinessLayer.Abstract
         Task<IDataResult<BlogListDto>> GetAllByViewCountAsync(bool isAscending, int? takeSize); //Siralama türüne ve kac tane makale almamiza göre getirecek. Mesala en cok okunan 6 makale gibi. Vermezsek hepsi gelir, verirsek istedigimiz kadar
         Task<IDataResult<BlogListDto>> GetAllByPagingAsync(int? categroyId, int currentPage = 1, int pageSize = 6,
             bool isAscending = false); // Sayfalama islemleri icin kullaniliyor.
+        Task<IDataResult<BlogListDto>> GetAllByUserIdOnFilter(int userId, FilterBy filterBy, OrderBy orderBy,
+            bool isAscending, int takeSize, int categoryId, DateTime startAt, DateTime endAt, int minViewCount,
+            int maxViewCount, int minCommentCount, int maxCommentCount);
         Task<IDataResult<BlogListDto>> SearchAsync(string keyword, int currentPage = 1, int pageSize = 6,
             bool isAscending = false);
-        Task<IResult> AddAsync(BlogAddDto blogAddDto, string createdByName,int userId);
+        Task<IResult> IncreaseViewCountAsync(int blogId);
+        Task<IResult> AddAsync(BlogAddDto blogAddDto, string createdByName, int userId);
         Task<IResult> UpdateAsync(BlogUpdateDto blogUpdateDto, string modifiedByName);
         Task<IResult> DeleteAsync(int blogId, string modifiedByName);
         Task<IResult> UndoDeleteAsync(int blogId, string modifiedByName);

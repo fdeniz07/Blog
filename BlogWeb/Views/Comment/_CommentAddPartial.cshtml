@@ -4,16 +4,16 @@
 
 <div class="comment-top">
     <h4>Bir yorum ekle</h4>
-    <div class="comment-bottom"> @*card-body form-card*@
-        <form asp-controller="Blog" asp-action="Add" method="post" id="form-comment-add">
+    <div class="card-body form-card">@*comment-bottom     card-body form-card*@
+        <form asp-controller="Comment" asp-action="Add" method="post" id="form-comment-add">
             <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
             <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
-            <input asp-for="BlogId" type="hidden"/>
+            <input asp-for="BlogId" type="hidden" />
             <input class="form-control" type="text" asp-for="CreatedByName" placeholder="İsim" required="">
-            <input class="form-control" type="email" name="Email" placeholder="Email" required="">
-            <input class="form-control" type="text" name="Subject" placeholder="Konu" required="">
-            <textarea class="form-control" asp-for="Content" placeholder="Mesaj..." required=""></textarea>
-            <button type="submit" class="btn btn-primary submit" id="btnSave">Ekle</button>
+            @*<input class="form-control" type="email" name="Email" placeholder="Email">
+            <input class="form-control" type="text" name="Subject" placeholder="Konu">*@
+            <textarea class="form-control" asp-for="Content" rows="3" placeholder="Mesaj..." required=""></textarea>
+            <button type="button" class="btn btn-primary submit" id="btnSave">Ekle</button>
         </form>
     </div>
 </div>

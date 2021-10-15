@@ -37,6 +37,7 @@ namespace BlogWeb.Controllers
             var blogResult = await _blogService.GetAsync(blogId);
             if (blogResult.ResultStatus == ResultStatus.Success)
             {
+                await _blogService.IncreaseViewCountAsync(blogId);
                 return View(blogResult.Data);
             }
 

@@ -69,6 +69,10 @@
             {
                 return $"{title} başlıklı makale veritabanından başarıyla silinmiştir.";
             }
+            public static string IncreaseViewCount(string title)
+            {
+                return $"{title} başlıklı makalenin okunma sayısı başarıyla arttırılmıştır.";
+            }
         }
 
         public static class Comment

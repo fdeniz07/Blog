@@ -151,10 +151,13 @@ namespace BusinessLayer.Concrete
             var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId, c => c.Blog);
             if (comment!=null)
             {
+                var blog = comment.Blog;
                 comment.IsActive = true;
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate=DateTime.Now;
                 var updatedComment = await UnitOfWork.Comments.UpdateAsync(comment);
+                blog.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.BlogId == blog.Id && !c.IsDeleted);
+                await UnitOfWork.Blogs.UpdateAsync(blog);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success, Messages.Comment.Approve(commentId), new CommentDto
                 {
@@ -176,7 +179,7 @@ namespace BusinessLayer.Concrete
             }
             var comment = Mapper.Map<Comment>(commentAddDto);
             var addedComment = await UnitOfWork.Comments.AddAsync(comment);
-            blog.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.BlogId == blog.Id && !c.IsDeleted); //ilgili makaleye ait, silinmemis yorum sayisini getir
+            blog.CommentCount += 1; 
             await UnitOfWork.Blogs.UpdateAsync(blog);
             await UnitOfWork.SaveAsync();
             return new DataResult<CommentDto>(ResultStatus.Success,
@@ -219,7 +222,7 @@ namespace BusinessLayer.Concrete
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
                 var deletedComment = await UnitOfWork.Comments.UpdateAsync(comment);
-                blog.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.BlogId == blog.Id && !c.IsDeleted);
+                blog.CommentCount -= 1;
                 await UnitOfWork.Blogs.UpdateAsync(blog);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success,
@@ -250,7 +253,7 @@ namespace BusinessLayer.Concrete
                 comment.ModifiedByName = modifiedByName;
                 comment.ModifiedDate = DateTime.Now;
                 var deletedComment = await UnitOfWork.Comments.UpdateAsync(comment);
-                blog.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.BlogId == blog.Id && !c.IsDeleted);
+                blog.CommentCount += 1; // Silinen yorum geri alinirsa yorum sayisini artir
                 await UnitOfWork.Blogs.UpdateAsync(blog);
                 await UnitOfWork.SaveAsync();
                 return new DataResult<CommentDto>(ResultStatus.Success,
@@ -275,6 +278,13 @@ namespace BusinessLayer.Concrete
             var comment = await UnitOfWork.Comments.GetAsync(c => c.Id == commentId, c=>c.Blog);
             if (comment != null)
             {
+                //Eger bizlere gelen yorum zaten silinmisse (arsivdeyse), yorum sayisini azaltmamiza gerek kalmadan silme islemi yapiyoruz.
+                if (comment.IsDeleted)
+                {
+                    await UnitOfWork.Comments.DeleteAsync(comment);
+                    await UnitOfWork.SaveAsync();
+                    return new Result(ResultStatus.Success, Messages.Comment.HardDelete(comment.CreatedByName));
+                }
                 var blog = comment.Blog;
                 await UnitOfWork.Comments.DeleteAsync(comment);
                 blog.CommentCount = await UnitOfWork.Comments.CountAsync(c => c.BlogId==blog.Id && !c.IsDeleted);

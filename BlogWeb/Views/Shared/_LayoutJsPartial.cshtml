@@ -1,73 +1,74 @@
 ﻿   <!-- js -->
-<script src="~/BlogHome/js/jquery-2.2.3.min.js"></script>
+@*<script src="~/BlogHome/js/jquery-2.2.3.min.js"></script>*@
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <!-- //js -->
 <!-- desoslide-JavaScript -->
 <script src="~/BlogHome/js/jquery.desoslide.js"></script>
 <script>
-        $('#demo1_thumbs').desoSlide({
-            main: {
-                container: '#demo1_main_image',
-                cssClass: 'img-responsive'
-            },
-            effect: 'sideFade',
-            caption: true
-        });
+    $('#demo1_thumbs').desoSlide({
+        main: {
+            container: '#demo1_main_image',
+            cssClass: 'img-responsive'
+        },
+        effect: 'sideFade',
+        caption: true
+    });
 </script>
 
 <!-- requried-jsfiles-for owl -->
 <script>
-        $(window).load(function () {
-            $("#flexiselDemo1").flexisel({
-                visibleItems: 3,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
+    $(window).load(function () {
+        $("#flexiselDemo1").flexisel({
+            visibleItems: 3,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 3
                 }
-            });
-
+            }
         });
+
+    });
 </script>
 <script>
-        $(window).load(function () {
-            $("#flexiselDemo2").flexisel({
-                visibleItems: 3,
-                animationSpeed: 1000,
-                autoPlay: true,
-                autoPlaySpeed: 3000,
-                pauseOnHover: true,
-                enableResponsiveBreakpoints: true,
-                responsiveBreakpoints: {
-                    portrait: {
-                        changePoint: 480,
-                        visibleItems: 1
-                    },
-                    landscape: {
-                        changePoint: 640,
-                        visibleItems: 2
-                    },
-                    tablet: {
-                        changePoint: 768,
-                        visibleItems: 3
-                    }
+    $(window).load(function () {
+        $("#flexiselDemo2").flexisel({
+            visibleItems: 3,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 3
                 }
-            });
-
+            }
         });
+
+    });
 </script>
 <script src="~/BlogHome/js/jquery.flexisel.js"></script>
 <!-- //password-script -->
@@ -75,35 +76,41 @@
 <script src="~/BlogHome/js/move-top.js"></script>
 <script src="~/BlogHome/js/easing.js"></script>
 <script>
-        jQuery(document).ready(function ($) {
-            $(".scroll").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 900);
         });
+    });
 </script>
 <!--// end-smoth-scrolling -->
 
-   <script>
-       $(document).ready(function () {
+<script>
+    $(document).ready(function () {
 
-           var defaults = {
-               containerID: 'toTop', // fading element id
-               containerHoverID: 'toTopHover', // fading element hover id
-               scrollSpeed: 1200,
-               easingType: 'linear'
-           };
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
 
 
-           $().UItoTop({
-               easingType: 'easeOutQuart'
-           });
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
 
-       });
-   </script>
+    });
+</script>
 
-   <!-- //Custom-JavaScript-File-Links -->
-   <script src="~/BlogHome/js/bootstrap.js"></script>
-
+<!-- //Custom-JavaScript-File-Links -->
+<script src="~/BlogHome/js/bootstrap.js"></script>
+<script src="~/BlogHome/js/blogDetail.js" type="text/ecmascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@@11"></script>
+@await Component.InvokeAsync("NToastNotify")

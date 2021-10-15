@@ -20,7 +20,7 @@
         <div class="b-grid-top">
 
             <div class="blog_info_left_grid">
-                <!-- Prevıew Image -->
+                <!-- Preview Image -->
                 <div class="text-center">
                     <img class="img-fluid rounded" src="~/img/@Model.Blog.Thumbnail" alt="@Model.Blog.Title">
                 </div>
@@ -62,14 +62,13 @@
        @foreach (var comment in Model.Blog.Comments)
        {
            <div class="comment-top">
-
                <div class="media">
                    <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
                    <div class="media-body">
                        <h5 class="mt-0">
                            <i class="far fa-user"></i> @comment.CreatedByName
                        </h5>
-                       <i class="far fa-clock"></i> @comment.CreatedDate.Date
+                       <i class="far fa-clock"></i> @comment.CreatedDate.Date.ToShortDateString()
                        <br />
                        <br />
                        @comment.Content
@@ -81,5 +80,7 @@
 
 </div>
 
-
+@*@section Scripts{
+    <script src="~/BlogHome/js/blogDetail.js" type="text/ecmascript"></script>
+}*@
 <!--//left-->

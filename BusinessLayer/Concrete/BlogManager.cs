@@ -12,15 +12,18 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BusinessLayer.Utilities;
+using EntityLayer.ComplexTypes;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Concrete
 {
     public class BlogManager : ManagerBase, IBlogService
     {
-
-        public BlogManager(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        private readonly UserManager<User> _userManager;
+        public BlogManager(IUnitOfWork unitOfWork, IMapper mapper, UserManager<User> userManager) : base(unitOfWork, mapper)
         {
-
+            _userManager = userManager;
         }
 
 
@@ -178,7 +181,7 @@ namespace BusinessLayer.Concrete
             var blogs = categroyId == null ? await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted, b => b.Category, b => b.User) : await UnitOfWork.Blogs.GetAllAsync(b => b.CategoryId == categroyId && b.IsActive && !b.IsDeleted, b => b.Category, b => b.User);
             var sortedBlogs =
                 isAscending
-                    ? blogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList() 
+                    ? blogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
                     : blogs.OrderByDescending(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList(); //Skip() degeri bulunan sayfayi atla, Take() ile de sonraki sayfalardaki degerleri getir anlaminda kullaniliyor
             return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
             {
@@ -188,6 +191,112 @@ namespace BusinessLayer.Concrete
                 PageSize = pageSize,
                 TotalCount = blogs.Count,
                 IsAscending = isAscending
+            });
+        }
+
+
+        /////////////////////// GetAllByUserIdOnFilter \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IDataResult<BlogListDto>> GetAllByUserIdOnFilter(int userId, FilterBy filterBy, OrderBy orderBy, bool isAscending, int takeSize,
+            int categoryId, DateTime startAt, DateTime endAt, int minViewCount, int maxViewCount, int minCommentCount,
+            int maxCommentCount)
+        {
+            var anyUser = await _userManager.Users.AnyAsync(u => u.Id == userId);
+            if (!anyUser)
+            {
+                return new DataResult<BlogListDto>(ResultStatus.Error, $"{userId} numaralı kullanıcı bulunamadı.",
+                    null);
+            }
+
+            var userBlogs = await UnitOfWork.Blogs.GetAllAsync(b => b.IsActive && !b.IsDeleted && b.UserId == userId);
+            List<Blog> sortedBlogs = new List<Blog>();
+            switch (filterBy)
+            {
+                case FilterBy.Category:
+                    switch (orderBy)
+                    {
+                        case OrderBy.Date:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderBy(b => b.Date).ToList()
+                                : userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderByDescending(b => b.Date).ToList();
+                            break;
+                        case OrderBy.ViewCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderBy(b => b.ViewCount).ToList()
+                                : userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderByDescending(b => b.ViewCount).ToList();
+                            break;
+                        case OrderBy.CommentCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderBy(b => b.CommentCount).ToList()
+                                : userBlogs.Where(b => b.CategoryId == categoryId).Take(takeSize).OrderByDescending(b => b.CommentCount).ToList();
+                            break;
+                    }
+                    break;
+                case FilterBy.Date:
+                    switch (orderBy)
+                    {
+                        case OrderBy.Date:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderBy(b => b.Date).ToList()
+                                : userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderByDescending(b => b.Date).ToList();
+                            break;
+                        case OrderBy.ViewCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderBy(b => b.ViewCount).ToList()
+                                : userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderByDescending(b => b.ViewCount).ToList();
+                            break;
+                        case OrderBy.CommentCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderBy(b => b.CommentCount).ToList()
+                                : userBlogs.Where(b => b.Date >= startAt && b.Date <= endAt).Take(takeSize).OrderByDescending(b => b.CommentCount).ToList();
+                            break;
+                    }
+                    break;
+                case FilterBy.ViewCount:
+                    switch (orderBy)
+                    {
+                        case OrderBy.Date:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderBy(b => b.Date).ToList()
+                                : userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderByDescending(b => b.Date).ToList();
+                            break;
+                        case OrderBy.ViewCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderBy(b => b.ViewCount).ToList()
+                                : userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderByDescending(b => b.ViewCount).ToList();
+                            break;
+                        case OrderBy.CommentCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderBy(b => b.CommentCount).ToList()
+                                : userBlogs.Where(b => b.ViewCount >= minViewCount && b.ViewCount <= maxViewCount).Take(takeSize).OrderByDescending(b => b.CommentCount).ToList();
+                            break;
+                    }
+                    break;
+                case FilterBy.CommentCount:
+                    switch (orderBy)
+                    {
+                        case OrderBy.Date:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderBy(b => b.Date).ToList()
+                                : userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderByDescending(b => b.Date).ToList();
+                            break;
+                        case OrderBy.ViewCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderBy(b => b.ViewCount).ToList()
+                                : userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderByDescending(b => b.ViewCount).ToList();
+                            break;
+                        case OrderBy.CommentCount:
+                            sortedBlogs = isAscending
+                                ? userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderBy(b => b.CommentCount).ToList()
+                                : userBlogs.Where(b => b.CommentCount >= minCommentCount && b.CommentCount <= maxCommentCount).Take(takeSize).OrderByDescending(b => b.CommentCount).ToList();
+                            break;
+                    }
+                    break;
+            }
+
+            return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+            {
+                Blogs = sortedBlogs
             });
         }
 
@@ -221,7 +330,7 @@ namespace BusinessLayer.Concrete
                 (b) => b.Category.CategoryName.Contains(keyword),
                 (b) => b.SeoDescription.Contains(keyword),
                 (b) => b.SeoTags.Contains(keyword)
-            },b=>b.Category,b=>b.User);
+            }, b => b.Category, b => b.User);
             var searchedAndSortedBlogs =
                 isAscending
                     ? searchBlogs.OrderBy(b => b.Date).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList()
@@ -234,6 +343,23 @@ namespace BusinessLayer.Concrete
                 TotalCount = searchBlogs.Count,
                 IsAscending = isAscending
             });
+        }
+
+
+        /////////////////////// IncreaseViewCountAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+        public async Task<IResult> IncreaseViewCountAsync(int blogId)
+        {
+            var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId);
+            if (blog == null)
+            {
+                return new Result(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false));
+            }
+
+            blog.ViewCount += 1;
+            await UnitOfWork.Blogs.UpdateAsync(blog);
+            await UnitOfWork.SaveAsync();
+            return new Result(ResultStatus.Success, Messages.Blog.IncreaseViewCount(blog.Title));
         }
 
 
