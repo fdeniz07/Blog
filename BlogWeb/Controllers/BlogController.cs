@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using BlogWeb.Models;
 using BusinessLayer.Abstract;
 using CoreLayer.Utilities.Results.ComplexTypes;
+using EntityLayer.ComplexTypes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogWeb.Controllers
@@ -37,8 +39,21 @@ namespace BlogWeb.Controllers
             var blogResult = await _blogService.GetAsync(blogId);
             if (blogResult.ResultStatus == ResultStatus.Success)
             {
+                var userBlogs = await _blogService.GetAllByUserIdOnFilter(blogResult.Data.Blog.UserId,
+                    FilterBy.Category, OrderBy.Date, false, 10, blogResult.Data.Blog.CategoryId, DateTime.Now,
+                    DateTime.Now, 0, 99999, 0, 99999);
+
                 await _blogService.IncreaseViewCountAsync(blogId);
-                return View(blogResult.Data);
+                return View(new BlogDetailViewModel
+                {
+                    BlogDto = blogResult.Data,
+                    BlogDetailRightSideBarViewModel = new BlogDetailRightSideBarViewModel
+                    {
+                        BlogListDto = userBlogs.Data,
+                        Header = "Kullanıcının Aynı Kategori Üzerindeki En Çok Okunan Makaleleri",
+                        User = blogResult.Data.Blog.User
+                    }
+                });
             }
 
             return NotFound();

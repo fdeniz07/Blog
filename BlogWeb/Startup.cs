@@ -4,6 +4,7 @@ using BlogWeb.Helpers.Abstract;
 using BlogWeb.Helpers.Concrete;
 using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,7 @@ namespace BlogWeb
              * 1-AutoMapper.Extensions.Microsoft.DependencyInjection
              * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
              */
+            services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
 
             services.AddControllersWithViews(options =>
             {

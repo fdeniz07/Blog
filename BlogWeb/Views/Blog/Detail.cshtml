@@ -1,11 +1,11 @@
 ﻿@using EntityLayer.Dtos
-@model EntityLayer.Dtos.BlogDto
+@model BlogDetailViewModel
 @{
     Layout = "_BlogLayout";
-    ViewBag.Title = Model.Blog.Title;
-    ViewBag.Description = Model.Blog.SeoDescription;
-    ViewBag.Author = Model.Blog.SeoAuthor;
-    ViewBag.Tags = Model.Blog.SeoTags;
+    ViewBag.Title = Model.BlogDto.Blog.Title;
+    ViewBag.Description = Model.BlogDto.Blog.SeoDescription;
+    ViewBag.Author = Model.BlogDto.Blog.SeoAuthor;
+    ViewBag.Tags = Model.BlogDto.Blog.SeoTags;
 }
 <link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="~/BlogHome/css/single.css">
@@ -22,24 +22,24 @@
             <div class="blog_info_left_grid">
                 <!-- Preview Image -->
                 <div class="text-center">
-                    <img class="img-fluid rounded" src="~/img/@Model.Blog.Thumbnail" alt="@Model.Blog.Title">
+                    <img class="img-fluid rounded" src="~/img/@Model.BlogDto.Blog.Thumbnail" alt="@Model.BlogDto.Blog.Title">
                 </div>
             </div>
             <div class="blog-info-middle">
                 <ul>
                     <li>
                         <a href="#">
-                            <i class="far fa-calendar-alt"></i> @Model.Blog.Date.ToShortDateString()
+                            <i class="far fa-calendar-alt"></i> @Model.BlogDto.Blog.Date.ToShortDateString()
                         </a>
                     </li>
                     <li class="mx-2">
                         <a href="#">
-                            <i class="far fa-thumbs-up"></i> @Model.Blog.ViewCount
+                            <i class="far fa-thumbs-up"></i> @Model.BlogDto.Blog.ViewCount
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="far fa-comment"></i> @Model.Blog.CommentCount
+                            <i class="far fa-comment"></i> @Model.BlogDto.Blog.CommentCount
                         </a>
                     </li>
 
@@ -47,19 +47,19 @@
             </div>
         </div>
         <!-- Title -->
-        <h1 class="mt-4">@Model.Blog.Title</h1>
+        <h1 class="mt-4">@Model.BlogDto.Blog.Title</h1>
         <!-- Author -->
-        <p class="lead">@Model.Blog.User.UserName tarafından @Model.Blog.Date.ToShortDateString() tarihinde paylaşılmıştır.</p>
+        <p class="lead">@Model.BlogDto.Blog.User.UserName tarafından @Model.BlogDto.Blog.Date.ToShortDateString() tarihinde paylaşılmıştır.</p>
         <!-- Content -->
-        @Html.Raw(@Model.Blog.Content)
+        @Html.Raw(Model.BlogDto.Blog.Content)
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
     </div>
-   <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.Blog.Id}"/>
+   <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.BlogDto.Blog.Id}"/>
     <hr/>
     <br/>
    <h4>Yorumlar</h4>
    <div id="comments">
-       @foreach (var comment in Model.Blog.Comments)
+       @foreach (var comment in Model.BlogDto.Blog.Comments)
        {
            <div class="comment-top">
                <div class="media">
@@ -79,7 +79,7 @@
    </div>
 
 </div>
-
+<partial name="_BlogDetailRightSideBarPartial" model="@Model.BlogDetailRightSideBarViewModel"/>
 @*@section Scripts{
     <script src="~/BlogHome/js/blogDetail.js" type="text/ecmascript"></script>
 }*@

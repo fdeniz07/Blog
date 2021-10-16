@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using EntityLayer.Concrete;
+using Microsoft.Extensions.Options;
 
 namespace BlogWeb.Controllers
 {
@@ -11,11 +13,13 @@ namespace BlogWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBlogService _blogService;
+        private readonly AboutUsPageInfo _aboutUsPageInfo;
 
-        public HomeController(ILogger<HomeController> logger, IBlogService blogService)
+        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptions<AboutUsPageInfo> aboutUsPageInfo)
         {
             _logger = logger;
             _blogService = blogService;
+            _aboutUsPageInfo = aboutUsPageInfo.Value;
         }
 
         [HttpGet]
@@ -27,6 +31,16 @@ namespace BlogWeb.Controllers
                 : _blogService.GetAllByPagingAsync(categoryId.Value, currentPage, pageSize,isAscending));
             return View(blogResult.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> About()
+        {
+         
+            return View();
+        }
+
+
+
 
         public IActionResult Privacy()
         {
