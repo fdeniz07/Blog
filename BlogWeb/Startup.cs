@@ -32,6 +32,7 @@ namespace BlogWeb
              * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
              */
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
+            services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
 
             services.AddControllersWithViews(options =>
             {

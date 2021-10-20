@@ -1,0 +1,25 @@
+﻿@model EntityLayer.Concrete.AboutUsPageInfo
+
+@{
+    Layout = "_AboutLayout";
+    ViewBag.Title = "Hakkında";
+    ViewBag.Description = Model.SeoDescription;
+    ViewBag.Tags = Model.SeoTags;
+    ViewBag.Author = Model.SeoAuthor;
+}
+
+<div class="container-fluid">
+    <div class="jumbotron mt-4">
+        <div class="d-flex align-items-center h-100">
+            <div class="container text-center py-5">
+                <img src="~/ComingSoon/images/icons/logo.png" alt="FatihsBlog Logo" class="img-fluid mb-1"/>
+                <div class="container mt-4 mb-5">
+                    <h2 class="text-center py-3 mb-5">@Model.Header</h2>
+                    <div class="text-center">
+                        <p>@Model.Content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

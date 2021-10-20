@@ -36,7 +36,7 @@ namespace BlogWeb.Controllers
         public async Task<IActionResult> About()
         {
          
-            return View();
+            return View(_aboutUsPageInfo);
         }
 
         public IActionResult Privacy()
