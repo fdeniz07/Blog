@@ -1,22 +1,16 @@
-﻿@using Microsoft.Extensions.Options
-@using EntityLayer.Concrete
-@inject IOptions<WebsiteInfo> WebsiteInfo
-@{
-    var websiteInfo = WebsiteInfo.Value;
-}
-
-
+﻿
 <!DOCTYPE html>
 <html lang="tr">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
-    <meta name="description" content="@websiteInfo.SeoDescription">
-    <meta name="author" content="@websiteInfo.SeoAuthor">
-    <meta name="keywords" content="@websiteInfo.SeoTags" />
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="author" content="@ViewBag.Author">
+    <meta name="keywords" content="@ViewBag.Tags" />
 
-    <title>@ViewBag.Title | @websiteInfo.Title</title>
+    <title>@ViewBag.Title | Fatih's Blog</title>
+
 
     <script>
         addEventListener("load",
@@ -29,8 +23,7 @@
             window.scrollTo(0, 1);
         }
     </script>
-
-    @await Html.PartialAsync("_LayoutCssPartial")
+    @await Html.PartialAsync("_ContactLayoutCssPartial")
 </head>
 
 <body>
@@ -40,7 +33,7 @@
             <div class="row">
                 <div class="col-md-4 logo text-left">
                     <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                        <i class="fab fa-linode"></i> @websiteInfo.MenuTitle
+                        <i class="fab fa-linode"></i> Fatih's Blog
                     </a>
                 </div>
                 @await Html.PartialAsync("_LayoutHeaderLoginPartial")
@@ -73,25 +66,20 @@
         <partial name="_MainMenuPartial"/>
     </header>
     <!--//header-->
-    <!--/banner-->
-    @await Html.PartialAsync("_LayoutSliderPartial")
-    <!--//banner-->
+<!--/banner-->
+
+<!--//banner-->
     <!--/main-->
-    <section class="main-content-w3layouts-agileits">
-        <div class="container">
-            @*<h3 class="tittle">Son Paylaşılan Makaleler</h3>*@
-            @*@await Html.PartialAsync("_LayoutHeaderPartial")*@
-            <div class="row">
-                @*inner-sec*@
+
+        <div class="container-fluid">@* fluid *@
                 <!--left-->
                 @RenderBody()
                 <!--//left-->
                 <!--right-->
-                @await Component.InvokeAsync("RightSideBar")
+                @*@await Component.InvokeAsync("RightSideBar")*@  @* sag menüye newsletter abaoneligi sonra eklenecek*@
                 <!--//right-->
-            </div>
         </div>
-    </section>
+
     <!--//main-->
     <!--footer-->
     @await Html.PartialAsync("_LayoutFooterPartial")
@@ -101,10 +89,13 @@
         <span id="toTopHover" style="opacity: 1;"> </span>
     </a>
 
+
     @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false) @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek. Tüm js dosya yollari bu alanin üzerinde olmalidir *@
+    @await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
+
 </body>
 
 </html>
+
 
 

@@ -1,4 +1,12 @@
-﻿ <!--Header-->
+﻿@using Microsoft.Extensions.Options
+@using EntityLayer.Concrete
+@inject IOptions<WebsiteInfo> WebsiteInfo
+@{
+    var websiteInfo = WebsiteInfo.Value;
+}
+
+
+<!--Header-->
 <div class="header_top" id="home">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler navbar-toggler-right mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -31,10 +39,13 @@
                     <a class="nav-link" asp-controller="Home" asp-action="Index">Makaleler</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">İletişim</a>
+                    <a class="nav-link" asp-controller="Home" asp-action="Contact">İletişim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Yönetim Paneli</a>
                 </li>
             </ul>
-            <form asp-controller="Blog" asp-action="Search" method="get" class="form-inline my-2 my-lg-0 header-search" >
+            <form asp-controller="Blog" asp-action="Search" method="get" class="form-inline my-2 my-lg-0 header-search">
                 <input class="form-control mr-sm-2" type="text" placeholder="Aranmak istenen kelime..." name="keyword">
                 <button class="btn btn1 my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>

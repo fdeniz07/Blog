@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using EntityLayer.Concrete;
+using EntityLayer.Dtos;
 using Microsoft.Extensions.Options;
 
 namespace BlogWeb.Controllers
@@ -33,11 +34,27 @@ namespace BlogWeb.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> About()
+        public IActionResult About()
         {
          
             return View(_aboutUsPageInfo);
         }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(EmailSendDto emailSendDto)
+        {
+
+            return View();
+        }
+
+
 
         public IActionResult Privacy()
         {
