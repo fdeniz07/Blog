@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class CommentUpdateDto
+    public class CommentUpdateDto : IDto
     {
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]
         public int Id { get; set; }

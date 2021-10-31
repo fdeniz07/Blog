@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class CommentAddDto
+    public class CommentAddDto : IDto
     {
         [DisplayName("Yorum")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]

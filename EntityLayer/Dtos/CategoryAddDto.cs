@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class CategoryAddDto
+    public class CategoryAddDto : IDto
     {
         [DisplayName("Kategori Adı")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]

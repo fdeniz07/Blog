@@ -1,6 +1,8 @@
-﻿namespace EntityLayer.Dtos
+﻿using CoreLayer.Entities.Abstract;
+
+namespace EntityLayer.Dtos
 {
-    public class ImageUploadedDto
+    public class ImageUploadedDto : IDto
     {
         public string FullName { get; set; }
         public string OldName { get; set; }

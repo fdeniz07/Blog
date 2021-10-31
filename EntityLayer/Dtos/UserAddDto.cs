@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace EntityLayer.Dtos
 {
-    public class UserAddDto
+    public class UserAddDto : IDto
     {
         [DisplayName("Kullanıcı Adı")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class UserLoginDto
+    public class UserLoginDto : IDto
     {
         [DisplayName("E-Posta Adresi")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]

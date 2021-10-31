@@ -1,6 +1,8 @@
-﻿namespace EntityLayer.Dtos
+﻿using CoreLayer.Entities.Abstract;
+
+namespace EntityLayer.Dtos
 {
-    public class RoleAssignDto
+    public class RoleAssignDto : IDto
     {
         public int RoleId { get; set; }
 

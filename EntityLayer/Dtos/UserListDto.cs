@@ -5,7 +5,7 @@ using EntityLayer.Concrete;
 
 namespace EntityLayer.Dtos
 {
-    public class UserListDto:DtoGetBase
+    public class UserListDto : DtoGetBase, IDto
     {
         public IList<User> Users { get; set; }
 

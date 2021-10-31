@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class UserPasswordChangeDto
+    public class UserPasswordChangeDto : IDto
     {
         [DisplayName("Şu Anki Şifreniz")]
         [Required(ErrorMessage = "{0} boş geçilmemelidir.")]

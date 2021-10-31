@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class UserRoleAssignDto
+    public class UserRoleAssignDto : IDto
     {
         public UserRoleAssignDto()
         {

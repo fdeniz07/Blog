@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class CategoryUpdateDto
+    public class CategoryUpdateDto : IDto
     {
         [Required]
         public int Id { get; set; }

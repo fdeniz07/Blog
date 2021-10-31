@@ -3,7 +3,7 @@ using EntityLayer.Concrete;
 
 namespace EntityLayer.Dtos
 {
-    public class BlogDto:DtoGetBase
+    public class BlogDto:DtoGetBase,IDto
     {
         public Blog Blog { get; set; }
 

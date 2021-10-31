@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 using Microsoft.AspNetCore.Http;
 
 namespace EntityLayer.Dtos
 {
-    public class UserUpdateDto
+    public class UserUpdateDto : IDto
     {
         [Required]
         public int Id { get; set; }

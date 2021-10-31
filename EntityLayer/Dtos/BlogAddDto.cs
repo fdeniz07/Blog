@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace EntityLayer.Dtos
 {
-    public class BlogAddDto
+    public class BlogAddDto : IDto
     {
         [DisplayName("Başlık")]
         [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]

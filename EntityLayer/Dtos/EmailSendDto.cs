@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class EmailSendDto
+    public class EmailSendDto : IDto
     {
         [DisplayName("İsminiz")]
         [Required(ErrorMessage = "{0} alanı zorunludur.")]

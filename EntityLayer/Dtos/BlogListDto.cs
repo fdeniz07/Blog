@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace EntityLayer.Dtos
 {
-    public class BlogListDto : DtoGetBase
+    public class BlogListDto : DtoGetBase,IDto
     {
         public IList<Blog> Blogs { get; set; }
 

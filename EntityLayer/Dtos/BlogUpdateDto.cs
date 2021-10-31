@@ -2,10 +2,11 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using CoreLayer.Entities.Abstract;
 
 namespace EntityLayer.Dtos
 {
-    public class BlogUpdateDto
+    public class BlogUpdateDto : IDto
     {
         [Required]
         public int Id { get; set; }
