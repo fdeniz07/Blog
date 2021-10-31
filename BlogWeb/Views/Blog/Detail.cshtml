@@ -54,33 +54,45 @@
         @Html.Raw(Model.BlogDto.Blog.Content)
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
     </div>
-   <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.BlogDto.Blog.Id}"/>
-    <hr/>
-    <br/>
-   <h4>Yorumlar</h4>
-   <div id="comments">
-       @foreach (var comment in Model.BlogDto.Blog.Comments)
-       {
-           <div class="comment-top">
-               <div class="media">
-                   <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
-                   <div class="media-body">
-                       <h5 class="mt-0">
-                           <i class="far fa-user"></i> @comment.CreatedByName
-                       </h5>
-                       <i class="far fa-clock"></i> @comment.CreatedDate.Date.ToShortDateString()
-                       <br />
-                       <br />
-                       @comment.Content
-                   </div>
-               </div>
-           </div>
-       }
-   </div>
-
+    <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.BlogDto.Blog.Id}" />
+    <hr />
+    <br />
+    <h4>Yorumlar</h4>
+    <div id="comments">
+        @if(Model.BlogDto.Blog.Comments.Count==0)
+            {
+                <div class="comment-top">
+                    <div class="media">
+                        <div class="media-body">
+                            <h6>Bu bloğa ait bir yorum henüz yok. Bu bloğa ilk yorum yapan siz olun!</h6>
+                        </div>
+                    </div>
+                </div>
+            }
+        else
+        {
+            @foreach (var comment in Model.BlogDto.Blog.Comments)
+            {
+                <div class="comment-top">
+                    <div class="media">
+                        <img class="d-flex mr-3 rounded-circle" src="https://randomuser.me/api/portraits/men/34.jpg" alt="" /> @*"img-fluid"*@
+                        <div class="media-body">
+                            <h5 class="mt-0">
+                                <i class="far fa-user"></i> @comment.CreatedByName
+                            </h5>
+                            <i class="far fa-clock"></i> @comment.CreatedDate.Date.ToShortDateString()
+                            <br />
+                            <br />
+                            @comment.Content
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
 </div>
-<partial name="_BlogDetailRightSideBarPartial" model="@Model.BlogDetailRightSideBarViewModel"/>
+<partial name="_BlogDetailRightSideBarPartial" model="@Model.BlogDetailRightSideBarViewModel" />
 @*@section Scripts{
-    <script src="~/BlogHome/js/blogDetail.js" type="text/ecmascript"></script>
-}*@
+        <script src="~/BlogHome/js/blogDetail.js" type="text/ecmascript"></script>
+    }*@
 <!--//left-->
