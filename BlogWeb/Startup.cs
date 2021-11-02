@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using BlogWeb.AutoMapper.Profiles;
+using BlogWeb.Filters;
 using BlogWeb.Helpers.Abstract;
 using BlogWeb.Helpers.Concrete;
 using BusinessLayer.AutoMapper.Profiles;
@@ -37,6 +38,7 @@ namespace BlogWeb
             services.AddControllersWithViews(options =>
             {
                 options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(value => "Bu alan boş geçilmemelidir."); //Ingilzce hata mesajlari yerine, hatali dönüsler icin bizim belirledigimiz mesaj gösterilecektir.
+                options.Filters.Add<MvcExceptionFilter>(); // Global hata yönetimimizi buraya ekliyoruz.
             }).AddRazorRuntimeCompilation().AddJsonOptions(opt =>
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
