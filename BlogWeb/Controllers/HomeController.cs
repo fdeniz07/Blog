@@ -1,4 +1,5 @@
-﻿using BlogWeb.Models;
+﻿using System;
+using BlogWeb.Models;
 using BusinessLayer.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -36,21 +37,20 @@ namespace BlogWeb.Controllers
         [HttpGet]
         public IActionResult About()
         {
-         
+            throw new Exception("Hata!");
             return View(_aboutUsPageInfo);
         }
 
         [HttpGet]
         public IActionResult Contact()
         {
-
+            throw new NullReferenceException();
             return View();
         }
 
         [HttpPost]
         public IActionResult Contact(EmailSendDto emailSendDto)
         {
-
             return View();
         }
 

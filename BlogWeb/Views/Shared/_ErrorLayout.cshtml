@@ -1,0 +1,47 @@
+﻿@using Microsoft.Extensions.Options
+@using EntityLayer.Concrete
+@inject IOptions<WebsiteInfo> WebsiteInfo
+@{
+    var websiteInfo = WebsiteInfo.Value;
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta name="description" content="@websiteInfo.SeoDescription">
+    <meta name="author" content="@websiteInfo.SeoAuthor">
+    <meta name="keywords" content="@websiteInfo.SeoTags" />
+
+    <title>@ViewBag.Title | @websiteInfo.Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' />
+
+    <!-- Custom styles for this template -->
+    <link href="~/BlogHome/css/blog-home.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+    <link href="~/BlogHome/css/error-page-bg-animation.css" rel="stylesheet" />
+</head>
+
+<body class="wrapper">
+    <div id="layoutError">
+        <div id="layoutError_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        @RenderBody()
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    @await Html.PartialAsync("_LayoutJsPartial")
+    @await RenderSectionAsync("Scripts", false) @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek. Tüm js dosya yollari bu alanin üzerinde olmalidir *@
+</body>
+
+</html>
+
+

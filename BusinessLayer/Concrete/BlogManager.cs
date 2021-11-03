@@ -8,6 +8,7 @@ using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -85,6 +86,7 @@ namespace BusinessLayer.Concrete
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeletedAsync()
         {
             var blogs = await UnitOfWork.Blogs.GetAllAsync(b => !b.IsDeleted, bl => bl.User, bl => bl.Category);
+            throw new SqlNullValueException();
             if (blogs.Count > -1)
             {
                 return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
