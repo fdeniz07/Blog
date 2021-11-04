@@ -12,7 +12,7 @@
     <title>@ViewBag.Title | Fatih's Blog</title>
 
 
-    <script>
+    @*<script>
         addEventListener("load",
             function () {
                 setTimeout(hideURLbar, 0);
@@ -22,7 +22,7 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-    </script>
+    </script>*@
     @await Html.PartialAsync("_ContactLayoutCssPartial")
 </head>
 
@@ -63,36 +63,42 @@
                 </div>
             </div>
         </div>
-        <partial name="_MainMenuPartial"/>
+        <partial name="_MainMenuPartial" />
     </header>
     <!--//header-->
-<!--/banner-->
-
-<!--//banner-->
+    <!--/banner-->
+    <!--//banner-->
     <!--/main-->
 
-        <div class="container-fluid">@* fluid *@
-                <!--left-->
-                @RenderBody()
-                <!--//left-->
-                <!--right-->
-                @*@await Component.InvokeAsync("RightSideBar")*@  @* sag menüye newsletter abaoneligi sonra eklenecek*@
-                <!--//right-->
-        </div>
+    <div class="container-fluid">
+        @* fluid *@
+        <!--left-->
+        @RenderBody()
+        <!--//left-->
+        <!--right-->
+        @*@await Component.InvokeAsync("RightSideBar")*@  @* sag menüye newsletter abaoneligi sonra eklenecek*@
+        <!--//right-->
+    </div>
 
     <!--//main-->
     <!--footer-->
     @await Html.PartialAsync("_LayoutFooterPartial")
     <!---->
 
-    <a href="#home" class="scroll" id="toTop" style="display: block;">
+    @*<a href="#home" class="scroll" id="toTop" style="display: block;">
         <span id="toTopHover" style="opacity: 1;"> </span>
-    </a>
+    </a>*@
 
 
-    @await Html.PartialAsync("_LayoutJsPartial")
-    @await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
+@*@await Html.PartialAsync("_LayoutJsPartial")*@
+<!-- Bootstrap core JavaScript -->
+<script src="~/BlogHome/vendor/jquery/jquery.min.js"></script>
+<script src="~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
 
+
+@await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 
 </html>
