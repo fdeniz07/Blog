@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using CoreLayer.Utilities.Helpers.Abstract;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
 using Microsoft.Extensions.Options;
@@ -19,13 +20,16 @@ namespace BlogWeb.Controllers
         private readonly AboutUsPageInfo _aboutUsPageInfo;
         private readonly IMailService _mailService;
         private readonly IToastNotification _toastNotification;
+        private readonly IWritableOptions<AboutUsPageInfo> _aboutUsPageInfoWriter;
 
-        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
+        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification, IWritableOptions<AboutUsPageInfo> aboutUsPageInfoWriter)
         {
            // _logger = logger;
             _blogService = blogService;
             _mailService = mailService;
             _toastNotification = toastNotification;
+            _aboutUsPageInfoWriter = aboutUsPageInfoWriter;
+
             _aboutUsPageInfo = aboutUsPageInfo.Value;
         }
 

@@ -63,25 +63,69 @@
                 </div>
             </div>
         </div>
-        <partial name="_MainMenuPartial"/>
+        <partial name="_MainMenuPartial" />
     </header>
     <!--//header-->
-<!--/banner-->
-
-<!--//banner-->
+    <!--/banner-->
+    <!--//banner-->
     <!--/main-->
     @*<section class="main-content-w3layouts-agileits">*@
-        <div class="container">
-            <div class="row inner-sec">
+    <div class="container">
+        <div class="row inner-sec">
 
-                @RenderBody()
+            @RenderBody()
 
-            </div>
         </div>
+    </div>
     @*</section>*@
     <!--//main-->
     <!--footer-->
-    @await Html.PartialAsync("_LayoutFooterPartial")
+    @*@await Html.PartialAsync("_LayoutFooterPartial")*@
+    <footer>
+        <div class="container">
+            <!-- footer -->
+            <div class="footer-cpy text-center">
+                <div class="footer-social">
+                    <div class="copyrighttop">
+                        <ul>
+                            <li class="mx-3">
+                                <a class="facebook" href="#">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Facebook</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="facebook" href="#">
+                                    <i class="fab fa-twitter"></i>
+                                    <span>Twitter</span>
+                                </a>
+                            </li>
+                            <li class="mx-3">
+                                <a class="facebook" href="#">
+                                    <i class="fab fa-google-plus-g"></i>
+                                    <span>Google+</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="facebook" href="#">
+                                    <i class="fab fa-pinterest-p"></i>
+                                    <span>Pinterest</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="w3layouts-agile-copyrightbottom">
+                    <p class="m-0 text.text-center text-white">
+                        © Tüm hakları saklıdır | Fatih's Blog @DateTime.Now.Year
+                    </p>
+                </div>
+            </div>
+            <!-- //footer -->
+        </div>
+    </footer>
+
     <!---->
 
     <a href="#home" class="scroll" id="toTop" style="display: block;">

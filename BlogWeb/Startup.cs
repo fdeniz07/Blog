@@ -5,6 +5,7 @@ using BlogWeb.Helpers.Abstract;
 using BlogWeb.Helpers.Concrete;
 using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Extensions;
+using CoreLayer.Utilities.Extensions;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,7 @@ namespace BlogWeb
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
+            services.ConfigureWritable<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
 
             services.AddControllersWithViews(options =>
             {
