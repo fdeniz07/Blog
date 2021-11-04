@@ -20,7 +20,7 @@ namespace BlogWeb.Controllers
         private readonly IMailService _mailService;
         private readonly IToastNotification _toastNotification;
 
-        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptions<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
+        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification)
         {
            // _logger = logger;
             _blogService = blogService;

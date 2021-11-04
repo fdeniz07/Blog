@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Extensions.Options
 @using EntityLayer.Concrete
-@inject IOptions<WebsiteInfo> WebsiteInfo
+@inject IOptionsSnapshot<WebsiteInfo> WebsiteInfo
 @{
     var websiteInfo = WebsiteInfo.Value;
 }

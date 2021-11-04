@@ -18,7 +18,18 @@ namespace BlogWeb
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+            Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.Sources.Clear();
+                    var environment = hostingContext.HostingEnvironment;
+                    config.AddJsonFile("appsettings.json", optional: true, true)
+                        .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, true);
+                    config.AddEnvironmentVariables();
+                    if (args!=null)
+                    {
+                        config.AddCommandLine(args);
+                    }
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

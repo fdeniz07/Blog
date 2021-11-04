@@ -70,18 +70,15 @@
 
 <!--//banner-->
     <!--/main-->
-    <section class="main-content-w3layouts-agileits">
+    @*<section class="main-content-w3layouts-agileits">*@
         <div class="container">
             <div class="row inner-sec">
-                <!--left-->
+
                 @RenderBody()
-                <!--//left-->
-                <!--right-->
-                @*@await Component.InvokeAsync("RightSideBar")*@  @* sag menüye newsletter abaoneligi sonra eklenecek*@
-                <!--//right-->
+
             </div>
         </div>
-    </section>
+    @*</section>*@
     <!--//main-->
     <!--footer-->
     @await Html.PartialAsync("_LayoutFooterPartial")
