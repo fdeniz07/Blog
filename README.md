@@ -68,6 +68,21 @@ This Project is a Blog Project.
   <p>UI Layer (Presentation) -3<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-3.JPG" />
   
+  <p>UI Layer (Presentation) -4<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-4.JPG" />
+  
+  <p>UI Layer (Presentation) -5<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-5.JPG" />
+  
+  <p>UI Layer (Presentation) -6<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-6.JPG" />
+  
+  <p>UI Layer (Presentation) -7<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-7.JPG" />
+  
+  <p>UI Layer (Presentation) -8<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/UserInterfaceLayer(Presentation)%20-8.JPG" />
+  
 ## Pages
 
 ### Admin Panel
@@ -194,6 +209,58 @@ This Project is a Blog Project.
   <p>Admin Panel - Access Denied - 403<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Access%20Denied%20-%20403.JPG" />
 
+### Pages
 
+#### Dynamic AboutUs Page & Control
+  <p>Admin Panel -Dynamic AboutUs Page Control<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20AboutUs%20Page%20Control.JPG" />
 
+  <p>Admin Panel -Dynamic AboutUs Page<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20AboutUs%20Page%20-2.JPG" />
+  
+  
+#### Home Page
+
+ <p>Home Page -1<p/>
+ <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Home%20Page%20-1.JPG" />  
+  
+  <p>Home Page -2<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Home%20Page%20-2.JPG" />
+  
+  <p>Home Page -3 - Listed Blogs Count and Sorting Date<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Home%20Page%20-3%20-%20Listed%20Blogs%20Count%20and%20Sorting%20Date.JPG" />
+    
+  <p>Home Page -4<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Home%20Page%20-4.JPG" />
+  
+#### Blog Page (Articles)
+  <p>Blog Detail<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Blog%20Detail.JPG" />  
+
+  <p>Blog Detail - Comments & Most Readed Blogs<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Blog%20Detail%20-%20Comments%20%26%20Most%20Readed%20Blogs.JPG" />  
+  
+#### Contact Page
+  <p>Contact Form<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Contact%20Form.JPG" />
+
+  <p>Contact Form -2<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Contact%20Form%20-2.JPG" />
+  
+  <p>Contact Form & Mail<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Contact%20Form%20%26%20Mail%20.JPG" />
+  
+#### Global Exception Handling & Logging
+
+  <p>Global Exception Handling<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Global%20Exception%20Handling.JPG" />
+  
+  <p>DB Log With NLog<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/DB%20Log%20With%20NLog%20.jpg" />
+  
+  <p>File Log with NLog<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/File%20Log%20with%20NLog%20-%201.JPG" />
+  
+  <p>File Log with NLog - 2 - Details<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/File%20Log%20with%20NLog%20-%202%20-%20Details.JPG" />
   
