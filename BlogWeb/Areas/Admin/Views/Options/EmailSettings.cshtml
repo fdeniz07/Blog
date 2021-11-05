@@ -1,0 +1,55 @@
+﻿@model EntityLayer.Concrete.SmtpSettings
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "E-Posta Ayarları";
+}
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card mt-1 mb-1">
+            <div class="card-header">
+                <h4 class="text-center"><span class="fas fa-edit"></span> E-Posta Ayarları</h4>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Options" asp-action="EmailSettings" method="post" id="form-emailsettings-update">
+                    <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Server"></label>
+                            <input class="form-control" asp-for="Server" placeholder="Lütfen, smtp sunucu bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="Server"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Port"></label>
+                            <input type="number" class="form-control" asp-for="Port" placeholder="Lütfen, smtp port bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="Port"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="SenderName"></label>
+                            <input type="text" class="form-control" asp-for="SenderName" placeholder="Lütfen, gönderen adı bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="SenderName"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="SenderEmail"></label>
+                            <input type="text" class="form-control" asp-for="SenderEmail" placeholder="Lütfen, gönderen e-posta adresi bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="SenderEmail"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Username"></label>
+                            <input type="text" class="form-control" asp-for="Username" placeholder="Lütfen, kullanıcı adı/e-posta bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="Username"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Password"></label>
+                            <input type="password" class="form-control" asp-for="Password" placeholder="Lütfen, şifre bilginizi giriniz." />
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-save"></span> Kaydet</button>
+                            <a class="btn btn-danger" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="fas fa-times"></span> İptal</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

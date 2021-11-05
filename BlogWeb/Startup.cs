@@ -37,6 +37,8 @@ namespace BlogWeb
             services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
             services.ConfigureWritable<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
+            services.ConfigureWritable<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
+            services.ConfigureWritable<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
 
             services.AddControllersWithViews(options =>
             {

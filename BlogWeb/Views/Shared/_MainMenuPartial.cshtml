@@ -1,11 +1,9 @@
 ﻿@using Microsoft.Extensions.Options
 @using EntityLayer.Concrete
-@inject IOptions<WebsiteInfo> WebsiteInfo
+@inject IOptionsSnapshot<WebsiteInfo> WebsiteInfo
 @{
     var websiteInfo = WebsiteInfo.Value;
 }
-
-
 <!--Header-->
 <div class="header_top" id="home">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
