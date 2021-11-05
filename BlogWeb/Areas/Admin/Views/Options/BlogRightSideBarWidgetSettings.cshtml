@@ -1,0 +1,112 @@
+﻿@using EntityLayer.ComplexTypes
+@model BlogWeb.Areas.Admin.Models.BlogRightSideBarWidgetOptionsViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Makale Sayfaları için Widget Ayarları";
+}
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        <div class="card mt-1 mb-1">
+            <div class="card-header">
+                <h4 class="text-center"><span class="fas fa-edit"></span> Makale Sayfaları için Widget Ayarları</h4>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Options" asp-action="BlogRightSideBarWidgetSettings" method="post" id="form-blogrightsidebarwidgetsettings-update">
+                    <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Header"></label>
+                            <input class="form-control" asp-for="Header" placeholder="Lütfen, tercih ettiğiniz widget başlığını giriniz." />
+                            <span class="text-danger" asp-validation-for="Header"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="TakeSize"></label>
+                            <input type="number" class="form-control" asp-for="TakeSize" />
+                            <span class="text-danger" asp-validation-for="TakeSize"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="filterByList" asp-for="FilterBy"></label>
+                            <select id="filterByList" class="form-control" asp-for="FilterBy" asp-items="Html.GetEnumSelectList<FilterBy>()">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="FilterBy" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="categoryList" asp-for="CategoryId"></label>
+                            <select id="categoryList" class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","CategoryName"))">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="orderByList" asp-for="OrderBy"></label>
+                            <select id="orderByList" class="form-control" asp-for="OrderBy" asp-items="Html.GetEnumSelectList<OrderBy>()">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="OrderBy" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="isAscendingList" asp-for="IsAscending"></label>
+                            <select id="isAscendingList" class="form-control" asp-for="IsAscending">
+                                <option></option>
+                                <option value="true">Artan</option>
+                                <option value="false">Azalan</option>
+                            </select>
+                            <span asp-validation-for="IsAscending" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="startAtDatePicker" asp-for="StartAt"></label>
+                            <input type="text" id="startAtDatePicker" value="@Model.StartAt.ToShortDateString()" class="form-control" asp-for="StartAt" />
+                            <span asp-validation-for="StartAt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="endAtDatePicker" asp-for="EndAt"></label>
+                            <input type="text" id="endAtDatePicker" value="@Model.EndAt.ToShortDateString()" class="form-control" asp-for="EndAt" />
+                            <span asp-validation-for="EndAt" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="MinViewCount"></label>
+                            <input type="number" class="form-control" asp-for="MinViewCount" />
+                            <span class="text-danger" asp-validation-for="MinViewCount"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="MaxViewCount"></label>
+                            <input type="number" class="form-control" asp-for="MaxViewCount" />
+                            <span class="text-danger" asp-validation-for="MaxViewCount"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="MinCommentCount"></label>
+                            <input type="number" class="form-control" asp-for="MinCommentCount" />
+                            <span class="text-danger" asp-validation-for="MinCommentCount"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="MaxCommentCount"></label>
+                            <input type="number" class="form-control" asp-for="MaxCommentCount" />
+                            <span class="text-danger" asp-validation-for="MaxCommentCount"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-save"></span> Kaydet</button>
+                            <a class="btn btn-danger" asp-area="Admin" asp-controller="Home" asp-action="Index"><span class="fas fa-times"></span> İptal</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+   <script src="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="~/AdminLTE/js/blogRightSideBarWidgetSettings.js" type="application/ecmascript"></script>
+}
+
+@section Styles
+    {
+    <link href="https://cdn.jsdelivr.net/npm/select2@@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/hot-sneaks/jquery-ui.min.css" integrity="sha512-XSPu9VO1NAgShBZz61kFPLg+rQYtl2j5igRLYrYW6aYIVoDdvuPts85Okec8IRLBzc5wZAv7wMiUENqxhMMYdA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/hot-sneaks/theme.min.css" integrity="sha512-L4cl54UZneCR5JVCDmFRL4I25m6HsmRyfHCj1pU1+aU1RZ6WsqflUklNmP0m2yjvcnCq03HWyvqIcVEmOjLUtw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="~/AdminLTE/css/select2-bootstrap4.min.css" rel="stylesheet" />
+}
