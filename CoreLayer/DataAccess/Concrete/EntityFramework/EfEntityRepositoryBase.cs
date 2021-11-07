@@ -19,6 +19,9 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
+
+            //_context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            //// Eger biz repository pattern i kullanmamis, sadece context üzerinden calisiyor olsaydik tracking önün gecmek icin contructor icerisinde bu komutu vererek get islemlerindeki .AsNoTracking() metodunu kullanmamiza gerek kalmadan performans iyilestirmesi yapmis olurduk.(2.Yöntem)
         }
 
         public async Task<TEntity> AddAsync(TEntity entity) // Ekleme islemlerinde ajax icin kücük bir degisiklik <TEntity> olarak geri dönüs tipi belirtiyoruz
@@ -61,7 +64,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
                 }
             }
 
-            return await query.ToListAsync(); //yukarida dönen degerleri kullanicaya bir liste olarak dönecegiz.
+            return await query.AsNoTracking().ToListAsync(); //yukarida dönen degerleri kullanicaya bir liste olarak dönecegiz.
         }
 
         public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
@@ -80,7 +83,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
                 }
             }
 
-            return await query.SingleOrDefaultAsync();
+            return await query.AsNoTracking().SingleOrDefaultAsync();
         }
 
         public async Task<TEntity> GetByIdAsync(int id)
@@ -129,7 +132,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
                 }
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync(); //AsNoTracking metodu bizim icin gereksiz include islemlerini önler veya sadece bizim istedigimiz include ler varsa getirir. Bu sayede gereksiz yere ayni islemler,birbirini tekrar eden islemler (Blog -> Kategori -> Makale -> Yorum -> Blog) gerceklesmeyecegi icin epey bir performans saglamis olacagiz.
         }
 
         public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)

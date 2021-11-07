@@ -18,7 +18,7 @@ namespace BusinessLayer.Extensions
             // Bu yapinin amaci, kullanici bizden soyut bir nesne istediginde, biz ona otomatik olarak ilgili soyut nesneye ait bir somut nesne sunuyoruz
 
 
-            serviceCollection.AddDbContext<MsDbContext>(options => options.UseSqlServer(connectionString));
+            serviceCollection.AddDbContext<MsDbContext>(options => options.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); // Bu context'i kullanan tüm uygulama alanlarinda tracking islemini engelleyerek performansi arttirmis oluyoruz.
             serviceCollection.AddIdentity<User, Role>(options =>
             {
                 //User Password Options
@@ -42,6 +42,7 @@ namespace BusinessLayer.Extensions
             serviceCollection.AddScoped<IBlogService, BlogManager>();
             serviceCollection.AddScoped<ICommentService, CommentManager>();
             serviceCollection.AddSingleton<IMailService, MailManager>(); // Scope kullanmiyoruz. Bir tane mail manager yetecektir. Yani her mail icin yeni bir manager olusturulmasina gerek yok. Uygulama icin bir tane MailManager olusturulacak ve heryerde bu kullanilacak (singleton)
+         
             #region Scope
             /*
              * Yapilan her request'te nesne tekrar olusur ve bir request icerisinde sadece bir tane nesne kullanilir. Bu yöntem icin de AddScope() metodu kullaniliyor.
