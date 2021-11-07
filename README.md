@@ -211,13 +211,20 @@ This Project is a Blog Project.
 
 ### Pages
 
+#### Dynamic General Settings Page Control
+  <p>Admin Panel - Dynamic General Settings Page Control<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20General%20Settings%20Page.JPG" />
+  
 #### Dynamic E-mail Settings Page Control
   <p>Admin Panel - Dynamic E-mail Settings Page. Control<p/>
   <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20E-mail%20Settings%20Page.JPG" />
   
-#### Dynamic General Settings Page Control
-  <p>Admin Panel - Dynamic General Settings Page Control<p/>
-  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20General%20Settings%20Page.JPG" />
+#### Dynamic Right Side Bar Widget Settings Control
+  <p>Admin Panel - Dynamic Right Side Bar Widget Settings Control<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20RightSideBarWidget%20Settings%20-1.JPG" />
+
+  <p>Dynamic Right Side Bar Widget Settings on the Page<p/>
+  <img src="https://github.com/fdeniz07/Blog/blob/master/Images/Dynamic%20RightSideBarWidget%20Settings%20-2.JPG" />
   
 #### Dynamic AboutUs Page & Control
   <p>Admin Panel -Dynamic AboutUs Page Control<p/>
