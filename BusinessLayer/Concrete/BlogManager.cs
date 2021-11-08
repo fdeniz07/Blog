@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using BusinessLayer.Utilities;
+using CoreLayer.Entities.Concrete;
 using EntityLayer.ComplexTypes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,38 @@ namespace BusinessLayer.Concrete
         }
 
 
+        /////////////////////// GetByIdAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        /// Buranin GetAsync den farki, ihtiyacimiz kadar include parametreyi cagiriyoruz. Bu sayede sorgularimizda gereksiz tablolari cagirmadigimizdan performans artisi saglamis oluyoruz.
+        /// 
+        public async Task<IDataResult<BlogDto>> GetByIdAsync(int blogId, bool includeCategory, bool includeComments, bool includeUser)
+        {
+            List<Expression<Func<Blog, bool>>> predicates = new List<Expression<Func<Blog, bool>>>();
+            List<Expression<Func<Blog, object>>> includes = new List<Expression<Func<Blog, object>>>();
+
+            if (includeCategory) includes.Add(b=>b.Category);
+            if (includeComments) includes.Add(b=>b.Comments);
+            if(includeUser) includes.Add(b=>b.User);
+            predicates.Add(b=>b.Id==blogId);
+            var blog = await UnitOfWork.Blogs.GetAsyncV2(predicates, includes);
+            if (blog==null)
+            {
+                return new DataResult<BlogDto>(ResultStatus.Warning,Messages.General.ValidationError(),null,new List<ValidationError>
+                {
+                    new ValidationError
+                    {
+                        PropertyName = "blogId",
+                        Message = Messages.Blog.NotFoundById(blogId)
+                    }
+                });
+            }
+
+            return new DataResult<BlogDto>(ResultStatus.Success, new BlogDto
+            {
+                Blog = blog
+            });
+        }
+
+
         /////////////////////// GetBlogUpdateDtoAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
         public async Task<IDataResult<BlogUpdateDto>> GetBlogUpdateDtoAsync(int blogId)
@@ -61,6 +94,87 @@ namespace BusinessLayer.Concrete
             {
                 return new DataResult<BlogUpdateDto>(ResultStatus.Error, Messages.Blog.NotFound(isPlural: false), null);
             }
+        }
+
+
+        /////////////////////// GetAllAsyncV2 \\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        /// Buranin amaci tüm GetAll metotlarini icerisinde barindirmasi ve hangi parametre istenirse ona cevap verdiginden bizlere performans saglamasidir.
+      
+        public async  Task<IDataResult<BlogListDto>> GetAllAsyncV2(int? categoryId, int? userId, bool? isActive, bool? isDeleted, int currentPage, int pageSize,
+            OrderByGeneral orderBy, bool isAscending, bool includeCategory, bool includeComments, bool includeUser)
+        {
+            List<Expression<Func<Blog, bool>>> predicates = new List<Expression<Func<Blog, bool>>>();
+            List<Expression<Func<Blog, object>>> includes = new List<Expression<Func<Blog, object>>>();
+
+            //Predicates
+            if (categoryId.HasValue)
+            {
+                if (!await UnitOfWork.Categories.AnyAsync(c=>c.Id==categoryId.Value))
+                {
+                    return new DataResult<BlogListDto>(ResultStatus.Warning, Messages.General.ValidationError(), null, new List<ValidationError>
+                    {
+                        new ValidationError
+                        {
+                            PropertyName = "categoryId",
+                            Message = Messages.Category.NotFoundById(categoryId.Value)
+                        }
+                    });
+                }
+                predicates.Add(b=>b.CategoryId==categoryId.Value);
+            }
+
+            if (userId.HasValue)
+            {
+                if (!await _userManager.Users.AnyAsync(u => u.Id == userId.Value))
+                {
+                    return new DataResult<BlogListDto>(ResultStatus.Warning, Messages.General.ValidationError(), null, new List<ValidationError>
+                    {
+                        new ValidationError
+                        {
+                            PropertyName = "userId",
+                            Message = Messages.User.NotFoundById(userId.Value)
+                        }
+                    });
+                }
+                predicates.Add(b => b.UserId == userId.Value);
+            }
+
+            if (isActive.HasValue) predicates.Add(b=>b.IsActive==isActive.Value);
+            if (isDeleted.HasValue) predicates.Add(b => b.IsDeleted == isDeleted.Value);
+           
+            //Includes
+            if (includeCategory) includes.Add(b => b.Category);
+            if (includeComments) includes.Add(b => b.Comments);
+            if (includeUser) includes.Add(b => b.User);
+
+            var blogs = await UnitOfWork.Blogs.GetAllAsyncV2(predicates, includes);
+
+            IOrderedEnumerable<Blog> sortedBlogs;
+
+            switch (orderBy)
+            {
+                case OrderByGeneral.Id:
+                    sortedBlogs = isAscending ? blogs.OrderBy(b => b.Id) : blogs.OrderByDescending(b => b.Id);
+                    break;
+                case OrderByGeneral.Az:
+                    sortedBlogs = isAscending ? blogs.OrderBy(b => b.Title) : blogs.OrderByDescending(b => b.Title);
+                    break;
+                //Default Created Date
+                default:
+                    sortedBlogs = isAscending ? blogs.OrderBy(b => b.CreatedDate) : blogs.OrderByDescending(b => b.CreatedDate);
+                    break;
+            }
+
+            return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto
+            {
+                Blogs = sortedBlogs.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList(),
+                CategoryId = categoryId.HasValue ? categoryId.Value : null,
+                CurrentPage = currentPage,
+                PageSize = pageSize,
+                IsAscending = isAscending,
+                TotalCount = blogs.Count,
+                ResultStatus = ResultStatus.Success
+            });
         }
 
 
