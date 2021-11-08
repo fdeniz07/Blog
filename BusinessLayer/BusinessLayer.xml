@@ -20,7 +20,11 @@
             <returns>Asenkron bir operasyon ile Task olarak bizlere ekleme isleminin sonucunu DataResult tipinde döner.</returns>
         </member>
         <member name="M:BusinessLayer.Concrete.BlogManager.GetByIdAsync(System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            Buranin GetAsync den farki, ihtiyacimiz kadar include parametreyi cagiriyoruz. Bu sayede sorgularimizda gereksiz tablolari cagirmadigimizdan performans artisi saglamis oluyoruz.
             
+        </member>
+        <member name="M:BusinessLayer.Concrete.BlogManager.GetAllAsyncV2(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Int32,System.Int32,EntityLayer.ComplexTypes.OrderByGeneral,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            Buranin amaci tüm GetAll metotlarini icerisinde barindirmasi ve hangi parametre istenirse ona cevap verdiginden bizlere performans saglamasidir.
         </member>
         <member name="M:BusinessLayer.Concrete.BlogManager.UndoDeleteAsync(System.Int32,System.String)">
             

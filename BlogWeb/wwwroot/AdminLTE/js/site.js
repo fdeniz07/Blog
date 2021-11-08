@@ -52,5 +52,12 @@ function getJsonNetObjectById(parentObj, id) {
     }
     return null;
 }
-
 //Coklu ref degeri cözümü bitis noktasi
+
+
+//Bugünün tarihini alma fonksiyonu
+function getTodaysDate() {
+    let today = new Date();
+    return `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+}
+

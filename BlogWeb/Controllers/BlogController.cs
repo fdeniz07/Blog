@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BlogWeb.Attributes;
 using BlogWeb.Models;
 using BusinessLayer.Abstract;
 using CoreLayer.Utilities.Results.ComplexTypes;
@@ -37,6 +38,7 @@ namespace BlogWeb.Controllers
         }
 
         [HttpGet]
+        [ViewCountFilter] //Bu attribute bizim tarafimizdan yazildi ve asagidaki Action her calistiginda buradaki filtre de calicasaktir.
         public async Task<IActionResult> Detail(int blogId)
         {
             var blogResult = await _blogService.GetAsync(blogId);
@@ -50,7 +52,7 @@ namespace BlogWeb.Controllers
                     _blogRightSideBarWidgetOptions.FilterBy, _blogRightSideBarWidgetOptions.OrderBy, _blogRightSideBarWidgetOptions.IsAscending, _blogRightSideBarWidgetOptions.TakeSize, _blogRightSideBarWidgetOptions.CategoryId, _blogRightSideBarWidgetOptions.StartAt,
                     _blogRightSideBarWidgetOptions.EndAt, _blogRightSideBarWidgetOptions.MinViewCount, _blogRightSideBarWidgetOptions.MaxViewCount, _blogRightSideBarWidgetOptions.MinCommentCount, _blogRightSideBarWidgetOptions.MaxCommentCount);
 
-                await _blogService.IncreaseViewCountAsync(blogId);
+                //await _blogService.IncreaseViewCountAsync(blogId);
                 return View(new BlogDetailViewModel
                 {
                     BlogDto = blogResult.Data,

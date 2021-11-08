@@ -34,7 +34,7 @@
                     </li>
                     <li class="mx-2">
                         <a href="#">
-                            <i class="far fa-thumbs-up"></i> @Model.BlogDto.Blog.ViewCount
+                            <i class="fas fa-eye"></i> @Model.BlogDto.Blog.ViewCount
                         </a>
                     </li>
                     <li>
@@ -52,23 +52,28 @@
         <p class="lead">@Model.BlogDto.Blog.User.UserName tarafından @Model.BlogDto.Blog.Date.ToShortDateString() tarihinde paylaşılmıştır.</p>
         <!-- Content -->
         @Html.Raw(Model.BlogDto.Blog.Content)
+       
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
     </div>
+    <br/>
+    <p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.BlogDto.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.BlogDto.Blog.CommentCount</span></p>
+    <hr>
     <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.BlogDto.Blog.Id}" />
+
     <hr />
     <br />
     <h4>Yorumlar</h4>
     <div id="comments">
-        @if(Model.BlogDto.Blog.Comments.Count==0)
-            {
-                <div class="comment-top">
-                    <div class="media">
-                        <div class="media-body">
-                            <h6>Bu bloğa ait bir yorum henüz yok. Bu bloğa ilk yorum yapan siz olun!</h6>
-                        </div>
+        @if (Model.BlogDto.Blog.Comments.Count == 0)
+        {
+            <div class="comment-top">
+                <div class="media">
+                    <div class="media-body">
+                        <h6>Bu bloğa ait bir yorum henüz yok. Bu bloğa ilk yorum yapan siz olun!</h6>
                     </div>
                 </div>
-            }
+            </div>
+        }
         else
         {
             @foreach (var comment in Model.BlogDto.Blog.Comments)

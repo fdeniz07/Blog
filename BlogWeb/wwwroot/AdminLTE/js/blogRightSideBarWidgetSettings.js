@@ -52,7 +52,10 @@
             showAnim: "fold",
             showOptions:{direction:"left"},
             /*minDate: -3,*/ //... gün öncesine kadar secim
-            maxDate:0 // ... gün sonrasina kadar secim
+            maxDate: 0, // ... gün sonrasina kadar secim
+            onSelect: function(selectedDate) {
+                $("#endAtDatePicker").datepicker('option', 'minDate', selectedDate || getTodaysDate()); //Bu fonksiyon, bitis tarihinin baslangic tarihinden eski olmasini önlüyor
+            }
         });
         $("#endAtDatePicker").datepicker({
             closeText: "kapat",
