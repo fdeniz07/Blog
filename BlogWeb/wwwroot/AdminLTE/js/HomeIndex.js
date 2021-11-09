@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    //DataTable
     $('#blogsTable').DataTable({
         language: {
             "emptyTable": "Tabloda herhangi bir veri mevcut değil",
@@ -203,6 +204,73 @@
                 }
             }
         },
-        "order":[[4,"desc"]]
+        "order": [[4, "desc"]]
     });
+
+    //DataTable
+
+    //Chart.js
+
+    const categories = [
+        {
+            name: 'C#',
+            viewCount: '24500'
+        },
+        {
+            name: 'C++',
+            viewCount: '77000'
+        },
+        {
+            name: 'Java',
+            viewCount: '57800'
+        },
+        {
+            name: 'JavaScript',
+            viewCount: '69780'
+        },
+        {
+            name: 'Dart',
+            viewCount: '2250'
+        },
+        {
+            name: 'PHP',
+            viewCount: '123000'
+        },
+        {
+            name: 'TypeScript',
+            viewCount: '18789'
+        }
+    ];
+
+    let viewCountContext = $('#viewCountChart'); // id canvas olarak secilmeli(index-->viewCountChart)
+
+    let viewCountChart = new Chart(viewCountContext,
+        {
+            type: 'bar', //bar,line,radar,dougnut,pie,polarArea,buble,scatter,area,mixed
+            data: {
+                labels: categories.map(category => category.name),
+                datasets: [
+                    {
+                        label: 'Okunma Sayısı',
+                        data: categories.map(category => category.viewCount),
+                        backgroundColor: ['#8E05C2', '#FFA400', '#1597E5', '#3E7C17', '#000D6B', '#FF0000', '#F2F013'], //renkler tekrar eder
+                        hoverBorderWidth: 4,
+                        hoverBorderColor: 'black'
+                    }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 18
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+    //Chart.js
 });
