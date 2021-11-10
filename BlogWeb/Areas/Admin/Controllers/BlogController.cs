@@ -208,5 +208,17 @@ namespace BlogWeb.Areas.Admin.Controllers
             var hardDeletedBlogResult = JsonSerializer.Serialize(result);
             return Json(hardDeletedBlogResult);
         }
+
+        [Authorize(Roles = "SuperAdmin,Blog.Read")]
+        [HttpGet]
+        public async Task<JsonResult> GetAllByViewCount(bool isAscending,int takeSize)
+        {
+            var result = await _blogService.GetAllByViewCountAsync(isAscending,takeSize);
+            var blogs = JsonSerializer.Serialize(result.Data.Blogs, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            });
+            return Json(blogs);
+        }
     }
 }
