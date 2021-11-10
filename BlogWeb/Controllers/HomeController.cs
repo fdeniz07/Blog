@@ -13,6 +13,7 @@ using NToastNotify;
 
 namespace BlogWeb.Controllers
 {
+    [Route("/")] //Herhangi bir controller üzerine route eklenirse, controller üzerindeki tüm action lara route bilgisinin gecilmesi gerekir.
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger; //Loglama icin kullanildi. About kisminda deneme amacli hata verdirip, loglara yazilmasi saglandi.
@@ -33,6 +34,9 @@ namespace BlogWeb.Controllers
             _aboutUsPageInfo = aboutUsPageInfo.Value;
         }
 
+        [Route("index")]
+        [Route("anasayfa")]
+        [Route("")] //Ilgili controller ile ilgili default bir action varsa "" bos olarak birakilir
         [HttpGet]
         public async Task<IActionResult> Index(int? categoryId,int currentPage=1,int pageSize=6,bool isAscending=false)
         {
@@ -43,6 +47,9 @@ namespace BlogWeb.Controllers
             return View(blogResult.Data);
         }
 
+        [Route("hakkimizda")] // sitemiz türkce oldugu icin türkce seo isimlendirme tekniklerini uyguluyoruz
+        [Route("hakkinda")]
+        //[Route("about")]
         [HttpGet]
         public IActionResult About()
         {
@@ -50,6 +57,8 @@ namespace BlogWeb.Controllers
             return View(_aboutUsPageInfo);
         }
 
+        [Route("iletisim")]
+        //[Route("contact")]
         [HttpGet]
         public IActionResult Contact()
         {
@@ -57,6 +66,8 @@ namespace BlogWeb.Controllers
             return View();
         }
 
+        [Route("iletisim")]
+        //[Route("contact")]
         [HttpPost]
         public IActionResult Contact(EmailSendDto emailSendDto)
         {
@@ -73,15 +84,15 @@ namespace BlogWeb.Controllers
         }
 
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
     }
 }
