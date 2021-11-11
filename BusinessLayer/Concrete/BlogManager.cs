@@ -200,7 +200,7 @@ namespace BusinessLayer.Concrete
         public async Task<IDataResult<BlogListDto>> GetAllByNonDeletedAsync()
         {
             var blogs = await UnitOfWork.Blogs.GetAllAsync(b => !b.IsDeleted, bl => bl.User, bl => bl.Category);
-            throw new SqlNullValueException();
+            //throw new SqlNullValueException(); // Global Excection Handling icin deneme yaptik
             if (blogs.Count > -1)
             {
                 return new DataResult<BlogListDto>(ResultStatus.Success, new BlogListDto

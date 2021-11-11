@@ -28,7 +28,8 @@ namespace BlogWeb.Helpers.Concrete
             _wwwroot = _env.WebRootPath;
         }
 
-        public async Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile imageFile,ImageType imageType,string folderName=null)
+        // I.Yol
+        public async Task<IDataResult<ImageUploadedDto>> Upload(string name, IFormFile imageFile, ImageType imageType, string folderName = null)
         {
             #region Özet
             /*
@@ -61,7 +62,7 @@ namespace BlogWeb.Helpers.Concrete
             //name = regex.Replace(name, string.Empty); // biz burada string.Empty ile regex degerlerinden gelen karakterleri resimden kaldirdik
             name = regex.Replace(name, "_");
 
-           DateTime dateTime = DateTime.Now;
+            DateTime dateTime = DateTime.Now;
 
             /*
             // Parametre ile gelen değerler kullanılarak yeni bir resim adı oluşturulur.
@@ -83,7 +84,7 @@ namespace BlogWeb.Helpers.Concrete
             string nameMessage = imageType == ImageType.User
                 ? $"{name} adlı kullanıcının resmi başarıyla yüklenmiştir."
                 : $"{name} adlı makalenin resmi başarıyla yüklenmiştir.";
-            
+
             return new DataResult<ImageUploadedDto>(ResultStatus.Success, nameMessage, new ImageUploadedDto
             {
                 FullName = $"{folderName}/{newFileName}",
@@ -94,6 +95,70 @@ namespace BlogWeb.Helpers.Concrete
                 Size = imageFile.Length
             }); // FatihDeniz_587_5_38_12_28_09_2021.png - "~/img/user.Image"
         }
+
+
+        // II.Yol
+        //public string Upload(string name, IFormFile imageFile, ImageType imageType, string folderName = null)
+        //{
+        //    #region Özet
+        //    /*
+        //     * I.Yol'da, bizler ImageUploadDto dönüyorduk. II.Yol'da ise, bir string imagePath dönüyoruz. Bunu da kullanicinin icerisine atamak icin kullaniyoruz.
+        //     *
+        //     * 1- Bize bu metot icerisinden bir folderName parametresi geliyor. Eger foldeName degiskeni bize null gelirse, parametreyle gelen imageType'i kontrol ediyoruz. Eger bu imageType user olarak gelirse userImagesFolder, post (makale)olarak gelmisse postImagesFolder olarak geriye döndürerek atamis olacagiz. Yani yeni bir resim eklerken, her seferinde yeni bir klasör adi vermemize gerek kalmiyor.
+        //     * 2- Biz bu dosyanin daha önceden olup olmadigini kontrol ediyoruz. Eger yoksa bu dizin olusturuluyor, varsa ilgili islemler yapiliyor.
+        //     * 3- Resmin adini oldFileName, resmin uzantisini da fileExtension degiskenlerine aliyoruz
+        //     * 4- Bulunulan tarihi alip, bizim core katmanimizda daha önceden olusturdugumuz extension metodumuzda(FullDateAndTimeStringWithUnderscore) aldigimiz bilgileri formatliyoruz
+        //     * 5- Yukaridaki adimdaki bilgileri kullanarak bir path olusturduk (wwwroot/img/yeniResim)
+        //     * 6- Devaminda FileStream i kullanarak, gerekli path üzerine resmimizin kopyalanmasini sagladik
+        //     * 7- Daha sonrasinda da bir DataResult 
+        //     */
+        //    #endregion
+
+        //    /* Eğer folderName değişkeni null gelir ise, o zaman resim tipine göre (ImageType) klasör adı ataması yapılır. */
+        //    folderName ??= imageType == ImageType.User ? UserImagesFolder : postImagesFolder;
+
+        //    /* Eğer folderName değişkeni ile gelen klasör adı sistemimizde mevcut değilse, yeni bir klasör oluşturulur. */
+        //    if (!Directory.Exists($"{_wwwroot}/{imgFolder}/{folderName}"))
+        //    {
+        //        Directory.CreateDirectory($"{_wwwroot}/{imgFolder}/{folderName}");
+        //    }
+
+        //    /* Resimin yüklenme sırasındaki ilk adı oldFileName adlı değişkene atanır. */
+        //    string oldFileName = Path.GetFileNameWithoutExtension(imageFile.FileName); // fatihdeniz
+
+        //    /* Resmin uzantısı fileExtension adlı değişkene atanır. */
+        //    string fileExtension = Path.GetExtension(imageFile.FileName); //.png
+
+        //    Regex regex = new Regex("[*'\",+-._&#^@|/<>~]");
+        //    //name = regex.Replace(name, string.Empty); // biz burada string.Empty ile regex degerlerinden gelen karakterleri resimden kaldirdik
+        //    name = regex.Replace(name, "_");
+
+        //    DateTime dateTime = DateTime.Now;
+
+        //    /*
+        //    // Parametre ile gelen değerler kullanılarak yeni bir resim adı oluşturulur.
+        //    // Örn: FatihDeniz_601_5_38_12_28_09_2021.png
+        //    //string fileName = $"{UserName}_{dateTime.FullDateAndTimeStringWithUnderscore()}_{fileName2}";
+        //    */
+        //    string newFileName = $"{name}_{dateTime.FullDateAndTimeStringWithUnderscore()}{fileExtension}";
+
+        //    /* Kendi parametrelerimiz ile sistemimize uygun yeni bir dosya yolu (path) oluşturulur. */
+        //    var path = Path.Combine($"{_wwwroot}/{imgFolder}/{folderName}", newFileName);
+
+        //    /* Sistemimiz için oluşturulan yeni dosya yoluna resim kopyalanır. */
+        //    using (var stream = new FileStream(path, FileMode.Create))
+        //    {
+        //Metotlarimizi da senkron yapiyoruz. Cünkü Automapper senkron calisir
+        //       imageFile.CopyTo(stream);
+        //    }
+
+        //    /* Resim tipine göre kullanıcı için bir mesaj oluşturulur. */
+        //    string nameMessage = imageType == ImageType.User
+        //        ? $"{name} adlı kullanıcının resmi başarıyla yüklenmiştir."
+        //        : $"{name} adlı makalenin resmi başarıyla yüklenmiştir.";
+
+        //    return $"{folderName}/{newFileName}";
+        //}
 
         public IDataResult<ImageDeletedDto> Delete(string imageName)
         {

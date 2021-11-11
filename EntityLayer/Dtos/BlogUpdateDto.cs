@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using CoreLayer.Entities.Abstract;
+using Microsoft.AspNetCore.Http;
 
 namespace EntityLayer.Dtos
 {

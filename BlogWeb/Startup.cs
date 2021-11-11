@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using AutoMapper;
 using BlogWeb.AutoMapper.Profiles;
 using BlogWeb.Filters;
 using BlogWeb.Helpers.Abstract;
@@ -33,6 +34,25 @@ namespace BlogWeb
              * 1-AutoMapper.Extensions.Microsoft.DependencyInjection
              * 2-Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
              */
+
+            //services.AddTransient< IImageHelper, ImageHelper>(); //Transient kavrami herbir islem icin yeni bir ImageHelper olusturmus oluyoruz
+
+            /* AddSingleton Mapper Ne ise yarar?
+             *
+             * Burada olusturacagimiz mapper, bizler icin provider üzerinden gerekli servislerin alinmasini ve servislerimize gecilmesini saglar ve buradaki islemler harmanlandiktan sonra da bizlere yeni bir mapper olarak return edilir.
+             */
+
+            services.AddSingleton(provider => new MapperConfiguration(cfg =>
+            {
+                // Biz bir profil eklemek istiyoruz, ve bu profil bizden bir ImageHelper bekledigi icin de, provider üzerinden GetService diyerek IImageHelper'i veriyoruz. Bu sayede buradaki islem gerekli profilin gerekli servis ile olusturulmasini saglar.
+                //cfg.AddProfile(new UserProfile(provider.GetService<IImageHelper>())); // Resim yükleme II.Yolu kullansaydik burada servis gecerdik
+                cfg.AddProfile(new UserProfile());
+                cfg.AddProfile(new CategoryProfile());
+                cfg.AddProfile(new BlogProfile());
+                cfg.AddProfile(new ViewModelsProfile());
+                cfg.AddProfile(new CommentProfile());
+            }).CreateMapper());
+
             services.Configure<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
@@ -54,9 +74,12 @@ namespace BlogWeb
             }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
             services.AddSession();
-            services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile),typeof(UserProfile),typeof(ViewModelsProfile),typeof(CommentProfile)); //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor.
+           /* services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));*/ //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor. --> En yukarida AutoMapper'i singleton olarak tanimliyoruz ve bu kismi siliyoruz.
+
             services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
-            services.AddScoped<IImageHelper, ImageHelper>();
+
+            services.AddScoped<IImageHelper, ImageHelper>(); //Resim yükleme II.Yol olarak kullanmak istersek, bu kismi en yukariya transient olarak yaziyoruz
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/Auth/Login");
@@ -107,6 +130,11 @@ namespace BlogWeb
                     areaName: "Admin",
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
                 );
+                endpoints.MapControllerRoute(
+                    name:"blog",
+                    pattern:"{title}/{blogId}", //"{categoryName}/{title}/{blogId}",
+                    defaults:new {controller="Blog",action="Detail"}
+                    );
                 endpoints.MapDefaultControllerRoute(); // Bu islem varsayilan olarak, sitemiz acildigindan default olarak HomeController ve Index kismina gider
             });
         }

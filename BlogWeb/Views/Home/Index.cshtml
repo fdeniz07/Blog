@@ -1,4 +1,5 @@
 ﻿@using System.Text.RegularExpressions
+@using BlogWeb.Extensions
 @using EntityLayer.Concrete
 @model EntityLayer.Dtos.BlogListDto
 @{
@@ -72,7 +73,8 @@
                         }
                         @(blog.Content.Length > 150 ? blog.Content.Substring(0, blog.Content.Substring(0, 155).LastIndexOf(" ")) + "..." : blog.Content + "...") @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
                     </p>
-                    <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
+                    @*<a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>*@
+                    <a href="/@Url.FriendlyUrlHelper(@blog.Title)/@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
                 </div>
             </div>
             <br>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CoreLayer.Entities.Abstract;
@@ -57,5 +58,7 @@ namespace CoreLayer.DataAccess.Abstract
         //Tüm entity lerin sayisini dönmek icin de Count kullaniyoruz (var commentCount = _commentRepository.CountAsync()), olurda tablodaki bilgileri dönmek istersek, predicate alanina varsayilan deger olarak null atiyoruz.
 
         Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate=null);
+
+        IQueryable<TEntity> GetAsQueryable(); // Iqueryable olarak verilen enitity'i, bizlere return eder. Bu sayede bizler, herhangi bir sinir olmadan kompleks sorgular olusturabiliyoruz. Farzedelim, GetAsync icerisinde kategoriyi alirken,onun makalelerini include etmek istiyoruz ve makale icerisindeki yorumlari da onun sonrasinda ThenInclude ile include etmek istiyoruz. Burada komplex bir sorgu ile karsilasiyoruz. Bunu normal metotlarimiz icerisinde tamamlayamiyoruz.
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Concrete
 {
@@ -28,6 +29,18 @@ namespace BusinessLayer.Concrete
 
         public async Task<IDataResult<CategoryDto>> GetAsync(int categoryId)
         {
+            //Queryable ne is görüyor
+            /*
+             * Farzedelim, GetAsync icerisinde kategoriyi alirken,onun makalelerini include etmek istiyoruz ve makale icerisindeki yorumlari da onun sonrasinda ThenInclude ile include etmek istiyoruz. Burada komplex bir sorgu ile karsilasiyoruz. Bunu normal metotlarimiz icerisinde tamamlayamiyoruz. O zaman,
+             * Bir queryable bir nesne olusturur
+             * include ve ThenInclude icerisinde islemimizi yapabiliriz.
+             *
+             * Bu sayede GenericRepository nin bize yardimci olamadigi kisimlarda, queryable nesnemizi kullanabiliriz. Bu nesneyi, bu projemizdeki core katmani altinda yeralan IEntityRepository ve EfEntityRepositoryBase bölümlerde tanimlayip,implemente ediyoruz.
+             */
+            var query = UnitOfWork.Categories.GetAsQueryable();
+            query.Include(c => c.Blogs).ThenInclude(b => b.Comments);
+
+
             var category = await UnitOfWork.Categories.GetAsync(c => c.Id == categoryId);
             if (category != null)
             {
@@ -116,8 +129,6 @@ namespace BusinessLayer.Concrete
                 ResultStatus = ResultStatus.Error,
                 Message = Messages.Category.NotFound(isPlural: true)
             });
-
-            return new DataResult<CategoryListDto>(ResultStatus.Error, Messages.Category.NotFound(isPlural: true), null);
         }
 
 

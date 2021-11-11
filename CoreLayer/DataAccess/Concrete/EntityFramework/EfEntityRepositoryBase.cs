@@ -200,5 +200,10 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
         {
             return await _dbSet.Where(predicate).ToListAsync();
         }
+
+        public IQueryable<TEntity> GetAsQueryable()
+        {
+            return _dbSet.AsQueryable(); // UnitOfWork.Blog.GetAsQueryable(); dedigimizde bize blog nesnesini bir Querable nesnesi olarak return ediyor.
+        }
     }
 }

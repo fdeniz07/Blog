@@ -25,17 +25,17 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
 
         //Interface den implemente ettigimiz property ler lamda expression ile instance olusturulur (yok ise)
 
-        public IAboutRepository Abouts => _aboutRepository ?? new EfAboutRepository(_context);
+        public IAboutRepository Abouts => _aboutRepository =_aboutRepository ?? new EfAboutRepository(_context);
 
-        public IAuthorRepository Authors => _authorRepository ?? new EfAuthorRepository(_context);
+        public IAuthorRepository Authors => _authorRepository ??= new EfAuthorRepository(_context);
 
-        public IBlogRepository Blogs => _blogRepository ?? new EfBlogRepository(_context);
+        public IBlogRepository Blogs => _blogRepository ??= new EfBlogRepository(_context);
 
-        public ICategoryRepository Categories => _categoryRepository ?? new EfCategoryRepository(_context);
+        public ICategoryRepository Categories => _categoryRepository ??= new EfCategoryRepository(_context);
 
-        public ICommentRepository Comments => _commentRepository ?? new EfCommentRepository(_context);
+        public ICommentRepository Comments => _commentRepository ??= new EfCommentRepository(_context);
 
-        public IContactRepository Contacts => _contactRepository ?? new EfContactRepository(_context);
+        public IContactRepository Contacts => _contactRepository ??= new EfContactRepository(_context);
 
 
         public async ValueTask DisposeAsync()
