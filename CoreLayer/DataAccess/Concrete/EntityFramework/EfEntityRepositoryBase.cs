@@ -47,6 +47,26 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await (predicate == null ? _dbSet.CountAsync() : _dbSet.CountAsync(predicate)); //predicate null gelirse, o zaman context e set edilmis olan tenitity nin countasync tamamiyle dönüyoruz. Null gelmezse, gelen predicate degeri filtreleme yaparak kullaniciya dönecegiz. Örnek: Kategori tablosunda 6 kayit varsa, toplam 6 degerini predicatesiz olarak dönecegiz. Fakat olur da silinmis kategorileri görmek istersek ve tablomuzda 3 kategori silinmisse; o zaman predicate ile toplam 3 kategori degerini kullaniciya dönüyoruz. Esnek bir yapi kurmus oluyoruz
         }
 
+
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _dbSet;
+            if (predicate != null)
+            {
+                query = query.Where(predicate);
+            }
+
+            if (includeProperties.Any())
+            {
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+            return await query.AsNoTracking().SingleOrDefaultAsync();
+        }
+
+
         public async Task<TEntity> GetAsyncV2(IList<Expression<Func<TEntity, bool>>> predicates, IList<Expression<Func<TEntity, object>>> includeProperties)
         {
             IQueryable<TEntity> query = _dbSet;
@@ -109,23 +129,6 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = _dbSet;
-            if (predicate != null)
-            {
-                query = query.Where(predicate);
-            }
-
-            if (includeProperties.Any())
-            {
-                foreach (var includeProperty in includeProperties)
-                {
-                    query = query.Include(includeProperty);
-                }
-            }
-            return await query.AsNoTracking().SingleOrDefaultAsync();
-        }
 
         public async Task<TEntity> GetByIdAsync(int id)
         {

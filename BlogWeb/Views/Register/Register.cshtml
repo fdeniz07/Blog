@@ -1,0 +1,91 @@
+﻿@model EntityLayer.Dtos.UserAddDto
+@{ Layout = "_ContactLayout";
+                ViewBag.Title = "Kayıt Ol";
+                ViewBag.Description = "Yeni Yazar Kaydı";
+                ViewBag.Tags = "Register, New Author, Yeni Kayıt, Kayıt Ol";
+                ViewBag.Author = "Fatih's Blog"; }
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header">
+                                <h3 class="text-center font-weight-light my-4">Yeni Hesap Oluştur</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="İptal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <form asp-action="UserAdd" id="form-user-add">
+                                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                                    <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="layoutAuthentication">Yazar Kullanıcı Adı</label>
+                                        <input class="form-control py-4" @*id="inputEmailAddress"*@ type="text" placeholder="Kullanıcı Adınızı giriniz" asp-for="UserName" />
+                                        <span class="text-danger" asp-validation-for="UserName"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="small mb-1" for="inputEmailAddress">E-Posta Adresi</label>
+                                        <input class="form-control py-4" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="E-Posta Adresinizi giriniz" asp-for="Email" />
+                                        <span class="text-danger" asp-validation-for="Email"></span>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputFirstName">Yazar Adı</label>
+                                                <input class="form-control py-4" id="inputFirstName" type="text" placeholder="Isminizi giriniz" asp-for="FirstName" />
+                                                <span class="text-danger" asp-validation-for="FirstName"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputLastName">Yazar Soyadı</label>
+                                                <input class="form-control py-4" id="inputLastName" type="text" placeholder="Soyisminizi giriniz" asp-for="LastName" />
+                                                <span class="text-danger" asp-validation-for="LastName"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputPassword">Şifre</label>
+                                                <input class="form-control py-4" id="inputPassword" type="password" placeholder="Şifrenizi giriniz" asp-for="Password" />
+                                                <span class="text-danger" asp-validation-for="Password"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputConfirmPassword">Şifre Tekrarı</label>
+                                                <input class="form-control py-4" id="inputConfirmPassword" type="password" placeholder="Şifrenizi tekrar giriniz" asp-for="Password" />
+                                                <span class="text-danger" asp-validation-for="Password"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label asp-for="ImageFile"></label>
+                                            <input type="file" accept="image/*" class="form-control-file" asp-for="ImageFile" placeholder="Lütfen, resim seçiniz." />
+                                            <span class="text-danger" asp-validation-for="ImageFile"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4 mb-0">
+                                        @*<button type="submit" class="btnRegister">Oluştur</button>*@
+                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal"><span class="fas fa-times"></span> İptal</button>
+                                        <button type="button" class="btn btn-primary btn-block" id="btnSave"><span class="fas fa-save"></span> Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="small"><a href="login.html">Bir hesabın var mı? Giriş Yap</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+@*<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>*@
+@*<script src="~/AdminLTE/js/scripts.js"></script>*@
+

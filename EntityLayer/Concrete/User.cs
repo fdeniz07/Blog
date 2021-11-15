@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EntityLayer.Concrete
 {
-    public class User:IdentityUser<int>
+    public class User:IdentityUser<int>, IEntity
     {
         public string Image { get; set; }
 

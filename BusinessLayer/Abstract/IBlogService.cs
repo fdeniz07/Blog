@@ -13,7 +13,7 @@ namespace BusinessLayer.Abstract
         Task<IDataResult<BlogUpdateDto>> GetBlogUpdateDtoAsync(int blogId);
         Task<IDataResult<BlogListDto>> GetAllAsyncV2(int? categoryId, int? userId, bool? isActive, bool? isDeleted, int currentPage, int pageSize, OrderByGeneral orderBy, bool isAscending, bool includeCategory, bool includeComments, bool includeUser); //GetAllAsyncV2 metodudu tüm GetAll siniflarini kapsamakta ve daha performansli calismaktadir. Tüm sartlari icerisinde barindirmakadir.
 
-       Task<IDataResult<BlogListDto>> GetAllAsync(); // Tüm makaleleri gösterme
+        Task<IDataResult<BlogListDto>> GetAllAsync(); // Tüm makaleleri gösterme
         Task<IDataResult<BlogListDto>> GetAllByNonDeletedAsync(); // Silinmemis olan makaleleri de gösterme
         Task<IDataResult<BlogListDto>> GetAllByNonDeletedAndActiveAsync(); // Hem silinmemis hem de aktif olan makaleleri getirmek icin
         Task<IDataResult<BlogListDto>> GetAllByCategoryAsync(int categoryId); //Kategoriye göre makale getirme

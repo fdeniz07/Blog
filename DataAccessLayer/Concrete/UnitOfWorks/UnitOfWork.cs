@@ -17,6 +17,7 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
         private EfCategoryRepository _categoryRepository;
         private EfCommentRepository _commentRepository;
         private EfContactRepository _contactRepository;
+        private EfUserRepository _userRepository;
 
         public UnitOfWork(MsDbContext context)
         {
@@ -37,6 +38,7 @@ namespace DataAccessLayer.Concrete.UnitOfWorks
 
         public IContactRepository Contacts => _contactRepository ??= new EfContactRepository(_context);
 
+        public IUserRepository Users => _userRepository ??=new EfUserRepository(_context);
 
         public async ValueTask DisposeAsync()
         {

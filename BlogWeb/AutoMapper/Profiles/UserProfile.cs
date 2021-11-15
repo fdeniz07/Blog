@@ -14,6 +14,9 @@ namespace BlogWeb.AutoMapper.Profiles
 
             //CreateMap<UserAddDto, User>().ForMember(dest=>dest.Image,opt=>opt.MapFrom(x=>imageHelper.Upload(x.UserName,x.ImageFile,ImageType.User,null))); // Bircok kod satirini bir arada yazmak yerine tek bir kod satirinda sade bir sekilde yazmis oluyoruz.
 
+
+            // Yukaridaki AutoMapper in coklu memberOption örneklerine su linkten ulasabiliriz: https://stackoverflow.com/questions/19226055/automapper-multiple-memberoptions
+
             CreateMap<User, UserUpdateDto>();
 
             CreateMap<UserUpdateDto, User>();

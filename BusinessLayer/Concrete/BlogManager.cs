@@ -528,7 +528,7 @@ namespace BusinessLayer.Concrete
 
 
         /////////////////////// UndoDeleteAsync \\\\\\\\\\\\\\\\\\\\\\\\\\\\ Silinmisleri Geri Al
-        /// 
+         
         public async Task<IResult> UndoDeleteAsync(int blogId, string modifiedByName)
         {
             var result = await UnitOfWork.Blogs.AnyAsync(b => b.Id == blogId);

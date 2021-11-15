@@ -18,6 +18,7 @@ namespace DataAccessLayer.Abstract.UnitOfWorks
         ICategoryRepository Categories { get; }
         ICommentRepository Comments { get; }
         IContactRepository Contacts { get; }//_unitOfWork.Contacts.AddAsync(); olarak kullanabiliriz
+        IUserRepository Users { get; }
 
 
         /*Coklu kayit islemini asagidaki gibi yapiyoruz bu pattern ile.
