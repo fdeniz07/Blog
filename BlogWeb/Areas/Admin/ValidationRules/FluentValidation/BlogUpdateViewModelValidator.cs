@@ -1,27 +1,28 @@
-﻿using EntityLayer.Dtos;
+﻿using BlogWeb.Areas.Admin.Models;
 using FluentValidation;
 
-namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
+namespace BlogWeb.Areas.Admin.ValidationRules.FluentValidation
 {
-    public class BlogAddDtoValidator : AbstractValidator<BlogAddDto>
+    public class BlogUpdateViewModelValidator:AbstractValidator<BlogUpdateViewModel>
     {
         public string NotEmptyMessage { get; } = " alanı boş geçilmemelidir.";
 
-        public BlogAddDtoValidator()
+        public BlogUpdateViewModelValidator()
         {
-            RuleFor(x => x.Title).NotEmpty().WithMessage("Başlık" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Başlık alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Başlık alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Id).NotEmpty().WithMessage(NotEmptyMessage);
+
+
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Başlık" + NotEmptyMessage).MaximumLength(100).WithMessage("Başlık alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Başlık alanı 5 karakterden küçük olmamalıdır.");
 
 
             RuleFor(x => x.Content).NotEmpty().WithMessage("İçerik" + NotEmptyMessage).MinimumLength(20).WithMessage("İçerik alanı 20 karakterden küçük olmamalıdır.");
 
 
-            RuleFor(x => x.Thumbnail).NotEmpty().WithMessage("Küçük Resim" + NotEmptyMessage).MaximumLength(250)
-                .WithMessage("Küçük Resim alanı 250 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Küçük Resim alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Thumbnail).NotEmpty().WithMessage("Küçük Resim" + NotEmptyMessage);
 
+            RuleFor(x => x.ThumbnailFile).NotEmpty();
 
             RuleFor(x => x.Image).MaximumLength(100).WithMessage("Resim alanı 100 karakterden büyük olmamalıdır.");
-
 
             RuleFor(x => x.Date).NotEmpty().WithMessage("Tarih" + NotEmptyMessage);
 
@@ -39,9 +40,11 @@ namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
 
             RuleFor(x => x.CategoryId).NotEmpty().WithMessage("Kategori" + NotEmptyMessage);
 
-
             RuleFor(x => x.IsActive).NotEmpty().WithMessage("Aktif Mi?" + NotEmptyMessage);
 
+            RuleFor(x => x.IsDeleted).NotEmpty().WithMessage("Silindi Mi?" + NotEmptyMessage);
+
+            RuleFor(x => x.UserId).NotEmpty();
         }
     }
 }

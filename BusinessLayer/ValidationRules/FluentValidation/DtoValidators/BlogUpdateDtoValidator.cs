@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EntityLayer.Dtos;
+﻿using EntityLayer.Dtos;
 using FluentValidation;
 
 namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
@@ -29,7 +24,6 @@ namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
 
             RuleFor(x => x.Image).MaximumLength(100).WithMessage("Resim alanı 100 karakterden büyük olmamalıdır.");
 
-
             RuleFor(x => x.Date).NotEmpty().WithMessage("Tarih" + NotEmptyMessage);
 
 
@@ -46,8 +40,11 @@ namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
 
             RuleFor(x => x.CategoryId).NotEmpty().WithMessage("Kategori" + NotEmptyMessage);
 
-
             RuleFor(x => x.IsActive).NotEmpty().WithMessage("Aktif Mi?" + NotEmptyMessage);
+
+            RuleFor(x => x.IsDelete).NotEmpty().WithMessage("Silindi Mi?" + NotEmptyMessage);
+
+            RuleFor(x => x.UserId).NotEmpty();
         }
     }
 }

@@ -1,23 +1,25 @@
-﻿using EntityLayer.Dtos;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BlogWeb.Areas.Admin.Models;
 using FluentValidation;
 
-namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
+namespace BlogWeb.Areas.Admin.ValidationRules.FluentValidation
 {
-    public class BlogAddDtoValidator : AbstractValidator<BlogAddDto>
+    public class BlogAddViewModelValidator:AbstractValidator<BlogAddViewModel>
     {
         public string NotEmptyMessage { get; } = " alanı boş geçilmemelidir.";
 
-        public BlogAddDtoValidator()
+        public BlogAddViewModelValidator()
         {
-            RuleFor(x => x.Title).NotEmpty().WithMessage("Başlık" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Başlık alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Başlık alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Başlık" + NotEmptyMessage).MaximumLength(100).WithMessage("Başlık alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Başlık alanı 5 karakterden küçük olmamalıdır.");
 
 
             RuleFor(x => x.Content).NotEmpty().WithMessage("İçerik" + NotEmptyMessage).MinimumLength(20).WithMessage("İçerik alanı 20 karakterden küçük olmamalıdır.");
 
 
-            RuleFor(x => x.Thumbnail).NotEmpty().WithMessage("Küçük Resim" + NotEmptyMessage).MaximumLength(250)
-                .WithMessage("Küçük Resim alanı 250 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Küçük Resim alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.ThumbnailFile).NotEmpty().WithMessage("Küçük Resim" + NotEmptyMessage);
 
 
             RuleFor(x => x.Image).MaximumLength(100).WithMessage("Resim alanı 100 karakterden büyük olmamalıdır.");
@@ -41,7 +43,6 @@ namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
 
 
             RuleFor(x => x.IsActive).NotEmpty().WithMessage("Aktif Mi?" + NotEmptyMessage);
-
         }
     }
 }

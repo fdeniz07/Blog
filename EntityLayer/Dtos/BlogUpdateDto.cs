@@ -64,15 +64,15 @@ namespace EntityLayer.Dtos
 
         public Category Category { get; set; }
 
-        [DisplayName("Aktif Mi?")]
-        [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
+        //[DisplayName("Aktif Mi?")]
+        //[Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         public bool IsActive { get; set; }
 
-        [DisplayName("Silindi Mi?")]
-        [Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
+        //[DisplayName("Silindi Mi?")]
+        //[Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
         public bool IsDelete { get; set; }
 
-        [Required]
+        //[Required]
         public int UserId { get; set; }
     }
 }

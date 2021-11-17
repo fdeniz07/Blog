@@ -34,7 +34,7 @@ namespace EntityLayer.Dtos
 
         //[DisplayName("Tarih")]
         //[Required(ErrorMessage = "{0} alanı boş geçilmemelidir")]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
         //[DisplayName("Seo Yazar Bilgisi")]
