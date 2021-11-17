@@ -67,7 +67,7 @@ namespace BlogWeb.Areas.Admin.Models
 
         //yukaridaki alanlari yazmak yerine asagidaki yazim sekli de kullanilabilir
 
-        //public ArticleAddDto ArticleAddDto { get; set; }
+        //public BlogAddDto BlogAddDto { get; set; }
         //public CategoryListDto CategoryListDto { get; set; }
     }
 }

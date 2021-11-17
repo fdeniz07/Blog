@@ -5,12 +5,16 @@ using BlogWeb.Filters;
 using BlogWeb.Helpers.Abstract;
 using BlogWeb.Helpers.Concrete;
 using BusinessLayer.AutoMapper.Profiles;
+using BusinessLayer.Concrete;
 using BusinessLayer.Extensions;
 using CoreLayer.Utilities.Extensions;
+using DataAccessLayer.Concrete.EntityFramework.Contexts;
 using EntityLayer.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +33,14 @@ namespace BlogWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //FluentValidation dogrulamalari icin buraya servis ekliyoruz. RegisterValidatorsFromAssemblyContaining icin ilgili katmandaki herhangi bir class adi verilir, program calistiginda ilgili Validation lar assembly üzerinde taranir. Bu sayede tek tek class'lar buraya yazilmamis olur.
+            services.AddControllersWithViews().AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<UserManager>();
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
+
             //UI katmanina 2 paket yüklenmeli
             /*
              * 1-AutoMapper.Extensions.Microsoft.DependencyInjection

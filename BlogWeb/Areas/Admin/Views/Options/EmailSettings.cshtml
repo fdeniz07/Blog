@@ -14,32 +14,32 @@
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label asp-for="Server"></label>
+                            <label>Sunucu</label>
                             <input class="form-control" asp-for="Server" placeholder="Lütfen, smtp sunucu bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="Server"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="Port"></label>
+                            <label>Port</label>
                             <input type="number" class="form-control" asp-for="Port" placeholder="Lütfen, smtp port bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="Port"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="SenderName"></label>
+                            <label>Gönderen Adı</label>
                             <input type="text" class="form-control" asp-for="SenderName" placeholder="Lütfen, gönderen adı bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="SenderName"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="SenderEmail"></label>
+                            <label>Gönderen E-Posta Adresi</label>
                             <input type="text" class="form-control" asp-for="SenderEmail" placeholder="Lütfen, gönderen e-posta adresi bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="SenderEmail"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="Username"></label>
+                            <label>Kullanıcı Adı/E-Posta</label>
                             <input type="text" class="form-control" asp-for="Username" placeholder="Lütfen, kullanıcı adı/e-posta bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="Username"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="Password"></label>
+                            <label>Şifre</label>
                             <input type="password" class="form-control" asp-for="Password" placeholder="Lütfen, şifre bilginizi giriniz." />
                             <span class="text-danger" asp-validation-for="Password"></span>
                         </div>

@@ -15,38 +15,38 @@
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label asp-for="Header"></label>
+                            <label>Widget Başlığı</label>
                             <input class="form-control" asp-for="Header" placeholder="Lütfen, tercih ettiğiniz widget başlığını giriniz." />
                             <span class="text-danger" asp-validation-for="Header"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="TakeSize"></label>
+                            <label>Makale Sayısı</label>
                             <input type="number" class="form-control" asp-for="TakeSize" />
                             <span class="text-danger" asp-validation-for="TakeSize"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="filterByList" asp-for="FilterBy"></label>
+                            <label>Filtre Türü</label>
                             <select id="filterByList" class="form-control" asp-for="FilterBy" asp-items="Html.GetEnumSelectList<FilterBy>()">
                                 <option></option>
                             </select>
                             <span asp-validation-for="FilterBy" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="categoryList" asp-for="CategoryId"></label>
+                            <label>Kategori</label>
                             <select id="categoryList" class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","CategoryName"))">
                                 <option></option>
                             </select>
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="orderByList" asp-for="OrderBy"></label>
+                            <label>Sıralama Türü</label>
                             <select id="orderByList" class="form-control" asp-for="OrderBy" asp-items="Html.GetEnumSelectList<OrderBy>()">
                                 <option></option>
                             </select>
                             <span asp-validation-for="OrderBy" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="isAscendingList" asp-for="IsAscending"></label>
+                            <label>Sıralama Ölçütü</label>
                             <select id="isAscendingList" class="form-control" asp-for="IsAscending">
                                 <option></option>
                                 <option value="true">Artan</option>
@@ -55,32 +55,32 @@
                             <span asp-validation-for="IsAscending" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="startAtDatePicker" asp-for="StartAt"></label>
+                            <label>Başlangıç Tarihi</label>
                             <input type="text" id="startAtDatePicker" value="@Model.StartAt.ToShortDateString()" class="form-control" asp-for="StartAt" />
                             <span asp-validation-for="StartAt" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="endAtDatePicker" asp-for="EndAt"></label>
+                            <label>Bitiş Tarihi</label>
                             <input type="text" id="endAtDatePicker" value="@Model.EndAt.ToShortDateString()" class="form-control" asp-for="EndAt" />
                             <span asp-validation-for="EndAt" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="MinViewCount"></label>
+                            <label>Minimum Okunma Sayısı</label>
                             <input type="number" class="form-control" asp-for="MinViewCount" />
                             <span class="text-danger" asp-validation-for="MinViewCount"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="MaxViewCount"></label>
+                            <label>Maksimum Okunma Sayısı</label>
                             <input type="number" class="form-control" asp-for="MaxViewCount" />
                             <span class="text-danger" asp-validation-for="MaxViewCount"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="MinCommentCount"></label>
+                            <label>Minimum Yorum Sayısı</label>
                             <input type="number" class="form-control" asp-for="MinCommentCount" />
                             <span class="text-danger" asp-validation-for="MinCommentCount"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="MaxCommentCount"></label>
+                            <label>Maksimum Yorum Sayısı</label>
                             <input type="number" class="form-control" asp-for="MaxCommentCount" />
                             <span class="text-danger" asp-validation-for="MaxCommentCount"></span>
                         </div>
