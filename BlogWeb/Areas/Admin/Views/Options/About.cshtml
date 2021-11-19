@@ -15,27 +15,27 @@
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary"></div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label asp-for="Header"></label>
+                            <label>Başlık</label>
                             <input class="form-control" asp-for="Header" placeholder="Lütfen, başlık bilgisini giriniz." />
                             <span class="text-danger" asp-validation-for="Header"></span>
                         </div>
                         <div class="form-group col-md-12">
-                            <label asp-for="Content"></label>
+                            <label>İçerik</label>
                             <textarea class="form-control" asp-for="Content" placeholder="Lütfen, içerik bilgisini giriniz." rows="4"></textarea>
                             <span class="text-danger" asp-validation-for="Content"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="SeoAuthor"></label>
+                            <label>Seo Yazar Bilgisi</label>
                             <input type="text" class="form-control" asp-for="SeoAuthor" placeholder="Lütfen, seo yazar bilgisini giriniz." />
                             <span class="text-danger" asp-validation-for="SeoAuthor"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label asp-for="SeoTags"></label>
+                            <label>Seo Etiket Bilgisi</label>
                             <input type="text" class="form-control" asp-for="SeoTags" placeholder="Lütfen, seo etiket bilgisini giriniz." />
                             <span class="text-danger" asp-validation-for="SeoTags"></span>
                         </div>
                         <div class="form-group col-md-12">
-                            <label asp-for="SeoDescription"></label>
+                            <label>Seo Açıklama Bilgisi</label>
                             <input type="text" class="form-control" asp-for="SeoDescription" placeholder="Lütfen, seo açıklama bilgisinizi giriniz." />
                             <span class="text-danger" asp-validation-for="SeoDescription"></span>
                         </div>

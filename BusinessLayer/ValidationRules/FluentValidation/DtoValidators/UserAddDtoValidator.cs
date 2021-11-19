@@ -34,17 +34,12 @@ namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
             RuleFor(x => x.LastName).MaximumLength(30).WithMessage("Soyadı alanı 30 karakterden büyük olmamalıdır.").MinimumLength(2).WithMessage("Soyadı alanı 2 karakterden küçük olmamalıdır.");
 
 
-            RuleFor(x => x.About).MaximumLength(1000).WithMessage("Kullanıcı Adı alanı 1000 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Kullanıcı Adı alanı 5 karakterden küçük olmamalıdır.");
-
-
-            RuleFor(x => x.TwitterLink).MaximumLength(250).WithMessage("Twitter alanı 250 karakterden büyük olmamalıdır.").MinimumLength(20).WithMessage("Kullanıcı Adı alanı 20 karakterden küçük olmamalıdır.");
-
-
-            RuleFor(x => x.TwitterLink).MaximumLength(250).WithMessage("Twitter alanı 250 karakterden büyük olmamalıdır.").MinimumLength(20).WithMessage("Kullanıcı Adı alanı 20 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.About).MaximumLength(1000).WithMessage("Hakkında alanı 1000 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Hakkında alanı 5 karakterden küçük olmamalıdır.");
 
 
             RuleFor(x => x.TwitterLink).MaximumLength(250).WithMessage("Twitter alanı 250 karakterden büyük olmamalıdır.").MinimumLength(20).WithMessage("Twitter alanı 20 karakterden küçük olmamalıdır.");
 
+            
 
             RuleFor(x => x.FacebookLink).MaximumLength(250).WithMessage("Facebook alanı 250 karakterden büyük olmamalıdır.").MinimumLength(20).WithMessage("Facebook alanı 20 karakterden küçük olmamalıdır.");
 

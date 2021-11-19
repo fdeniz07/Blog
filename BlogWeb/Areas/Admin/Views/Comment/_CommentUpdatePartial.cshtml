@@ -15,13 +15,13 @@
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="BlogId" />
                     <div class="form-group">
-                        <label asp-for="Content"></label>
+                        <label>Yorum</label>
                         <textarea class="form-control" asp-for="Content" rows="6"></textarea>
                         <span class="text-danger" asp-validation-for="Content"></span>
                     </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" asp-for="IsActive" />
-                        <label asp-for="IsActive" class="form-check-label"></label>
+                        <label class="form-check-label">Aktif Mi?</label>
                         <span class="text-danger" asp-validation-for="IsActive"></span>
                     </div>
                 </form>

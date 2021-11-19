@@ -15,28 +15,28 @@
                     <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group">
-                        <label asp-for="CategoryName"></label>
+                        <label>Kategori Adı</label>
                         <input class="form-control" asp-for="CategoryName" />
                         <span class="text-danger" asp-validation-for="CategoryName"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Description"></label>
+                        <label>Kategori Açıklaması</label>
                         <input class="form-control" asp-for="Description" />
                         <span class="text-danger" asp-validation-for="Description"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Note"></label>
+                        <label>Kategori Özel Not Alanı</label>
                         <input class="form-control" asp-for="Note" />
                         <span class="text-danger" asp-validation-for="Note"></span>
                     </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" asp-for="IsActive" />
-                        <label asp-for="IsActive" class="form-check-label"></label>
+                        <label class="form-check-label">Aktif Mi?</label>
                         <span class="text-danger" asp-validation-for="IsActive"></span>
                     </div>
                     <div class="form-group form-check">
                         <input type="checkbox" class="form-check-input" asp-for="IsDeleted" />
-                        <label asp-for="IsDeleted" class="form-check-label"></label>
+                        <label class="form-check-label">Silindi Mi?</label>
                         <span class="text-danger" asp-validation-for="IsDeleted"></span>
                     </div>
                 </form>

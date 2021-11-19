@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="categoryList" asp-for="CategoryId"></label>
+                        <label for="categoryList">Kategori</label>
                         <select id="categoryList" class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories,"Id","CategoryName"))">
                             @*<option disabled="disabled">Lütfen bir kategori seçiniz...</option>*@
                             <option></option>
@@ -47,24 +47,24 @@
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="datepicker" asp-for="Date"></label>
+                        <label for="datepicker">Tarih</label>
                         <input type="text" id="datepicker" value="@DateTime.Now.ToShortDateString()" class="form-control" asp-for="Date" />
                         <span asp-validation-for="Date" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="thumbnailUpload" asp-for="Thumbnail"></label>
+                        <label for="datepicker">Küçük Resim</label>
                         <input type="hidden" id="thumbnail" class="form-control-file" asp-for="Thumbnail" />
                         <img class="my-image" src="~/img/@Model.Thumbnail" alt="@Model.Title" />
                         <span asp-validation-for="Thumbnail" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label for="thumbnailUpload" asp-for="ThumbnailFile"></label>
+                        <label for="datepicker">Küçük Resim Ekle</label>
                         <input type="file" id="thumbnailUpload" accept="image/*" class="form-control-file" asp-for="ThumbnailFile" />
                         <span asp-validation-for="ThumbnailFile" class="text-danger"></span>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" id="isActive" class="form-check-input" asp-for="IsActive" />
-                        <label for="isActive" class="form-check-label" asp-for="IsActive"></label>
+                        <label for="isActive" class="form-check-label">Aktif Mi?</label>
                         <span asp-validation-for="IsActive" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -81,17 +81,17 @@
                 <div class="card-body">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="seoWriter" asp-for="SeoAuthor"></label>
+                            <label for="seoWriter">Seo Yazar Bilgisi</label>
                             <input type="text" id="seoWriter" class="form-control" asp-for="SeoAuthor" />
                             <span asp-validation-for="SeoAuthor" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="seoTags" asp-for="SeoTags"></label>
+                            <label for="seoTags">Seo Etiket Bilgisi</label>
                             <input type="text" id="seoTags" class="form-control" asp-for="SeoTags" />
                             <span asp-validation-for="SeoTags" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="seoDescription" asp-for="SeoDescription"></label>
+                            <label for="seoDescription">Seo Açıklama Bilgisi</label>
                             <textarea id="seoDescription" class="form-control" asp-for="SeoDescription"></textarea>
                             <span asp-validation-for="SeoDescription" class="text-danger"></span>
                         </div>
