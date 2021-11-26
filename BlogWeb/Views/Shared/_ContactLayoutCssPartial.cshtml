@@ -1,12 +1,25 @@
-﻿<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
+﻿<!-- Biz burada Smidge Library kullanarak sayfanin ön yüklenmesindeki dosyalarin sayisini azaltiyor ve performansini arttiriyoruz.-->
+<!--Gelistirme Ortaminda Debug Islemlerinde BreakPoint takibini yapmamizi saglar-->
+<environment names="Development">
+    <link rel="stylesheet" href="blog-contactlayoutcsspartial-css-bundle" debug="true" /> <!--debug="true"-->
+</environment>
+
+<!--Proje canliya gectiginde sayfa yüklenmesinde hiz kazandiracak-->
+<environment names="Production">
+    <link rel="stylesheet" href="blog-contactlayoutcsspartial-css-bundle" />
+</environment>
+
+
+
+@*<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
 <link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css' />
-<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-      rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="~/BlogHome/css/contact-page.css" rel="stylesheet">
-<link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">
+<link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">*@
 
 
+
+<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 

@@ -84,20 +84,32 @@
     <!--footer-->
     @await Html.PartialAsync("_LayoutFooterPartial")
     <!---->
-
     @*<a href="#home" class="scroll" id="toTop" style="display: block;">
-        <span id="toTopHover" style="opacity: 1;"> </span>
-    </a>*@
+            <span id="toTopHover" style="opacity: 1;"> </span>
+        </a>*@
 
 
-@*@await Html.PartialAsync("_LayoutJsPartial")*@
-<!-- Bootstrap core JavaScript -->
-<script src="~/BlogHome/vendor/jquery/jquery.min.js"></script>
-<script src="~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
+    @*@await Html.PartialAsync("_LayoutJsPartial")*@
+
+    <!-- Biz burada Smidge Library kullanarak sayfanin ön yüklenmesindeki dosyalarin sayisini azaltiyor ve performansini arttiriyoruz.-->
+    <!--Gelistirme Ortaminda Debug Islemlerinde BreakPoint takibini yapmamizi saglar-->
+    <environment names="Development">
+        <link rel="stylesheet" href="blog-contactlayout-js-bundle" debug="true" /> <!--debug="true"-->
+    </environment>
+
+    <!--Proje canliya gectiginde sayfa yüklenmesinde hiz kazandiracak-->
+    <environment names="Production">
+        <link rel="stylesheet" href="blog-contactlayout-js-bundle" />
+    </environment>
 
 
-@await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
+    <!-- Bootstrap core JavaScript -->
+    @*<script src="~/BlogHome/vendor/jquery/jquery.min.js"></script>
+        <script src="~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>
+
+
+    @await RenderSectionAsync("Scripts", false)  @*Buradaki false degerimizin amaci RenderSection'in' tüm sayfalarda bulunmasini engellemek *@
     @await Component.InvokeAsync("NToastNotify")
 </body>
 

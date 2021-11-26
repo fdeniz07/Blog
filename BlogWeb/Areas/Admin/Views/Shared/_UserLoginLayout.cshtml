@@ -7,8 +7,20 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@ViewBag.Title | Blog Projesi</title>
-    <link href="~/AdminLTE/css/styles.css" rel="stylesheet" />
-    <link href="~/AdminLTE/css/userLogin.css" rel="stylesheet" />
+    
+    <!-- Biz burada Smidge Library kullanarak sayfanin ön yüklenmesindeki dosyalarin sayisini azaltiyor ve performansini arttiriyoruz.-->
+    <!--Gelistirme Ortaminda Debug Islemlerinde BreakPoint takibini yapmamizi saglar-->
+    <environment names="Development">
+        <link rel="stylesheet" href="admin-userloginlayout-css-bundle" debug="true" /> <!--debug="true"-->
+    </environment>
+
+    <!--Proje canliya gectiginde sayfa yüklenmesinde hiz kazandiracak-->
+    <environment names="Production">
+        <link rel="stylesheet" href="admin-userloginlayout-css-bundle" />
+    </environment>
+
+    @*<link href="~/AdminLTE/css/styles.css" rel="stylesheet" />
+    <link href="~/AdminLTE/css/userLogin.css" rel="stylesheet" />*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-primary">

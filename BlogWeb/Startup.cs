@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Smidge;
 
 namespace BlogWeb
 {
@@ -33,6 +34,9 @@ namespace BlogWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Smidge Library
+            services.AddSmidge(Configuration.GetSection("smidge")); //appsettings.json dan ayari okuyacagimiz bir isim veriyoruz.
+
 
             //FluentValidation dogrulamalari icin buraya servis ekliyoruz. RegisterValidatorsFromAssemblyContaining icin ilgili katmandaki herhangi bir class adi verilir, program calistiginda ilgili Validation lar assembly üzerinde taranir. Bu sayede tek tek class'lar buraya yazilmamis olur.
             services.AddControllersWithViews().AddFluentValidation(options =>
@@ -69,7 +73,7 @@ namespace BlogWeb
             services.Configure<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
             services.Configure<BlogRightSideBarWidgetOptions>(Configuration.GetSection("BlogRightSideBarWidgetOptions"));
-           
+
             services.ConfigureWritable<AboutUsPageInfo>(Configuration.GetSection("AboutUsPageInfo"));
             services.ConfigureWritable<WebsiteInfo>(Configuration.GetSection("WebsiteInfo"));
             services.ConfigureWritable<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
@@ -82,13 +86,13 @@ namespace BlogWeb
             }).AddRazorRuntimeCompilation().AddJsonOptions(opt =>
             {
                 opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                opt.JsonSerializerOptions.ReferenceHandler=ReferenceHandler.Preserve;
+                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
             }).AddNToastNotifyToastr();//Bu sayede backend de yapilan degisiklerde tekrar tekrar uygulamayi derlememize ihtiyac kalmiyor. Yani frontend deki gibi kaydettikten sonra uygulamadaki degisiklikleri görebiliriz.
 
             services.AddSession();
-           /* services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));*/ //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor. --> En yukarida AutoMapper'i singleton olarak tanimliyoruz ve bu kismi siliyoruz.
+            /* services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));*/ //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor. --> En yukarida AutoMapper'i singleton olarak tanimliyoruz ve bu kismi siliyoruz.
 
-            services.LoadMyServices(connectionString:Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
 
             services.AddScoped<IImageHelper, ImageHelper>(); //Resim yükleme II.Yol olarak kullanmak istersek, bu kismi en yukariya transient olarak yaziyoruz
 
@@ -100,7 +104,7 @@ namespace BlogWeb
                 {
                     Name = "Blog",
                     HttpOnly = true,
-                    SameSite =SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
+                    SameSite = SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
                     SecurePolicy = CookieSecurePolicy.SameAsRequest //Site canliya tasindiginda bu alan .Always olarak degistirilmelidir.!!!
                 };
                 options.SlidingExpiration = true; //Cookie süresi belirleme
@@ -130,6 +134,38 @@ namespace BlogWeb
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseNToastNotify();
+
+            //Smidge kullanimi - EndPoints kisminin üzerinden cagrilabilir
+            app.UseSmidge(bundle =>
+            {
+                //Smidge - JS \\
+
+                //Admin
+                bundle.CreateJs("admin-js-bundle", "~/AdminLTE/js/scripts.js", "~/AdminLTE/js/site.js", "~/AdminLTE/assets/demo/datatables-demo.js"); //dosyalar tek tek yazilacagi("~/js/site.js", "~/js/site2.js") gibi ortak klasör yolu da verilebilir
+
+                bundle.CreateJs("admin-validationscriptspartial-js-bundle", "~/AdminLTE/lib/jquery-validation/dist/jquery.validate.min.js", "~/AdminLTE/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js");
+
+                //Blog
+                bundle.CreateJs("blog-contactlayout-js-bundle", "~/BlogHome/vendor/jquery/jquery.min.js", "~/BlogHome/vendor/bootstrap/js/bootstrap.bundle.min.js");
+
+                bundle.CreateJs("blog-layoutjspartial-js-bundle", "~/BlogHome/js/bootstrap.js", "~/BlogHome/js/blogDetail.js", "~/BlogHome/js/jquery.desoslide.js", "~/BlogHome/js/move-top.js", "~/BlogHome/js/easing.js", "~/BlogHome/js/jquery.flexisel.js");
+
+
+                // Smidge - CSS \\
+
+                //Admin
+                bundle.CreateCss("admin-userloginlayout-css-bundle", "~/AdminLTE/css/styles.css", "~/AdminLTE/css/userLogin.css");
+
+
+                //Blog
+                bundle.CreateCss("blog-layoutcsspartial-css-bundle", "~/BlogHome/css/bootstrap.css", "~/BlogHome/css/jquery.desoslide.css", "~/BlogHome/css/style.css", "~/BlogHome/css/fontawesome-all.css", "~/BlogHome/css/site.css");
+
+                bundle.CreateCss("blog-contactlayoutcsspartial-css-bundle", "~/BlogHome/css/bootstrap.css", "~/BlogHome/css/style.css", "~/BlogHome/css/fontawesome-all.css", "~/BlogHome/css/contact-page.css");
+
+                bundle.CreateCss("blog-errorlayout-css-bundle", "~/BlogHome/css/bootstrap.css", "~/BlogHome/css/error-page-bg-animation.css");
+
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapControllerRoute(
@@ -143,9 +179,9 @@ namespace BlogWeb
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
                 );
                 endpoints.MapControllerRoute(
-                    name:"blog",
-                    pattern:"{title}/{blogId}", //"{categoryName}/{title}/{blogId}",
-                    defaults:new {controller="Blog",action="Detail"}
+                    name: "blog",
+                    pattern: "{title}/{blogId}", //"{categoryName}/{title}/{blogId}",
+                    defaults: new { controller = "Blog", action = "Detail" }
                     );
                 endpoints.MapDefaultControllerRoute(); // Bu islem varsayilan olarak, sitemiz acildigindan default olarak HomeController ve Index kismina gider
             });

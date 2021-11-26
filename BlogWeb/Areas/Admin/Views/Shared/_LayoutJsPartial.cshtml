@@ -1,11 +1,21 @@
-﻿<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="~/AdminLTE/js/scripts.js"></script>
+﻿<environment names="Development">
+    <script src="admin-js-bundle" debug="true"></script>
+</environment>
+
+<environment names="Production">
+    <script src="admin-js-bundle"></script>
+</environment>
+
+@*<script src="~/AdminLTE/js/scripts.js"></script>
 <script src="~/AdminLTE/js/site.js"></script>
+<script src="~/AdminLTE/assets/demo/datatables-demo.js"></script>*@
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-<script src="~/AdminLTE/assets/demo/datatables-demo.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" crossorigin="anonymous"></script>

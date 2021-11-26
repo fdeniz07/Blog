@@ -1,2 +1,14 @@
-﻿<script src="~/AdminLTE/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/AdminLTE/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+﻿<!-- Biz burada Smidge Library kullanarak sayfanin ön yüklenmesindeki dosyalarin sayisini azaltiyor ve performansini arttiriyoruz.-->
+<!--Gelistirme Ortaminda Debug Islemlerinde BreakPoint takibini yapmamizi saglar-->
+<environment names="Development">
+    <link rel="stylesheet" href="admin-validationscriptspartial-js-bundle" debug="true" /> <!--debug="true"-->
+</environment>
+
+<!--Proje canliya gectiginde sayfa yüklenmesinde hiz kazandiracak-->
+<environment names="Production">
+    <link rel="stylesheet" href="admin-validationscriptspartial-js-bundle" />
+</environment>
+
+
+@*<script src="~/AdminLTE/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/AdminLTE/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>*@

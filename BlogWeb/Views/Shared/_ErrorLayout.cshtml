@@ -15,15 +15,30 @@
     <meta name="keywords" content="@websiteInfo.SeoTags" />
 
     <title>@ViewBag.Title | @websiteInfo.Title</title>
+    
+    
+    <!-- Biz burada Smidge Library kullanarak sayfanin ön yüklenmesindeki dosyalarin sayisini azaltiyor ve performansini arttiriyoruz.-->
+    <!--Gelistirme Ortaminda Debug Islemlerinde BreakPoint takibini yapmamizi saglar-->
+    <environment names="Development">
+        <link rel="stylesheet" href="blog-errorlayout-css-bundle" debug="true" /> <!--debug="true"-->
+    </environment>
+
+    <!--Proje canliya gectiginde sayfa yüklenmesinde hiz kazandiracak-->
+    <environment names="Production">
+        <link rel="stylesheet" href="blog-errorlayout-css-bundle" />
+    </environment>
+    
+    
+    
 
     <!-- Bootstrap core CSS -->
-    <link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' />
+    @*<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' />*@
 
     <!-- Custom styles for this template -->
-    <link href="~/BlogHome/css/blog-home.css" rel="stylesheet" />
+    @*<link href="~/BlogHome/css/blog-home.css" rel="stylesheet" />*@
     <link href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
-    <link href="~/BlogHome/css/error-page-bg-animation.css" rel="stylesheet" />
+    @*<link href="~/BlogHome/css/error-page-bg-animation.css" rel="stylesheet" />*@
 </head>
 
 <body class="wrapper">
