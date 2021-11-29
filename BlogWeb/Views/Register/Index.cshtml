@@ -7,18 +7,15 @@
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
         <main>
-            <div class="container">
+            <div class="container" style="margin-bottom: 50px">
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header">
                                 <h3 class="text-center font-weight-light my-4">Yeni Hesap Oluştur</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="İptal">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
                             </div>
                             <div class="card-body">
-                                <form asp-action="UserAdd" id="form-user-add">
+                                <form asp-action="Index" id="form-user-add">
                                     <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                                     <div asp-validation-summary="All" class="text-danger" id="validation-summary" aria-hidden="true" style="display: none"></div>
                                     <div class="form-group">

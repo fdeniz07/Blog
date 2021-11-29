@@ -93,9 +93,7 @@ namespace BlogWeb
             /* services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));*/ //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor. --> En yukarida AutoMapper'i singleton olarak tanimliyoruz ve bu kismi siliyoruz.
 
             services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
-
             services.AddScoped<IImageHelper, ImageHelper>(); //Resim yükleme II.Yol olarak kullanmak istersek, bu kismi en yukariya transient olarak yaziyoruz
-
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = new PathString("/Admin/Auth/Login");
@@ -128,10 +126,10 @@ namespace BlogWeb
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseSession();
+            app.UseSession(); // Authentication ve Authorization dan önce gelmeli
             app.UseStaticFiles(); // static dosyalarimiz: resim,css,js vb
-            app.UseRouting();
-            app.UseAuthentication();
+            app.UseRouting(); // Authentication ve Authorization dan önce gelmeli
+            app.UseAuthentication(); //Authorization dan önce gelmeli
             app.UseAuthorization();
             app.UseNToastNotify();
 

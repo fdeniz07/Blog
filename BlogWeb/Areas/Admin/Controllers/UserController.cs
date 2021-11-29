@@ -106,8 +106,7 @@ namespace BlogWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var uploadedImageDtoResult = await ImageHelper.Upload(userAddDto.UserName, userAddDto.ImageFile, ImageType.User);
-                userAddDto.Image = uploadedImageDtoResult.ResultStatus == ResultStatus.Success
-                    ? uploadedImageDtoResult.Data.FullName : "userImages/defaultUser.png";
+                userAddDto.Image = uploadedImageDtoResult.ResultStatus == ResultStatus.Success ? uploadedImageDtoResult.Data.FullName : "userImages/defaultUser.png";
                 var user = Mapper.Map<User>(userAddDto);
                 var result = await UserManager.CreateAsync(user, userAddDto.Password); //burada bize IdentityResult dönüyor
                 if (result.Succeeded) //IdentityResult basarili ise

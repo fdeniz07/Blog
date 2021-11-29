@@ -39,44 +39,46 @@
         @foreach (var blog in Model.Blogs)
         {
             <!-- Blog Post -->
-            <div class="col-md-6 card">
-                @*col-md-6*@
-                <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">
-                    <img src="~/img/@blog.Thumbnail" class="card-img-top img-fluid" alt="@blog.Title">
-                </a>
-                <div class="card-body">
-                    <ul class="blog-icons my-4">
-                        <li>
-                            <i class="far fa-calendar-alt"></i> @*@blog.User.UserName tarafından*@ @blog.Date.ToShortDateString() @*tarihinde paylaşıldı.*@
-                        </li>
-                        <li class="mx-2">
-                            <i class="far fa-comment"></i> @blog.CommentCount
-                        </li>
-                        <li>
-                            <i class="fas fa-eye"></i> @blog.ViewCount
-                        </li>
-                        <br />
-                        <li>
-                            <i class="fab fa-kickstarter"></i> @blog.Category.CategoryName
-                        </li>
-                        <li>
-                            <i class="fas fa-user"></i> @blog.User.UserName
-                        </li>
-                    </ul>
-                    <h5 class="card-title ">
-                        <a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">@blog.Title</a>
-                    </h5>
-                    <p class="card-text mb-3">
-                        @{
-                            blog.Content = regex.Replace(blog.Content, ""); //Html etiketlerini burada bos karakterle yer degistiriyoruz.
-                                                                            //Yukarida regex yerine su formatta kullanilabilirdi : @Hmtl.Raw(blog.Content)
-                        }
-                        @(blog.Content.Length > 150 ? blog.Content.Substring(0, blog.Content.Substring(0, 155).LastIndexOf(" ")) + "..." : blog.Content + "...") @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
-                    </p>
-                    @*<a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>*@
-                    <a href="/@Url.FriendlyUrlHelper(@blog.Title)/@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
-                </div>
+        <div class="col-md-6 card">
+            @*col-md-6*@
+            @*<a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">*@
+            <a href="/@Url.FriendlyUrlHelper(@blog.Title)/@blog.Id">
+            <img src="~/img/@blog.Thumbnail" class="card-img-top img-fluid" alt="@blog.Title">
+            </a>
+            <div class="card-body">
+                <ul class="blog-icons my-4">
+                    <li>
+                        <i class="far fa-calendar-alt"></i> @*@blog.User.UserName tarafından*@ @blog.Date.ToShortDateString() @*tarihinde paylaşıldı.*@
+                    </li>
+                    <li class="mx-2">
+                        <i class="far fa-comment"></i> @blog.CommentCount
+                    </li>
+                    <li>
+                        <i class="fas fa-eye"></i> @blog.ViewCount
+                    </li>
+                    <br />
+                    <li>
+                        <i class="fab fa-kickstarter"></i> @blog.Category.CategoryName
+                    </li>
+                    <li>
+                        <i class="fas fa-user"></i> @blog.User.UserName
+                    </li>
+                </ul>
+                <h5 class="card-title ">
+                    @*<a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id">@blog.Title</a>*@
+                    <a href="/@Url.FriendlyUrlHelper(@blog.Title)/@blog.Id">@blog.Title</a>
+                </h5>
+                <p class="card-text mb-3">
+                    @{
+                        blog.Content = regex.Replace(blog.Content, ""); //Html etiketlerini burada bos karakterle yer degistiriyoruz.
+                                                                        //Yukarida regex yerine su formatta kullanilabilirdi : @Hmtl.Raw(blog.Content)
+                    }
+                    @(blog.Content.Length > 150 ? blog.Content.Substring(0, blog.Content.Substring(0, 155).LastIndexOf(" ")) + "..." : blog.Content + "...") @*sadece ilk 150 karakter, kücükse hata vermesini engelemek icin makalenin tamaminin gözükmesini sagliyoruz.*@
+                </p>
+                @*<a asp-controller="Blog" asp-action="Detail" asp-route-blogId="@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>*@
+                <a href="/@Url.FriendlyUrlHelper(@blog.Title)/@blog.Id" class="btn btn-primary read-m"> Daha fazla oku</a>
             </div>
+        </div>
             <br>
         }
     </div>

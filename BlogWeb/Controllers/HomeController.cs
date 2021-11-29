@@ -1,15 +1,21 @@
-﻿using System;
-using BlogWeb.Models;
+﻿using AutoMapper;
+using BlogWeb.Areas.Admin.Models;
+using BlogWeb.Helpers.Abstract;
 using BusinessLayer.Abstract;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using CoreLayer.Utilities.Extensions;
 using CoreLayer.Utilities.Helpers.Abstract;
+using CoreLayer.Utilities.Results.ComplexTypes;
+using EntityLayer.ComplexTypes;
 using EntityLayer.Concrete;
 using EntityLayer.Dtos;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using System.Text.Json;
+using System.Threading.Tasks;
+using BlogWeb.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace BlogWeb.Controllers
 {
@@ -23,14 +29,13 @@ namespace BlogWeb.Controllers
         private readonly IToastNotification _toastNotification;
         private readonly IWritableOptions<AboutUsPageInfo> _aboutUsPageInfoWriter;
 
-        public HomeController(ILogger<HomeController> logger, IBlogService blogService,IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification, IWritableOptions<AboutUsPageInfo> aboutUsPageInfoWriter)
+        public HomeController(/*ILogger<HomeController> logger,*/ IBlogService blogService, IOptionsSnapshot<AboutUsPageInfo> aboutUsPageInfo, IMailService mailService, IToastNotification toastNotification, IWritableOptions<AboutUsPageInfo> aboutUsPageInfoWriter)
         {
-           // _logger = logger;
+            // _logger = logger;
             _blogService = blogService;
             _mailService = mailService;
             _toastNotification = toastNotification;
             _aboutUsPageInfoWriter = aboutUsPageInfoWriter;
-
             _aboutUsPageInfo = aboutUsPageInfo.Value;
         }
 
@@ -94,5 +99,6 @@ namespace BlogWeb.Controllers
         //{
         //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         //}
+
     }
 }

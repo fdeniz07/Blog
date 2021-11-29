@@ -1,9 +1,10 @@
 ﻿
+@using BlogWeb.Extensions
 @model BlogDetailRightSideBarViewModel
 <div class="col-md-4">
     <!--right-->
 
-<div class="tech-btm">
+    <div class="tech-btm">
         <img src="~/BlogHome/images/banner1.jpg" class="card-img-top img-fluid" alt="">
     </div>
     <div class="tech-btm">
@@ -70,8 +71,7 @@
         </div>
     </div>
     <br />
-<!--// Writer About-->
-
+    <!--// Writer About-->
     <!--Writer Blogs-->
     <div class="card" style="border-style: outset">
         <div class="tech-btm">
@@ -82,6 +82,8 @@
                 {
                     <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
                         <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.BlogListDto.Blogs[i].Id">@Model.BlogListDto.Blogs[i].Title - @Model.BlogListDto.Blogs[i].Date.ToShortDateString()</a>
+
+                        <a href="/@Url.FriendlyUrlHelper(@Model.BlogListDto.Blogs[i].Title)/@Model.BlogListDto.Blogs[i].Id">@Model.BlogListDto.Blogs[i].Title - @Model.BlogListDto.Blogs[i].Date.ToShortDateString()</a>
                         @*<i class="far fa-clock"></i> @Model.BlogListDto.Blogs[i].Date.ToShortDateString()*@
                         @*<span class="badge-pill fas fa-eye"></span>@Model.BlogListDto.Blogs[i].ViewCount*@
                     </li>
@@ -89,15 +91,16 @@
                 else
                 {
                     <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                        <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.BlogListDto.Blogs[i].Id">@Model.BlogListDto.Blogs[i].Title - @Model.BlogListDto.Blogs[i].Date.ToShortDateString()</a>
-                            </li>
+                        @*<a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.BlogListDto.Blogs[i].Id">@Model.BlogListDto.Blogs[i].Title - @Model.BlogListDto.Blogs[i].Date.ToShortDateString()</a>*@
+                        <a href="/@Url.FriendlyUrlHelper(@Model.BlogListDto.Blogs[i].Title)/@Model.BlogListDto.Blogs[i].Id">@Model.BlogListDto.Blogs[i].Title - @Model.BlogListDto.Blogs[i].Date.ToShortDateString()</a>
+                    </li>
                 }
             }
         </div>
     </div>
     <!--// Writer Blogs-->
 
-<br />
+    <br />
     <div class="single-gd tech-btm text-left">
         <h4>Son Makale</h4>
         <div class="card" style="border-style: outset">

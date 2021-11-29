@@ -1,4 +1,5 @@
 ﻿
+@using BlogWeb.Extensions
 @model RightSideBarViewModel
 
 <div class="col-md-4">
@@ -25,10 +26,10 @@
             </li>
             @foreach (var category in Model.Categories)
             {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.CategoryName</a>
-                    <span class="badge badge-primary badge-pill">14</span>
-                </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.CategoryName</a>
+                <span class="badge badge-primary badge-pill">14</span>
+        </li>
             }
         </ul>
     </div>
@@ -40,13 +41,15 @@
             {
                 <div class="blog-grids row mb-3">
                     <div class="col-md-5 blog-grid-left">
-                        <a href="single.html">
+                       
+                        @*<a href="single.html">*@
                             <img src="~/img/@Model.Blogs[i].Thumbnail" class="card-img-top img-fluid" alt="">
-                        </a>
+                        @*</a>*@
                     </div>
                     <div class="col-md-7 blog-grid-right">
                         <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
-                            <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
+                            @*<a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>*@
+                            <a href="/@Url.FriendlyUrlHelper(@Model.Blogs[i].Title)/@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
                         </li>
                         <div class="sub-meta">
                             <span>
@@ -67,7 +70,8 @@
                     </div>
                     <div class="col-md-7 blog-grid-right">
                         <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-danger">
-                            <a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
+                            @*<a asp-controller="Blog" asp-action="Detail" asp-route-categoryId="@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>*@
+                            <a href="/@Url.FriendlyUrlHelper(@Model.Blogs[i].Title)/@Model.Blogs[i].Id">@Model.Blogs[i].Title</a>
                         </li>
                         <div class="sub-meta">
                             <span>
@@ -78,9 +82,9 @@
                     </div>
                 </div>
             }
-        }
+        @*  *@}
     </div>
-    <div class="single-gd my-5 tech-btm">
+    @*<div class="single-gd my-5 tech-btm">
         <h4>Our Progress</h4>
         <div class="progress">
             <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
@@ -102,7 +106,7 @@
             <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
                  aria-valuemax="100"></div>
         </div>
-    </div>
+    </div>*@
     <div class="single-gd tech-btm text-left">
         <h4>Son Makale</h4>
         <div class="blog-grids">
