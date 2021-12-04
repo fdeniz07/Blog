@@ -12,6 +12,7 @@ namespace DataAccessLayer.Abstract.UnitOfWorks
 
         //IAsyncDisposable interface'ini kullanma nedenimiz garbage collector (cöp toplayici) ya yardimci olacagiz.
 
+        //Tüm Repository'lerimizi bir property olarak ekliyoruz.
         IAboutRepository Abouts { get; }
         IAuthorRepository Authors { get; }  //unitofwork.Authors olarak cagirabiliriz
         IBlogRepository Blogs { get; }
@@ -26,11 +27,13 @@ namespace DataAccessLayer.Abstract.UnitOfWorks
          * Eger kayit sirasinda bir islem adiminda hata olursa, hata mesaji firlatacaktir.
          *
          * Task<int> olarak tutmamizin nedeni ise gerceklesen kayit sayisina ihtiyac duyabiliriz
-            */
+        */
+
         //_unitOfWork.Students.AddAsync(author);
         //_unitOfWork.Books.AddAsync(blog);
         //_unitOfWork.SaveAsync();
 
+        //Bizler EfEntityRepositoryBase sinifi icerisinde hicbir save metodu tanimlamadik. Onun yerine burada tanimliyoruz.
         Task<int> SaveAsync(); // asenkron kayit yapmak istersek bu metodu kullanabiliriz.
 
         void Save(); // senkron kayit yapmak istersek bu metodu kullanabiliriz.

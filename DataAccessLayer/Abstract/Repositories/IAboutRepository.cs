@@ -5,5 +5,6 @@ namespace DataAccessLayer.Abstract.Repositories
 {
     public interface IAboutRepository:IEntityRepository<About>
     {
+        //IEntityRepository interface'inden implemente edilmis IEntityNameRepository seklinde interface'ler olusturulur.Ortak olan tüm metodlar otomatik olarak interface den implemente edilmektedir.Eger bizler ilgili Entity'e özgü bir metot yazmak istersek burada yazacagiz. Simdilik ortak metotlar isimizi görecektir.
     }
 }

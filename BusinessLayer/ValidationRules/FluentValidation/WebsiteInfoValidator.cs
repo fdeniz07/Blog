@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CoreLayer.Utilities.Results.ComplexTypes;
 using EntityLayer.Concrete;
 using FluentValidation;
 
@@ -10,28 +6,22 @@ namespace BusinessLayer.ValidationRules.FluentValidation
 {
     public class WebsiteInfoValidator:AbstractValidator<WebsiteInfo>
     {
-        public string NotEmptyMessage { get; } = " alanı boş geçilmemelidir.";
-
-        //public string MaxLengthMessage { get; } = " {0} karakterden büyük olmamalıdır.";
-
-        //public string MinLengthMessage { get; } = "karakterden küçük olmamalıdır.";
+        private readonly ValidatorMessage _validatorMessage = new ValidatorMessage();
 
         public WebsiteInfoValidator()
         {
-            RuleFor(x => x.Title).NotEmpty().WithMessage("Site Adı/Başlığı" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Site Adı/Başlığı alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Site Adı/Başlığı alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Title).NotEmpty().WithName("Site Adı/Başlığı").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(100)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
-            RuleFor(x => x.MenuTitle).NotEmpty().WithMessage("Menü Üzerindeki Site Adı/Başlığı" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Menü Üzerindeki Site Adı/Başlığı alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Menü Üzerindeki Site Adı/Başlığı alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.MenuTitle).NotEmpty().WithName("Menü Üzerindeki Site Adı/Başlığı").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(100).WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
-            RuleFor(x => x.SeoAuthor).NotEmpty().WithMessage("Seo Yazar" + NotEmptyMessage).MaximumLength(60)
-                .WithMessage("Seo Yazar alanı 60 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Seo Yazar alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoAuthor).NotEmpty().WithName("Seo Yazar").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(60)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
-            RuleFor(x => x.SeoTags).NotEmpty().WithMessage("Seo Etiketleri" + NotEmptyMessage).MaximumLength(150)
-                .WithMessage("Seo Etiketleri alanı 150 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Seo Etiketleri alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoTags).NotEmpty().WithName("Seo Etiketleri").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(150)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
-            RuleFor(x => x.SeoDescription).NotEmpty().WithMessage("Seo Açıklama" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Seo Açıklama alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Seo Açıklama alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoDescription).NotEmpty().WithName("Seo Açıklama").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(100).WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
         }
 

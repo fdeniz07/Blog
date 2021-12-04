@@ -1,46 +1,46 @@
-﻿using EntityLayer.Dtos;
+﻿using CoreLayer.Utilities.Results.ComplexTypes;
+using EntityLayer.Dtos;
 using FluentValidation;
 
 namespace BusinessLayer.ValidationRules.FluentValidation.DtoValidators
 {
     public class BlogAddDtoValidator : AbstractValidator<BlogAddDto>
     {
-        public string NotEmptyMessage { get; } = " alanı boş geçilmemelidir.";
+        private readonly ValidatorMessage _validatorMessage = new ValidatorMessage();
 
         public BlogAddDtoValidator()
         {
-            RuleFor(x => x.Title).NotEmpty().WithMessage("Başlık" + NotEmptyMessage).MaximumLength(100)
-                .WithMessage("Başlık alanı 100 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Başlık alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Title).NotEmpty().WithName("Başlık").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(100)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.Content).NotEmpty().WithMessage("İçerik" + NotEmptyMessage).MinimumLength(20).WithMessage("İçerik alanı 20 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Content).NotEmpty().WithName("İçerik").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MinimumLength(20).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.Thumbnail).NotEmpty().WithMessage("Küçük Resim" + NotEmptyMessage).MaximumLength(250)
-                .WithMessage("Küçük Resim alanı 250 karakterden büyük olmamalıdır.").MinimumLength(5).WithMessage("Küçük Resim alanı 5 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.Thumbnail).NotEmpty().WithName("Küçük Resim").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(250)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(5).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.Image).MaximumLength(100).WithMessage("Resim alanı 100 karakterden büyük olmamalıdır.");
+            RuleFor(x => x.Image).MaximumLength(100).WithName("Resim alanı").WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger);
 
 
-            RuleFor(x => x.Date).NotEmpty().WithMessage("Tarih" + NotEmptyMessage);
+            RuleFor(x => x.Date).NotEmpty().WithName("Tarih").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty);
 
 
-            RuleFor(x => x.SeoAuthor).NotEmpty().WithMessage("Seo Yazar Bilgisi" + NotEmptyMessage).MaximumLength(50)
-                .WithMessage("Seo Yazar Bilgisi alanı 50 karakterden büyük olmamalıdır.").MinimumLength(0).WithMessage("Seo Yazar Bilgisi alanı 0 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoAuthor).NotEmpty().WithName("Seo Yazar Bilgisi").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(50)
+                .WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(0).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.SeoDescription).NotEmpty().WithMessage("Seo Açıklama Bilgisi" + NotEmptyMessage).MaximumLength(150)
-                .WithMessage("Seo Açıklama Bilgisi alanı 150 karakterden büyük olmamalıdır.").MinimumLength(0).WithMessage("Seo Açıklama Bilgisi alanı 0 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoDescription).NotEmpty().WithName("Seo Açıklama Bilgisi").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(150).WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(0).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.SeoTags).NotEmpty().WithMessage("Seo Etiket Bilgisi" + NotEmptyMessage).MaximumLength(100).WithMessage("Seo Etiket Bilgisi alanı 100 karakterden büyük olmamalıdır.").MinimumLength(0).WithMessage("Seo Etiket Bilgisi alanı 0 karakterden küçük olmamalıdır.");
+            RuleFor(x => x.SeoTags).NotEmpty().WithName("Seo Etiket Bilgisi").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty).MaximumLength(100).WithMessage("{PropertyName} {MaxLength}" + _validatorMessage.NotBigger).MinimumLength(0).WithMessage("{PropertyName} {MinLength}" + _validatorMessage.NotSmaller);
 
 
-            RuleFor(x => x.CategoryId).NotEmpty().WithMessage("Kategori" + NotEmptyMessage);
+            RuleFor(x => x.CategoryId).NotEmpty().WithName("Kategori").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty);
 
 
-            RuleFor(x => x.IsActive).NotEmpty().WithMessage("Aktif Mi?" + NotEmptyMessage);
+            RuleFor(x => x.IsActive).NotEmpty().WithName("Aktif Mi?").WithMessage("{PropertyName}" + _validatorMessage.NotEmpty);
 
         }
     }

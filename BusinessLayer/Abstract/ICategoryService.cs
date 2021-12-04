@@ -25,9 +25,9 @@ namespace BusinessLayer.Abstract
         /// <returns>Asenkron bir operasyon ile Task olarak bizlere ekleme isleminin sonucunu DataResult tipinde döner.</returns>
         Task<IDataResult<CategoryDto>> AddAsync(CategoryAddDto categoryAddDto, string createdByName);
         Task<IDataResult<CategoryDto>> UpdateAsync(CategoryUpdateDto categoryUpdateDto, string modifiedByName);
-        Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName);
-        Task<IDataResult<CategoryDto>> UndoDeleteAsync(int categoryId, string modifiedByName); // Silme islemlerini geri al
-        Task<IResult> HardDeleteAsync(int categoryId);
+        Task<IDataResult<CategoryDto>> DeleteAsync(int categoryId, string modifiedByName); // Silme islemi sadece IsDeleted degerini true yapar
+        Task<IDataResult<CategoryDto>> UndoDeleteAsync(int categoryId, string modifiedByName); // IsDeleted degeri true olanlari false yapar.
+        Task<IResult> HardDeleteAsync(int categoryId); // Degerleri Veritabanindan siler
         Task<IDataResult<int>> CountAsync();
         Task<IDataResult<int>> CountByNonDeletedAsync();
     }

@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Concrete.Configurations;
+﻿using DataAccessLayer.Concrete.Mapping;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +26,8 @@ namespace DataAccessLayer.Concrete.EntityFramework.Contexts
             
         }
 
+
+        //FluentApi Ayarlarinin gecerli olmasi icin tüm entity lere ait map dosyalari asagiya yazilmalidir.
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AboutMap());

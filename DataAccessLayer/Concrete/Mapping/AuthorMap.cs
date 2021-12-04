@@ -2,20 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccessLayer.Concrete.Configurations
+namespace DataAccessLayer.Concrete.Mapping
 {
-    public class AboutMap : IEntityTypeConfiguration<About>
+    public class AuthorMap : IEntityTypeConfiguration<Author>
     {
-        public void Configure(EntityTypeBuilder<About> builder)
+        public void Configure(EntityTypeBuilder<Author> builder)
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Id).ValueGeneratedOnAdd();
-            builder.Property(a => a.Details1).IsRequired().HasMaxLength(500);
-            builder.Property(a => a.Details2).HasMaxLength(500);
-            builder.Property(a => a.Image1).HasMaxLength(250);
-            builder.Property(a => a.Image2).HasMaxLength(250);
-            builder.Property(a => a.MapLocation).HasMaxLength(250);
+            builder.Property(a => a.FirstName).IsRequired().HasMaxLength(25);
+            builder.Property(a => a.LastName).IsRequired().HasMaxLength(25);
+            builder.Property(a => a.About).HasMaxLength(250);
+            builder.Property(a => a.Image).HasMaxLength(250);
+            builder.Property(a => a.Mail).IsRequired().HasMaxLength(50);
             builder.Property(a => a.CreatedByName).IsRequired().HasMaxLength(50);
             builder.Property(a => a.ModifiedByName).IsRequired().HasMaxLength(50);
             builder.Property(a => a.CreatedDate).IsRequired();

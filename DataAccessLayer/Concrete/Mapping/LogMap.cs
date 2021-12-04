@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DataAccessLayer.Concrete.Configurations
+namespace DataAccessLayer.Concrete.Mapping
 {
     public class LogMap:IEntityTypeConfiguration<Log>
     {

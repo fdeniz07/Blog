@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
-namespace DataAccessLayer.Concrete.Configurations
+namespace DataAccessLayer.Concrete.Mapping
 {
     public class UserClaimMap:IEntityTypeConfiguration<UserClaim>
     {

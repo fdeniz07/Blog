@@ -5,7 +5,7 @@ using System;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 
-namespace DataAccessLayer.Concrete.Configurations
+namespace DataAccessLayer.Concrete.Mapping
 {
     public class UserMap : IEntityTypeConfiguration<User>
     {
