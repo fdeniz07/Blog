@@ -9,67 +9,68 @@
     </div>
     <div class="tech-btm">
         <h4>Bültene Abone Ol</h4>
-        <p>Pellentesque dui, non felis. Maecenas male </p>
+        <p>Mail adresinizi girerek yeniliklerden abone olabilirsiniz </p>
         <form action="#" method="post">
             <input type="email" placeholder="Email" required="">
-            <input type="submit" value="Subscribe">
+            <input type="submit" value="Abone Ol">
         </form>
     </div>
 
     <!--Writer About-->
 
-    <div class="card" style="border-style: outset">
-        <img src="~/img/@Model.User.Image" class="card-img-top text-center image-thumbnail mt-1 mb-1" alt="@Model.User.UserName" />
-        <h5 class="card-header text-center">@Model.User.UserName</h5>
-        <div class="card-body">
-            <p class="card-text text-center">@Model.User.About</p>
-            <div class="card-footer text-center">
-                @*<div class="col-md-4 log-icons text-right">*@
-                <div class="social_list1">
-                    @*<ul class="social_list1 mt-3">*@
-                    <p>Sosyal Medya Linkleri</p>
-                    <br />
-                    <div class="row">
-                        @if (Model.User.LinkedInLink != null)
-                        {
-                            <a href="@Model.User.LinkedInLink" class="linkedin6 mx-2"><span class="fab fa-linkedin"></span></a>
-                        }
+<div class="card" style="border-style: outset">
+    <h3 class="card-header text-center">Yazar Hakkında</h3>
+    <img src="~/img/@Model.User.Image" class="card-img-top text-center image-thumbnail mt-1 mb-1" alt="@Model.User.UserName"/>
+    <h5 class="card-header text-center">@Model.User.UserName</h5>
+    <div class="card-body">
+        <p class="card-text text-center">@Model.User.About</p>
+        <div class="card-footer text-center">
+            @*<div class="col-md-4 log-icons text-right">*@
+            <div class="social_list1">
+                @*<ul class="social_list1 mt-3">*@
+                <p>Sosyal Medya Linkleri</p>
+                <br/>
+                <div class="row">
+                    @if (Model.User.LinkedInLink != null)
+                    {
+                        <a href="@Model.User.LinkedInLink" class="linkedin6 mx-2"><span class="fab fa-linkedin"></span></a>
+                    }
 
-                        @if (Model.User.GitHubLink != null)
-                        {
-                            <a href="@Model.User.GitHubLink" class="github1 mx-2"><span class="fab fa-github"></span></a>
-                        }
+                    @if (Model.User.GitHubLink != null)
+                    {
+                        <a href="@Model.User.GitHubLink" class="github1 mx-2"><span class="fab fa-github"></span></a>
+                    }
 
-                        @if (Model.User.TwitterLink != null)
-                        {
-                            <a href="@Model.User.TwitterLink" class="twitter2 mx-2"><i class="fab fa-twitter"></i></a>
-                        }
-                        @if (Model.User.FacebookLink != null)
-                        {
-                            <a href="@Model.User.FacebookLink" class="facebook1 mx-2"><i class="fab fa-facebook-f"></i></a>
-                        }
+                    @if (Model.User.TwitterLink != null)
+                    {
+                        <a href="@Model.User.TwitterLink" class="twitter2 mx-2"><i class="fab fa-twitter"></i></a>
+                    }
+                    @if (Model.User.FacebookLink != null)
+                    {
+                        <a href="@Model.User.FacebookLink" class="facebook1 mx-2"><i class="fab fa-facebook-f"></i></a>
+                    }
 
-                        @if (Model.User.YoutubeLink != null)
-                        {
-                            <a href="@Model.User.YoutubeLink" class="youtube1 mx-2"><i class="fab fa-youtube"></i></a>
-                        }
+                    @if (Model.User.YoutubeLink != null)
+                    {
+                        <a href="@Model.User.YoutubeLink" class="youtube1 mx-2"><i class="fab fa-youtube"></i></a>
+                    }
 
-                        @if (Model.User.InstagramLink != null)
-                        {
-                            <a href="@Model.User.InstagramLink" class="instagram1 mx-2"><i class="fab fa-instagram"></i></a>
-                        }
+                    @if (Model.User.InstagramLink != null)
+                    {
+                        <a href="@Model.User.InstagramLink" class="instagram1 mx-2"><i class="fab fa-instagram"></i></a>
+                    }
 
-                        @if (Model.User.WebsiteLink != null)
-                        {
-                            <a href="@Model.User.WebsiteLink" class="homepage1"><i class="fas fa-home"></i></a>
-                        }
-                    </div>
-                    @*</ul>*@
+                    @if (Model.User.WebsiteLink != null)
+                    {
+                        <a href="@Model.User.WebsiteLink" class="homepage1"><i class="fas fa-home"></i></a>
+                    }
                 </div>
-                @*</div>*@
+                @*</ul>*@
             </div>
+            @*</div>*@
         </div>
     </div>
+</div>
     <br />
     <!--// Writer About-->
     <!--Writer Blogs-->

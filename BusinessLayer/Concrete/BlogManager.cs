@@ -511,7 +511,7 @@ namespace BusinessLayer.Concrete
 
         public async Task<IResult> DeleteAsync(int blogId, string modifiedByName)
         {
-            var result = await UnitOfWork.Blogs.AnyAsync(b => b.Id == blogId);
+            var result = await UnitOfWork.Blogs.AnyAsync(b => b.Id == blogId); //Böyle bir makale olup olmadigini kontrol ediyoruz
             if (result)
             {
                 var blog = await UnitOfWork.Blogs.GetAsync(b => b.Id == blogId);

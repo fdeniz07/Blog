@@ -9,13 +9,6 @@
     ViewBag.Tags = Model.BlogDto.Blog.SeoTags;
     Regex regex = new Regex("<[^>]*>"); //Editörden gelen text deki html etiketlerini kaldirmak icin kullaniyoruz.
 }
-<link href="~/BlogHome/css/bootstrap.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="~/BlogHome/css/single.css">
-<link href="~/BlogHome/css/style.css" rel='stylesheet' type='text/css' />
-<link href="~/BlogHome/css/fontawesome-all.css" rel="stylesheet">
-<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-      rel="stylesheet">
-
 <!--left-->
 <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
     <div class="blog-grid-top">
@@ -44,7 +37,6 @@
                             <i class="far fa-comment"></i> @Model.BlogDto.Blog.CommentCount
                         </a>
                     </li>
-
                 </ul>
             </div>
         </div>
@@ -57,11 +49,9 @@
        
         @*<p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.Blog.CommentCount</span></p>*@
     </div>
-    <br/>
     <p class="text-center">Okunma Sayısı: <span class="badge badge-info">@Model.BlogDto.Blog.ViewCount</span> Yorum Sayısı: <span class="badge badge-warning">@Model.BlogDto.Blog.CommentCount</span></p>
     <hr>
     <partial name="~/Views/Comment/_CommentAddPartial.cshtml" model="new CommentAddDto{BlogId = Model.BlogDto.Blog.Id}" />
-
     <hr />
     <br />
     <h4>Yorumlar</h4>

@@ -42,8 +42,8 @@ namespace BusinessLayer.Extensions
             serviceCollection.AddScoped<IBlogService, BlogManager>();
             serviceCollection.AddScoped<ICommentService, CommentManager>();
             serviceCollection.AddSingleton<IMailService, MailManager>(); // Scope kullanmiyoruz. Bir tane mail manager yetecektir. Yani her mail icin yeni bir manager olusturulmasina gerek yok. Uygulama icin bir tane MailManager olusturulacak ve heryerde bu kullanilacak (singleton)
-         
-            #region Scope
+
+            #region Scope Nedir?
             /*
              * Yapilan her request'te nesne tekrar olusur ve bir request icerisinde sadece bir tane nesne kullanilir. Bu yöntem icin de AddScope() metodu kullaniliyor.
              * Transient ve Scoped kullanim sekilleri nesne olusturma zamanlari acisindan biraz karistirilabilir. Transient'da her nesne cagrimindan yeni bir instance olusur ve o request sonlanana kadar ayni nesne kullanilir. Request bazinda stateless nesne kullanilmasi istenen durumlarda Scoped bagimliliklari olusturabiliriz.

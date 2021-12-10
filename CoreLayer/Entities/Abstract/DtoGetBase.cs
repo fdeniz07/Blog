@@ -5,8 +5,10 @@ namespace CoreLayer.Entities.Abstract
 {
     public abstract class DtoGetBase
     {
-        public virtual ResultStatus ResultStatus { get; set; }
+        public virtual ResultStatus ResultStatus { get; set; } // Burada ResultStatus dönmemizin nedeni Frontend tarafindan jquery ajax kullanirsak orada da sonuc kümesi dönmek isteyebiliriz
+
         public virtual string Message { get; set; }
+
         public virtual int CurrentPage { get; set; } = 1;  //Sayfalama yapisi icin ilk deger atamasi
 
         public virtual int PageSize { get; set; } = 6; // Sayfalama basina düsecek degerler

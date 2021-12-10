@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using AutoMapper;
+﻿using AutoMapper;
 using BlogWeb.AutoMapper.Profiles;
 using BlogWeb.Filters;
 using BlogWeb.Helpers.Abstract;
@@ -8,7 +7,6 @@ using BusinessLayer.AutoMapper.Profiles;
 using BusinessLayer.Concrete;
 using BusinessLayer.Extensions;
 using CoreLayer.Utilities.Extensions;
-using DataAccessLayer.Concrete.EntityFramework.Contexts;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Smidge;
+using System.Text.Json.Serialization;
 
 namespace BlogWeb
 {
@@ -117,7 +116,7 @@ namespace BlogWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseStatusCodePages(); // Sayfa bulunmadiginda 404 hata sayfasina yönlendirecektir
+                app.UseStatusCodePages();  // Gelistirme ortamindayken, Sayfa bulunmadiginda 404 hata sayfasina yönlendirecektir
             }
             else
             {
@@ -176,11 +175,15 @@ namespace BlogWeb
                     areaName: "Admin",
                     pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
                 );
+                //Eger bizim baska area alanimiz varsa yukaridaki pattern :  "{area=User}/{controller=Home}/{action=Index}/{id?}" gibi
+
+
                 endpoints.MapControllerRoute(
                     name: "blog",
                     pattern: "{title}/{blogId}", //"{categoryName}/{title}/{blogId}",
                     defaults: new { controller = "Blog", action = "Detail" }
                     );
+
                 endpoints.MapDefaultControllerRoute(); // Bu islem varsayilan olarak, sitemiz acildigindan default olarak HomeController ve Index kismina gider
             });
         }
