@@ -19,10 +19,11 @@ namespace BusinessLayer.Extensions
 
 
             serviceCollection.AddDbContext<MsDbContext>(options => options.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)); // Bu context'i kullanan tüm uygulama alanlarinda tracking islemini engelleyerek performansi arttirmis oluyoruz.
+           
             serviceCollection.AddIdentity<User, Role>(options =>
             {
                 //User Password Options
-                options.Password.RequireDigit = false;//sifre de rakam olsun mu? Test asamasinda kapatiyoruz
+                options.Password.RequireDigit = false;//sifre de rakam olsun mu? Test asamasinda kapatiyoruz, Default 6 karakter
                 options.Password.RequiredLength = 5;
                 options.Password.RequiredUniqueChars = 0; //kac adet özel karakter türü olsun?
                 options.Password.RequireNonAlphanumeric = false; //aktif oldugunda özel karakterlerin kullanilmasini saglar
@@ -33,14 +34,20 @@ namespace BusinessLayer.Extensions
                 options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+$"; //Kullanici adinda hangi karakterler olsun
                 options.User.RequireUniqueEmail = true; // ayni mail adresi ile kayda izin verilmemeli mi?
             }).AddEntityFrameworkStores<MsDbContext>();
+          
             serviceCollection.Configure<SecurityStampValidatorOptions>(options =>
             {
                 options.ValidationInterval=TimeSpan.FromMinutes(5); //buradaki islem default olarak 30 dk gelmektedir. Yani bu sistem her 30 dk da bir kullanicilarin isteklerini kontrol eder. Örnek olarak bir kullanicinin rol yetkisi degistiginde 30 dk sonra sistemden atilip yeniden giris yapmasi gerekecektir. Ancak büyük sistemler server tarafinda asirin istek yükü getireceginden dikkat edilerek karar verilmelidir. Birkac kullanicinin oldugu sistemlerde bu süre 30 sn ye kadar düsürülebilir.
             });
+           
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             serviceCollection.AddScoped<ICategoryService, CategoryManager>();
+            
             serviceCollection.AddScoped<IBlogService, BlogManager>();
+            
             serviceCollection.AddScoped<ICommentService, CommentManager>();
+            
             serviceCollection.AddSingleton<IMailService, MailManager>(); // Scope kullanmiyoruz. Bir tane mail manager yetecektir. Yani her mail icin yeni bir manager olusturulmasina gerek yok. Uygulama icin bir tane MailManager olusturulacak ve heryerde bu kullanilacak (singleton)
 
             #region Scope Nedir?

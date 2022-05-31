@@ -23,12 +23,12 @@ namespace BlogWeb
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration; //Bu sayede appsettings.json dosyasindaki ayarlara erisebiliriz
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -40,8 +40,8 @@ namespace BlogWeb
             //FluentValidation dogrulamalari icin buraya servis ekliyoruz. RegisterValidatorsFromAssemblyContaining icin ilgili katmandaki herhangi bir class adi verilir, program calistiginda ilgili Validation lar assembly üzerinde taranir. Bu sayede tek tek class'lar buraya yazilmamis olur.
             services.AddControllersWithViews().AddFluentValidation(options =>
             {
-                options.RegisterValidatorsFromAssemblyContaining<UserManager>();
-                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+                options.RegisterValidatorsFromAssemblyContaining<UserManager>(); //Buradaki validations BLL katmaninda
+                options.RegisterValidatorsFromAssemblyContaining<Startup>(); //Buradaki validations UI katmaninda
             });
 
             //UI katmanina 2 paket yüklenmeli
@@ -91,20 +91,24 @@ namespace BlogWeb
             services.AddSession();
             /* services.AddAutoMapper(typeof(CategoryProfile), typeof(BlogProfile), typeof(UserProfile), typeof(ViewModelsProfile), typeof(CommentProfile));*/ //Derlenme sirasinda Automapper in buradaki siniflari taramasi saglaniyor. --> En yukarida AutoMapper'i singleton olarak tanimliyoruz ve bu kismi siliyoruz.
 
-            services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz
+            services.LoadMyServices(connectionString: Configuration.GetConnectionString("LocalDB")); // Daha önceden kurdugumuz yapiyi buradan yüklüyoruz (identity,)
             services.AddScoped<IImageHelper, ImageHelper>(); //Resim yükleme II.Yol olarak kullanmak istersek, bu kismi en yukariya transient olarak yaziyoruz
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = new PathString("/Admin/Auth/Login");
-                options.LogoutPath = new PathString("/Admin/Auth/Logout");
+                options.LoginPath = new PathString("/Admin/Auth/Login"); //Kullanici üye olmadan, üye olmayanlarin erisebildigi sayfaya tiklarsa, Login sayfamiza yönlendirir
+                options.LogoutPath = new PathString("/Admin/Auth/Logout"); //
                 options.Cookie = new CookieBuilder
                 {
                     Name = "Blog",
                     HttpOnly = true,
-                    SameSite = SameSiteMode.Strict, // Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
+                    SameSite = SameSiteMode.Strict, // Lax: default olarak gelir. Anasitemiz üzerinden subdomaine ait bir sitemize tek bir cookie ile gecilmesine olanak verir.
+                    //Strict : Bu mode mali,finansal uygulamalar icin secilir ve Siteler arasi istek sahtekarligina (Cross Site Request Forgery - CSRF/XSRF - Session Riding) karsi önlem olarak kullanilir. Bu sayede Client - Sunucu arasinda cookie'ye müdahale edilmesine izin vermez. Subdomanin yapisinda kullanilmaz. Kaynak : https://www.prismacsi.com/cross-site-request-forgery-csrf-nedir/
                     SecurePolicy = CookieSecurePolicy.SameAsRequest //Site canliya tasindiginda bu alan .Always olarak degistirilmelidir.!!!
+                    //Always : Browser, kullanicinin cookie'sini sadece  Https üzerinden bir istek geldiginde gönderir
+                    //SameAsRequest : Browser, kullanicinin cookie istegini hangi protokolden geldiyse ona o sekilde gönderir (Http den geldiyse http den, https den geldiyse https den)
+                    //None: Browser, protokole bakmadan tüm gelen isteklere http üzerinden gönderir
                 };
-                options.SlidingExpiration = true; //Cookie süresi belirleme
+                options.SlidingExpiration = true; // Expiration süresi bitmedigi sürece kullanici hangi gün tekrar siteyi ziyaret ederse, Expiration süresi kadar üzerine süre eklenir
                 options.ExpireTimeSpan = System.TimeSpan.FromDays(7); // 7 gün boyunca tarayici üzerinde gecerliligi olacak
                 options.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied"); //Yetkisiz erisimde yönlendirilecek sayfa
             });

@@ -196,6 +196,7 @@ namespace CoreLayer.DataAccess.Concrete.EntityFramework
 
             await Task.Run(() => { _dbSet.Update(entity); }); //--> olmalidir.
 
+
             return entity;
         }
 
